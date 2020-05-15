@@ -1,4 +1,4 @@
-
+O
 # Created by https://www.gitignore.io/api/macos
 # Edit at https://www.gitignore.io/?templates=macos
 
@@ -31,3 +31,5 @@ Temporary Items
 .apdisk
 
 # End of https://www.gitignore.io/api/macos
+k-means/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+k-means/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
