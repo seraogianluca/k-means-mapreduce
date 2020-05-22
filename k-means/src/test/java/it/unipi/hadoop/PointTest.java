@@ -1,7 +1,6 @@
 package it.unipi.hadoop;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import it.unipi.hadoop.model.Point;
 import junit.framework.TestCase;
 
 public class PointTest extends TestCase {
@@ -17,15 +16,17 @@ public class PointTest extends TestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        p1 = new Point(new float[] {5, -1});
-        p2 = new Point(new float[] {4, 2}); 
-        //3.16228 euclidea
-        t1 = new Point(new float[] {3, 1, -4.2});
-        t2 = new Point(new float[] {142.02, 201, -40.2});
-        //246.216 euclidea
-        z1 = new Point(new float[] {6, 2, 0, 17, 18, 20, 1});
-        z2 = new Point(new float[] {-6, 2, -15, 4, -18, 13, 1});
-        //43.3935 euclidea
+        //XA = [(1, 2, 3, -4, 5, 6, 7)]
+        //XB = [(2, 1, 0, 1, 2, 3, 4)]
+        p1 = new Point(new float[] {1, 2});
+        p2 = new Point(new float[] {2, 1}); 
+     
+        t1 = new Point(new float[] {1, 2, 3});
+        t2 = new Point(new float[] {2, 1, 0});
+     
+        z1 = new Point(new float[] {1, 2, 3, -4, 5, 6, 7});
+        z2 = new Point(new float[] {2, 1, 0, 1, 2, 3, 4});
+   
     }
     
     protected void tearDown() throws Exception { 

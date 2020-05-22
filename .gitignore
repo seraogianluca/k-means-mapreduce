@@ -1,6 +1,26 @@
-O
-# Created by https://www.gitignore.io/api/macos
-# Edit at https://www.gitignore.io/?templates=macos
+### VirtualEnv ###
+.Python
+pyvenv.cfg
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+pip-selfcheck.json
+
+### VisualStudioCode ###
+.vscode/*
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/extensions.json
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+
 
 ### macOS ###
 # General
@@ -30,6 +50,13 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# End of https://www.gitignore.io/api/macos
 k-means/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
 k-means/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+k-means/.classpath
+k-means/.project
+k-means/.settings/org.eclipse.jdt.apt.core.prefs
+k-means/.settings/org.eclipse.jdt.core.prefs
+k-means/.settings/org.eclipse.m2e.core.prefs
+scripts/lib/*
+scripts/bin/*
+scripts/include/*
