@@ -12,7 +12,7 @@ import org.apache.hadoop.io.FloatWritable;
 public class Point implements Writable {
     
     private FloatArrayWritable components = null;
-    private final int dim;
+    private int dim;
 
     public Point() {
         this.dim = 0;
@@ -41,6 +41,7 @@ public class Point implements Writable {
             this.components = new FloatArrayWritable(c);
         } else {
             this.components.set(c);
+            this.dim = c.length;
         }
     }
 

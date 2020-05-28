@@ -15,16 +15,11 @@ public class FloatArrayWritable extends ArrayWritable {
 
     @Override
     public FloatWritable[] get() {
-        return (FloatWritable[]) super.get();
+        return (FloatWritable[])super.get();
     }
 
     public float getValue(final int i) {
-        return this.toArray()[i];
-    }
-
-    @Override
-    public float[] toArray() {
-        return (float[])super.toArray();
+        return this.get()[i].get();
     }
 
 }

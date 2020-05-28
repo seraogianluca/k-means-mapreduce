@@ -60,3 +60,7 @@ k-means/.settings/org.eclipse.m2e.core.prefs
 scripts/lib/*
 scripts/bin/*
 scripts/include/*
+k-means/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst
+k-means/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
+k-means/target/surefire-reports/it.unipi.hadoop.PointTest.txt
+k-means/target/surefire-reports/TEST-it.unipi.hadoop.PointTest.xml
