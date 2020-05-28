@@ -64,3 +64,6 @@ k-means/target/maven-status/maven-compiler-plugin/testCompile/default-testCompil
 k-means/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
 k-means/target/surefire-reports/it.unipi.hadoop.PointTest.txt
 k-means/target/surefire-reports/TEST-it.unipi.hadoop.PointTest.xml
+k-means/target/classes/it/unipi/hadoop/KMeans.class
+k-means/target/classes/it/unipi/hadoop/KMeans$KMeansCombiner.class
+k-means/target/classes/it/unipi/hadoop/KMeans$KMeansMapper.class
