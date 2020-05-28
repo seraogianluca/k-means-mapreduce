@@ -1,7 +1,5 @@
 package it.unipi.hadoop;
 
-import org.apache.hadoop.io.FloatWritable;
-
 import it.unipi.hadoop.model.Point;
 import junit.framework.TestCase;
 
@@ -105,6 +103,12 @@ public class PointTest extends TestCase {
         float distance = z1.distance(z2, Integer.MAX_VALUE);
         System.out.println("Infinity Test 3 Distance: " + distance);
         assertTrue(Math.abs(distance - 5.0) < 0.0001f);
+        System.out.println("Minkowsky Test 2 Distance: " + distance);
+        assertTrue(Math.abs(distance - 3.0049) < 0.0001f );
+        System.out.println("Minkowsky Test 2 Distance: " + distance);
+        assertTrue(Math.abs(distance - 3.0049) < 0.0001f );
+        System.out.println("Minkowsky Test 2 Distance: " + distance);
+        assertTrue(Math.abs(distance - 3.0049) < 0.0001f );
     }
 
- }
+}

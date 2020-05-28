@@ -2,6 +2,7 @@ package it.unipi.hadoop;
 
 import java.io.IOException;
 
+import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -56,36 +57,22 @@ public class KMeans {
     }
 
 
-/*
- Combiner
-**Input:** (Centroid_id, List of points)
-
-**Combine function**
-```
-number_of_points = 0
-sum = 0
-for each point in list of points:
-    sum += point
-    number_of_points += 1
-```
-**Output:** (Centroid_id, < partial_sum, number_of_points >)*/
 
     public static class KMeansCombiner extends Reducer<IntWritable, Point, IntWritable, Point> {
     
         public void reduce(IntWritable centroid, Iterable<Point> points, Context context) 
          throws IOException, InterruptedException {
 
-            int numPoints = 0;
-            Point sum = new Point();
+            Point sum = Point.copy(points.iterator().next());
+            int numPoints = 1;
 
             while (points.iterator().hasNext()) {
                 sum.sum(points.iterator().next());
                 numPoints++;
             }
 
-            //PartialSum partialSum = new PartialSum(sum, numPoints);
-
-            context.write(centroid, partialSum);  ///zaoo 8==D o?? AIUTOOOOOOO :( :( gnam  ZAOOOOO 8=====D------(|):
+            sum.setNumberOfPoints(numPoints);
+            context.write(centroid, sum);  
         }
     }
 
@@ -99,9 +86,19 @@ Note also that the Combiner may be ran multiple times over subsets of the data! 
 In your case, you are making this bad assumption. 
 You should be doing the sum in the Combiner AND the Reducer.
 
-Also, you should follow @user987339's answer as well. 
 The input and output of the combiner needs to be identical (Text,Double -> Text,Double) 
-and it needs to match up with the output of the Mapper and the input of the Reducer.*/
+and it needs to match up with the output of the Mapper and the input of the Reducer.
+
+
+Unlike a Reducer, input/output key and value types of combiner must match the output types of your Mapper .
+
+Combiners can only be used on the functions that are commutative (a.b = b.a) and associative {a.(b.c) = (a.b).c} .
+From this, we can say that combiner may operate only on a subset of your keys and values. Or may does not execute at all, 
+still, you want the output of the program to remain same.
+ 
+From multiple Mappers, Reducer get its input data as part of the partitioning process. 
+Combiners can only get its input from one Mapper.
+*/
 
 
     public static void main(String[] args) {

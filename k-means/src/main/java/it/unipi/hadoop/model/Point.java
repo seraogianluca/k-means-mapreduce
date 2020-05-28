@@ -13,6 +13,7 @@ public class Point implements Writable {
     
     private FloatArrayWritable components = null;
     private int dim;
+    private int numPoints = 1;
 
     public Point() {
         this.dim = 0;
@@ -43,6 +44,14 @@ public class Point implements Writable {
             this.components.set(c);
             this.dim = c.length;
         }
+    }
+
+    public void setNumberOfPoints(int np) {
+        this.numPoints = np;
+    }
+
+    public int getNumberOfPoints() {
+        return this.numPoints;
     }
 
     @Override
