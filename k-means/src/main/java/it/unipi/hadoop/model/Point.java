@@ -88,7 +88,7 @@ public class Point implements Writable {
         if (h == 0)
             return -1;
 
-        if (h == Float.POSITIVE_INFINITY) {
+        if (h == Integer.MAX_VALUE) {
             // Chebyshev distance
             float max = -1f;
             float diff = 0.0f;
@@ -104,7 +104,7 @@ public class Point implements Writable {
             for (int i = 0; i < dim; i++) {
                 dist += Math.pow(Math.abs(this.components.getValue(i) - p.components.getValue(i)), h);
             }
-            dist = (float)Math.pow(dist, 1/h);
+            dist = (float) Math.pow(dist, 1f/h);
             return dist;
         }
     }

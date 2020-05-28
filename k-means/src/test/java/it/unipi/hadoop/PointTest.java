@@ -37,48 +37,74 @@ public class PointTest extends TestCase {
     
     public void testManhattan1() {
         float distance = p1.distance(p2, 1);
-        System.out.println("Mario Distance: " + distance);
-        assertTrue(true);       
+        System.out.println("Manhattan Test 1 Distance: " + distance);
+        assertTrue(Math.abs(distance - 2.0) < 0.0001f);       
     }
 
     public void testManhattan2() {
         float distance = t1.distance(t2, 1);
-        System.out.println("Distance: " + distance);
-        assertTrue(distance - 0 < 0.0001f );
+        System.out.println("Manhattan Test 2 Distance: " + distance);
+        assertTrue(Math.abs(distance - 5.0) < 0.0001f);
     }
 
     public void testManhattan3() {
         float distance = z1.distance(z2, 1);
-        System.out.println("Distance: " + distance);
-        assertTrue(distance - 0  < 0.0001f );
+        System.out.println("Manhattan Test 3 Distance: " + distance);
+        assertTrue(Math.abs(distance - 19.0) < 0.0001f );
     }
 
     public void testEuclidean1() {
-
+        float distance = p1.distance(p2, 2);
+        System.out.println("Euclidean Test 1 Distance: " + distance);
+        assertTrue(Math.abs(distance - 1.4142) < 0.0001f );
     }
 
     public void testEuclidean2() {
-        
+        float distance = t1.distance(t2, 2);
+        System.out.println("Euclidean Test 2 Distance: " + distance);
+        assertTrue(Math.abs(distance - 3.3166) < 0.0001f );
+    }
+
+    public void testEuclidean3() {
+        float distance = z1.distance(z2, 2);
+        System.out.println("Euclidean Test 3 Distance: " + distance);
+        assertTrue(Math.abs(distance - 7.9372) < 0.0001f);
     }
 
     public void testMinkowsky1() {
-
+        float distance = p1.distance(p2, 5);
+        System.out.println("Minkowsky Test 1 Distance: " + distance);
+        assertTrue(Math.abs(distance - 1.1486) < 0.0001f );
     }
 
     public void testMinkowsky2() {
-
+        float distance = t1.distance(t2, 5);
+        System.out.println("Minkowsky Test 2 Distance: " + distance);
+        assertTrue(Math.abs(distance - 3.0049) < 0.0001f );
     }
 
     public void testMinkowsky3() {
-
+        float distance = z1.distance(z2, 5);
+        System.out.println("Minkowsky Test 3 Distance: " + distance);
+        assertTrue(Math.abs(distance - 5.2788) < 0.0001f);
     }
 
     public void testInfinity1() {
-
+        float distance = p1.distance(p2, Integer.MAX_VALUE);
+        System.out.println("Infinity Test 1 Distance: " + distance);
+        assertTrue(Math.abs(distance - 1.0) < 0.0001f);
     }
 
-    public void testInfinity() {
+    public void testInfinity2() {
+        float distance = t1.distance(t2, Integer.MAX_VALUE);
+        System.out.println("Infinity Test 2 Distance: " + distance);
+        assertTrue(Math.abs(distance - 3.0) < 0.0001f);   
+    }
 
+    public void testInfinity3() {
+        float distance = z1.distance(z2, Integer.MAX_VALUE);
+        System.out.println("Infinity Test 3 Distance: " + distance);
+        assertTrue(Math.abs(distance - 5.0) < 0.0001f);
     }
 
  }
