@@ -2,12 +2,21 @@ package it.unipi.hadoop;
 
 import java.io.IOException;
 
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.util.GenericOptionsParser;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
+
 
 import it.unipi.hadoop.model.Point;
 
@@ -76,33 +85,87 @@ public class KMeans {
         }
     }
 
-/*The #1 rule of Combiners are: do not assume that the combiner will run. 
-Treat the combiner only as an optimization.
+/*
+ Reducer
+**Input:** (Centroid_id, List of partial_sums)
 
-The Combiner is not guaranteed to run over all of your data. 
-In some cases when the data doesn't need to be spilled to disk, MapReduce will skip using the Combiner entirely. 
-Note also that the Combiner may be ran multiple times over subsets of the data! It'll run once per spill.
+**Reduce function**
+```
+number_of_point = 0
+sum = 0
+for each point in list of points:
+    sum += point
+    number_of_points += 1
 
-In your case, you are making this bad assumption. 
-You should be doing the sum in the Combiner AND the Reducer.
+centroid_new_value = sum / number_of_points
+```
 
-The input and output of the combiner needs to be identical (Text,Double -> Text,Double) 
-and it needs to match up with the output of the Mapper and the input of the Reducer.
-
-
-Unlike a Reducer, input/output key and value types of combiner must match the output types of your Mapper .
-
-Combiners can only be used on the functions that are commutative (a.b = b.a) and associative {a.(b.c) = (a.b).c} .
-From this, we can say that combiner may operate only on a subset of your keys and values. Or may does not execute at all, 
-still, you want the output of the program to remain same.
- 
-From multiple Mappers, Reducer get its input data as part of the partitioning process. 
-Combiners can only get its input from one Mapper.
-*/
+**Output:** (Centroid_id, centroid_new_value)*/
 
 
-    public static void main(String[] args) {
+    public static class KMeansReducer extends Reducer<IntWritable, Point, IntWritable, Point >{
+
+        public void reduce(IntWritable centroid, Iterable<Point> partialSum, Context context)
+            throws IOException, InterruptedException{
+
+            // Sum
+            Point sum = Point.copy(partialSum.iterator().next());
+            int numPoints = sum.getNumberOfPoints();
+
+            while (partialSum.iterator().hasNext()) {
+                Point p = partialSum.iterator().next();
+                sum.sum(p);
+                numPoints += p.getNumberOfPoints();
+            }
+            sum.setNumberOfPoints(numPoints);
+            //Average, recalculate centroid
+            Point newCentroidValue = sum.getAveragePoint();
+
+            // TODO: save shared centroid
+
+            context.write(centroid, newCentroidValue);
+
+        }
+    }
+
+
+    
+    public static void main(String[] args) throws Exception {
         
+        Configuration conf = new Configuration();
+        String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
+        if (otherArgs.length != 4) {
+            System.err.println("Usage: K-Means <number_of_clusters> <threshold> <input> <output>");
+            System.exit(1);
+        }
+        System.out.println("args[0]: number_of_cluster="  + otherArgs[0]);
+        System.out.println("args[1]: threshold=" + otherArgs[1]);
+        System.out.println("args[2]: <input>="  + otherArgs[2]);
+        System.out.println("args[3]: <output>=" + otherArgs[3]);
+
+        // TODO: mapreduce stages (while)
+        // TODO: initial centroid selections
+
+        Job job = Job.getInstance(conf, "KMeans");
+        job.setJarByClass(KMeans.class);
+        job.setMapperClass(KMeansMapper.class);
+        job.setCombinerClass(KMeansCombiner.class);
+        job.setReducerClass(KMeansReducer.class);
+        
+        //one task each centroid
+        job.setNumReduceTasks(Integer.parseInt(otherArgs[0]));
+
+        job.setOutputKeyClass(IntWritable.class);
+        job.setOutputValueClass(Point.class);
+
+        FileInputFormat.addInputPath(job, new Path(otherArgs[2]));
+        FileOutputFormat.setOutputPath(job, new Path(otherArgs[3]));
+
+        job.setInputFormatClass(TextInputFormat.class);
+        job.setOutputFormatClass(TextOutputFormat.class);
+
+        System.exit(job.waitForCompletion(true) ? 0 : 1);
+
     }
 
 }

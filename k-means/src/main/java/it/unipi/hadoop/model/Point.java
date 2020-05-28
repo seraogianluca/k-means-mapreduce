@@ -103,7 +103,7 @@ public class Point implements Writable {
             float diff = 0.0f;
             for (int i = 0; i < dim; i++) {
                 diff = Math.abs(this.components.getValue(i) - p.components.getValue(i));
-                if (diff > max)
+                if (diff > max)              
                     max = diff;
             }
             return max;
@@ -116,6 +116,14 @@ public class Point implements Writable {
             dist = (float) Math.pow(dist, 1f/h);
             return dist;
         }
+    }
+
+    public Point getAveragePoint() {
+        Point averagePoint = new Point(this.components.get());
+        for (int i = 0; i < this.dim; i++) {
+            averagePoint.components.get()[i].set(this.components.getValue(i)/this.numPoints); 
+        }
+        return averagePoint;
     }
 
 }
