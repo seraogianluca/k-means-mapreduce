@@ -1,7 +1,15 @@
 package it.unipi.hadoop;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
@@ -10,6 +18,7 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IOUtils;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.SequenceFile;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.SequenceFileInputFormat;
 import org.apache.hadoop.io.SequenceFile.Reader;
@@ -17,6 +26,9 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.util.GenericOptionsParser;
+
+import com.codahale.metrics.Timer.Context;
+
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -127,8 +139,40 @@ public class KMeans {
         return true;
     }
 
-    private static Point[] centroidsInit(URI uri, Configuration conf, String filename, int dim, int k) {
-        
+    private static Point[] centroidsInit(Configuration conf, String pathString, int dim, int centroids, int dataSetSize) throws IOException {
+    	Point[] points = new Point[centroids];
+    	
+    	// Create a set of position in order to avoid duplicates
+    	Set<Integer> positionsSet = new HashSet<Integer>();
+    	Random random = new Random();
+    	while(positionsSet.size() < centroids) {
+    		positionsSet.add(random.nextInt(dataSetSize));
+    	}
+    	List<Integer> positions = new ArrayList<Integer>(positionsSet);
+    	
+    	Path path = new Path(pathString);
+    	FileSystem fs = FileSystem.get(conf);
+    	FSDataInputStream in = fs.open(path);
+    	BufferedReader d = new BufferedReader(new InputStreamReader(in));
+    	
+    	for (int i = 0; i < points.length; i++) {
+    		String line = null;
+    		
+    		int position = positions.get(i);
+    		int j = 0;
+        	while((line = d.readLine()) == null || j < position) {
+        		j++;
+        	}
+        	
+			String value = line;
+    		String[] compString = value.toString().split(",");
+            float[] compFloat = new float[compString.length];
+            for (int k = 0; k < compString.length; k++) {
+                compFloat[k] = Float.parseFloat(compString[k]);
+            }
+            points[i] = new Point(compFloat);
+		}
+    	return points;
     } 
 
     
@@ -149,11 +193,12 @@ public class KMeans {
         int k = 7; // #centroids 7 or 13
         int dist = 2; //distance
         float t = 0.0001f; //treshold
+        int dataSetSize = 10;
 
         Point[] oldCentroids = new Point[k];
         Point[] newCentroids = new Point[k];
 
-        newCentroids = centroidsInit(d, k);
+        newCentroids = centroidsInit(conf, otherArgs[0], d, k, dataSetSize);
 
         boolean stop = false;
         int i = 0;
