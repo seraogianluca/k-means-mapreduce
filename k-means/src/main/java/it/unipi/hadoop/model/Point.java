@@ -13,7 +13,7 @@ public class Point implements Writable {
     
     private FloatArrayWritable components = null;
     private int dim;
-    private int numPoints = 1;
+    private int numPoints = 1;      //for partial sum
 
     public Point() {
         this.dim = 0;
@@ -23,6 +23,7 @@ public class Point implements Writable {
         this.set(c);
         this.dim = c.length;
     }
+
 
     public Point(final float[] c) {
         FloatWritable[] fWritables = new FloatWritable[c.length];
@@ -67,13 +68,11 @@ public class Point implements Writable {
     @Override
     public String toString() {
         String[] values = this.components.toStrings();
-        StringBuilder point = new StringBuilder();
-        point.append("("); 
+        StringBuilder point = new StringBuilder(); 
         for (int i = 0; i < dim; i++) {
             point.append(values[i]);
             point.append(",");
         }
-        point.append(")");
         return point.toString();
     }
 

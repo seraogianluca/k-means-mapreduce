@@ -3,8 +3,6 @@ package it.unipi.hadoop;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -15,19 +13,13 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IOUtils;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.SequenceFile;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapred.SequenceFileInputFormat;
-import org.apache.hadoop.io.SequenceFile.Reader;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.util.GenericOptionsParser;
-
-import com.codahale.metrics.Timer.Context;
 
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
@@ -41,14 +33,25 @@ public class KMeans {
 
     public static class KMeansMapper extends Mapper<LongWritable, Text, IntWritable, Point> {
 
-        private Point[] centroids = new Point[10];
+        private Point[] centroids;
         private int p; 
 
         public void setup(Context context) {
-            // TODO: Creation of array of centroids
-            // TODO: initialize the type of distance to use
+            int k = Integer.parseInt(context.getConfiguration().get("k"));
+            this.centroids = new Point[k];
 
-            this.p = 2;
+            for(int i = 0; i < k; i++) {
+                String centroid = context.getConfiguration().get("centroid." + i);
+                String[] point = centroid.split(",");
+                float[] components = new float[point.length];
+                for (int j = 0; j < point.length; j++) {
+                    components[j] = Float.parseFloat(point[j]);
+                }
+
+                this.centroids[i] = new Point(components);
+            }
+
+            this.p = Integer.parseInt(context.getConfiguration().get("p"));
         }
 
         public void map(LongWritable key, Text value, Context context) 
@@ -100,10 +103,10 @@ public class KMeans {
         }
     }
 
-    public static class KMeansReducer extends Reducer<IntWritable, Point, IntWritable, Point >{
+    public static class KMeansReducer extends Reducer<IntWritable, Point, IntWritable, Text> {
 
         public void reduce(IntWritable centroid, Iterable<Point> partialSum, Context context)
-            throws IOException, InterruptedException{
+            throws IOException, InterruptedException {
 
             // Sum
             Point sum = Point.copy(partialSum.iterator().next());
@@ -118,10 +121,7 @@ public class KMeans {
             //Average, recalculate centroid
             Point newCentroidValue = sum.getAveragePoint();
 
-            // TODO: save shared centroid
-
-            context.write(centroid, newCentroidValue);
-             
+            context.write(centroid, new Text(newCentroidValue.toString()));
         }
     }
 
@@ -130,7 +130,6 @@ public class KMeans {
 
         for(int i = 0; i < oldCentroids.length; i++) {
             check = oldCentroids[i].distance(newCentroids[i], distance) < treshold;
-
             if (!check) {
                 return false;
             }
@@ -139,7 +138,8 @@ public class KMeans {
         return true;
     }
 
-    private static Point[] centroidsInit(Configuration conf, String pathString, int dim, int centroids, int dataSetSize) throws IOException {
+    private static Point[] centroidsInit(Configuration conf, String pathString, int dim, int centroids, int dataSetSize) 
+      throws IOException {
     	Point[] points = new Point[centroids];
     	
     	// Create a set of position in order to avoid duplicates
@@ -153,27 +153,52 @@ public class KMeans {
     	Path path = new Path(pathString);
     	FileSystem fs = FileSystem.get(conf);
     	FSDataInputStream in = fs.open(path);
-    	BufferedReader d = new BufferedReader(new InputStreamReader(in));
-    	
-    	for (int i = 0; i < points.length; i++) {
-    		String line = null;
-    		
-    		int position = positions.get(i);
-    		int j = 0;
-        	while((line = d.readLine()) == null || j < position) {
-        		j++;
-        	}
-        	
-			String value = line;
-    		String[] compString = value.toString().split(",");
+        BufferedReader b = new BufferedReader(new InputStreamReader(in));
+        for (int i = 0; i < points.length; i++) {
+            String line = null;
+            
+            int position = positions.get(i);
+            int j = 0;
+            while((line = b.readLine()) == null || j < position) {
+                j++;
+            }
+        
+            String value = line;
+            String[] compString = value.toString().split(",");
             float[] compFloat = new float[compString.length];
             for (int k = 0; k < compString.length; k++) {
                 compFloat[k] = Float.parseFloat(compString[k]);
             }
             points[i] = new Point(compFloat);
-		}
+        }
+        b.close();
     	return points;
     } 
+
+    public static Point[] getCentroids(Configuration conf, int dim, int centroids, String pathString) throws IOException {
+        Point[] points = new Point[centroids];
+        Path path = new Path(pathString);
+    	FileSystem fs = FileSystem.get(conf);
+    	FSDataInputStream in = fs.open(path);
+        BufferedReader b = new BufferedReader(new InputStreamReader(in));
+        
+        for (int i = 0; i < centroids; i++) {
+            String line = b.readLine();
+
+            String[] splitForId = line.split(" ");
+            int id = Integer.parseInt(splitForId[0]);
+
+            String[] point = splitForId[1].split(",");
+            float[] components = new float[dim];
+            for (int k = 0; k < dim; k++) {
+                components[k] = Float.parseFloat(point[k]);
+            }
+            points[id] = new Point(components);
+        }
+
+        b.close();
+    	return points;
+    }
 
     
     public static void main(String[] args) throws Exception {
@@ -195,6 +220,8 @@ public class KMeans {
         float t = 0.0001f; //treshold
         int dataSetSize = 10;
 
+        conf.set("p", Integer.toString(dist));
+        conf.set("k", Integer.toString(k));
         Point[] oldCentroids = new Point[k];
         Point[] newCentroids = new Point[k];
 
@@ -204,25 +231,25 @@ public class KMeans {
         int i = 0;
         while(!stop) {
             i++;
-            Job job = Job.getInstance(conf, "iteration " + i);
-            job.setJarByClass(KMeans.class);
-            job.setMapperClass(KMeansMapper.class);
-            job.setCombinerClass(KMeansCombiner.class);
-            job.setReducerClass(KMeansReducer.class);
+            Job iteration = Job.getInstance(conf, "iteration " + i);
+            iteration.setJarByClass(KMeans.class);
+            iteration.setMapperClass(KMeansMapper.class);
+            iteration.setCombinerClass(KMeansCombiner.class);
+            iteration.setReducerClass(KMeansReducer.class);
             
             //one task each centroid
-            job.setNumReduceTasks(Integer.parseInt(otherArgs[0]));
+            iteration.setNumReduceTasks(Integer.parseInt(otherArgs[0]));
 
-            job.setOutputKeyClass(IntWritable.class);
-            job.setOutputValueClass(Point.class);
+            iteration.setOutputKeyClass(IntWritable.class);
+            iteration.setOutputValueClass(Point.class);
 
-            FileInputFormat.addInputPath(job, new Path(otherArgs[2]));
-            FileOutputFormat.setOutputPath(job, new Path(otherArgs[3]));
+            FileInputFormat.addInputPath(iteration, new Path(otherArgs[0]));
+            FileOutputFormat.setOutputPath(iteration, new Path(otherArgs[1]));
 
-            job.setInputFormatClass(TextInputFormat.class);
-            job.setOutputFormatClass(TextOutputFormat.class);
+            iteration.setInputFormatClass(TextInputFormat.class);
+            iteration.setOutputFormatClass(TextOutputFormat.class);
 
-            boolean succeded = job.waitForCompletion(true);
+            boolean succeded = iteration.waitForCompletion(true);
 
             //If the job fails the application will be closed.
             if(!succeded) {
@@ -230,7 +257,15 @@ public class KMeans {
                 System.exit(1);
             }
 
-            // get new centroids
+            for(int id = 0; id < newCentroids.length; id++) {
+                oldCentroids[id] = Point.copy(newCentroids[id]);
+            }
+                        
+            newCentroids = getCentroids(conf, d, k, otherArgs[1]);
+            for(int j = 0; j < k; j++) {
+                conf.set("centroid." + j, newCentroids.toString());
+            }
+            
             stop = KMeans.stoppingCriterion(oldCentroids, newCentroids, dist, t);
         }
 
