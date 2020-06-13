@@ -205,7 +205,7 @@ public class KMeans {
         
         Configuration conf = new Configuration();
         String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
-        if (otherArgs.length != 4) {
+        if (otherArgs.length != 2) {
             System.err.println("Usage: KMeans <input> <output>");
             System.exit(1);
         }
@@ -227,6 +227,10 @@ public class KMeans {
 
         newCentroids = centroidsInit(conf, otherArgs[0], d, k, dataSetSize);
 
+        for(int j = 0; j < k; j++) {
+            conf.set("centroid." + j, newCentroids[j].toString());
+        }
+
         boolean stop = false;
         int i = 0;
         while(!stop) {
@@ -238,7 +242,7 @@ public class KMeans {
             iteration.setReducerClass(KMeansReducer.class);
             
             //one task each centroid
-            iteration.setNumReduceTasks(Integer.parseInt(otherArgs[0]));
+            iteration.setNumReduceTasks(k);
 
             iteration.setOutputKeyClass(IntWritable.class);
             iteration.setOutputValueClass(Point.class);
@@ -263,7 +267,7 @@ public class KMeans {
                         
             newCentroids = getCentroids(conf, d, k, otherArgs[1]);
             for(int j = 0; j < k; j++) {
-                conf.set("centroid." + j, newCentroids.toString());
+                conf.set("centroid." + j, newCentroids[j].toString());
             }
             
             stop = KMeans.stoppingCriterion(oldCentroids, newCentroids, dist, t);
