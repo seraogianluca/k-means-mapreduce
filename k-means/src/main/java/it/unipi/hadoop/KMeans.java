@@ -53,7 +53,6 @@ public class KMeans {
                 }
 
                 this.centroids[i] = new Point(components);
-                System.out.println(this.centroids[i].toString());
             }
 
             this.p = Integer.parseInt(context.getConfiguration().get("p"));
@@ -85,7 +84,6 @@ public class KMeans {
             }
 
             context.write(centroid, point);
-            System.out.println("centroid id:" + centroid.toString() + " punto di mario: " + point.toString());
         }
 
     }
