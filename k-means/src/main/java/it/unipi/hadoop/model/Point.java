@@ -1,17 +1,14 @@
 package it.unipi.hadoop.model;
 
-import it.unipi.hadoop.util.FloatArrayWritable;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
 import org.apache.hadoop.io.Writable;
-import org.apache.hadoop.io.FloatWritable;
 
 public class Point implements Writable {
     
-    private FloatArrayWritable components = null;
+    private float[] components = null;
     private int dim;
     private int numPoints = 1;      //for partial sum
 
@@ -19,77 +16,61 @@ public class Point implements Writable {
         this.dim = 0;
     }
     
-    public Point(final FloatWritable[] c) {
-        this.set(c);
-        this.dim = c.length;
-    }
-
-
     public Point(final float[] c) {
-        FloatWritable[] fWritables = new FloatWritable[c.length];
-        for (int i = 0; i < fWritables.length; i++) {
-            fWritables[i] = new FloatWritable(c[i]);
-        }
-        this.set(fWritables);
-        this.dim = c.length;
+        this.set(c);
     }
 
     public static Point copy(final Point p) {
-        return new Point(p.components.get());
+        return new Point(p.components);
     }
     
-    public void set(final FloatWritable[] c) {
-        if(this.components == null) {
-            this.components = new FloatArrayWritable(c);
-        } else {
-            this.components.set(c);
-            this.dim = c.length;
-        }
-    }
-
-    public void setNumberOfPoints(int np) {
-        this.numPoints = np;
-    }
-
-    public int getNumberOfPoints() {
-        return this.numPoints;
+    public void set(final float[] c) {
+        this.components = c;
+        this.dim = c.length;
     }
 
     @Override
     public void readFields(final DataInput in) throws IOException {
-        this.components.readFields(in);
+        this.dim = in.readInt();
+        this.numPoints = in.readInt();
+        this.components = new float[dim];
+
+        for(int i = 0; i < dim; i++) {
+            this.components[i] = in.readFloat();
+        }
     }
 
     @Override
     public void write(final DataOutput out) throws IOException {
-        this.components.write(out);
+        out.writeInt(this.dim);
+        out.writeInt(this.numPoints);
+
+        for(int i = 0; i < dim; i++) {
+            out.writeFloat(this.components[i]);
+        }
     }
 
     @Override
     public String toString() {
-        String[] values = this.components.toStrings();
-        StringBuilder point = new StringBuilder(); 
+        StringBuilder point = new StringBuilder();
+
         for (int i = 0; i < dim; i++) {
-            point.append(values[i]);
-            point.append(",");
+            point.append(Float.toString(this.components[i]));
+            if(i != dim - 1) {
+                point.append(",");
+            }   
         }
+
         return point.toString();
     }
 
-    public Point sum(Point p) {
-        FloatWritable[] sum = new FloatWritable[dim];
+    public void sum(Point p) {
+        float[] sum = new float[dim];
         for (int i = 0; i < dim; i++) {
-            sum[i] = new FloatWritable(this.components.getValue(i) + p.components.getValue(i));
+            sum[i] = this.components[i] + p.components[i];
         }
-        return new Point(sum);
-    }
-    
-    public Point difference(Point p){  //tra centroidi
-        FloatWritable[] diff = new FloatWritable[dim];
-        for (int i = 0; i < dim; i++) {
-            diff[i] = new FloatWritable(this.components.getValue(i) - p.components.getValue(i));
-        }
-        return new Point(diff);        
+
+        this.numPoints += p.numPoints;
     }
 
     public float distance(Point p, int h){
@@ -101,7 +82,7 @@ public class Point implements Writable {
             float max = -1f;
             float diff = 0.0f;
             for (int i = 0; i < dim; i++) {
-                diff = Math.abs(this.components.getValue(i) - p.components.getValue(i));
+                diff = Math.abs(this.components[i] - p.components[i]);
                 if (diff > max)              
                     max = diff;
             }
@@ -110,7 +91,7 @@ public class Point implements Writable {
             // p-norm (sum |x_i-y_i|^p)^1/p
             float dist = 0.0f;
             for (int i = 0; i < dim; i++) {
-                dist += Math.pow(Math.abs(this.components.getValue(i) - p.components.getValue(i)), h);
+                dist += Math.pow(Math.abs(this.components[i] - p.components[i]), h);
             }
             dist = (float) Math.pow(dist, 1f/h);
             return dist;
@@ -118,9 +99,9 @@ public class Point implements Writable {
     }
 
     public Point getAveragePoint() {
-        Point averagePoint = new Point(this.components.get());
+        Point averagePoint = new Point(this.components);
         for (int i = 0; i < this.dim; i++) {
-            averagePoint.components.get()[i].set(this.components.getValue(i)/this.numPoints); 
+            averagePoint.components[i] /= this.numPoints; 
         }
         return averagePoint;
     }
