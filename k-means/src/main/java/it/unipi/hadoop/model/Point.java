@@ -65,9 +65,8 @@ public class Point implements Writable {
     }
 
     public void sum(Point p) {
-        float[] sum = new float[dim];
         for (int i = 0; i < dim; i++) {
-            sum[i] = this.components[i] + p.components[i];
+            this.components[i] += p.components[i];
         }
 
         this.numPoints += p.numPoints;
