@@ -67,3 +67,5 @@ k-means/target/surefire-reports/TEST-it.unipi.hadoop.PointTest.xml
 k-means/target/classes/it/unipi/hadoop/KMeans.class
 k-means/target/classes/it/unipi/hadoop/KMeans$KMeansCombiner.class
 k-means/target/classes/it/unipi/hadoop/KMeans$KMeansMapper.class
+k-means-spark/__pycache__/*
+k-means-spark/output/*
