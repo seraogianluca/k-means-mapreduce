@@ -13,6 +13,7 @@ public class PointTest extends TestCase {
 
     private Point z1; // 7-dimensional point
     private Point z2; // 7-dimensional point
+    private Point z3; // 7-dimensional point
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -26,6 +27,7 @@ public class PointTest extends TestCase {
      
         z1 = new Point(new float[] {1, 2, 3, -4, 5, 6, 7});
         z2 = new Point(new float[] {2, 1, 0, 1, 2, 3, 4});
+        z3 = new Point(new float[] {2, 1, 0, 1, 2, 3, 4});
    
     }
     
@@ -51,6 +53,12 @@ public class PointTest extends TestCase {
         assertTrue(Math.abs(distance - 19.0) < 0.0001f );
     }
 
+    public void testManhattan4() {
+        float distance = z2.distance(z3, 1);
+        System.out.println("Manhattan Test 4 Distance: " + distance);
+        assertTrue(distance == 0.0f);
+    }
+
     public void testEuclidean1() {
         float distance = p1.distance(p2, 2);
         System.out.println("Euclidean Test 1 Distance: " + distance);
@@ -67,6 +75,12 @@ public class PointTest extends TestCase {
         float distance = z1.distance(z2, 2);
         System.out.println("Euclidean Test 3 Distance: " + distance);
         assertTrue(Math.abs(distance - 7.9372) < 0.0001f);
+    }
+
+    public void testEuclidean4() {
+        float distance = z2.distance(z3, 2);
+        System.out.println("Euclidean Test 4 Distance: " + distance);
+        assertTrue(distance == 0.0f);
     }
 
     public void testMinkowsky1() {
@@ -87,6 +101,12 @@ public class PointTest extends TestCase {
         assertTrue(Math.abs(distance - 5.2788) < 0.0001f);
     }
 
+    public void testMinkowsky4() {
+        float distance = z2.distance(z3, 5);
+        System.out.println("Minkowsky Test 4 Distance: " + distance);
+        assertTrue(distance == 0.0f);
+    }
+
     public void testInfinity1() {
         float distance = p1.distance(p2, Integer.MAX_VALUE);
         System.out.println("Infinity Test 1 Distance: " + distance);
@@ -103,6 +123,12 @@ public class PointTest extends TestCase {
         float distance = z1.distance(z2, Integer.MAX_VALUE);
         System.out.println("Infinity Test 3 Distance: " + distance);
         assertTrue(Math.abs(distance - 5.0) < 0.0001f);
+    }
+
+    public void testInfinity4() {
+        float distance = z2.distance(z3, Integer.MAX_VALUE);
+        System.out.println("Infinity Test 4 Distance: " + distance);
+        assertTrue(distance == 0.0f);
     }
 
 }
