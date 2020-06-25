@@ -103,7 +103,7 @@ public class Point implements Writable {
             for (int i = 0; i < dim; i++) {
                 dist += Math.pow(Math.abs(this.components[i] - p.components[i]), h);
             }
-            dist = (float) Math.pow(dist, 1f/h);
+            dist = (float)Math.pow(dist, 1f/h);
             return dist;
         }
     }

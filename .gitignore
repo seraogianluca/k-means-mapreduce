@@ -50,22 +50,10 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-k-means/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
-k-means/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+scripts/util/*
+k-means/target/*
 k-means/.classpath
 k-means/.project
-k-means/.settings/org.eclipse.jdt.apt.core.prefs
-k-means/.settings/org.eclipse.jdt.core.prefs
-k-means/.settings/org.eclipse.m2e.core.prefs
-scripts/lib/*
-scripts/bin/*
-scripts/include/*
-k-means/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst
-k-means/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
-k-means/target/surefire-reports/it.unipi.hadoop.PointTest.txt
-k-means/target/surefire-reports/TEST-it.unipi.hadoop.PointTest.xml
-k-means/target/classes/it/unipi/hadoop/KMeans.class
-k-means/target/classes/it/unipi/hadoop/KMeans$KMeansCombiner.class
-k-means/target/classes/it/unipi/hadoop/KMeans$KMeansMapper.class
+k-means/.settings/*
 k-means-spark/__pycache__/*
 k-means-spark/output/*
