@@ -108,25 +108,25 @@ public class PointTest extends TestCase {
     }
 
     public void testInfinity1() {
-        float distance = p1.distance(p2, Integer.MAX_VALUE);
+        float distance = p1.distance(p2, 0);
         System.out.println("Infinity Test 1 Distance: " + distance);
         assertTrue(Math.abs(distance - 1.0) < 0.0001f);
     }
 
     public void testInfinity2() {
-        float distance = t1.distance(t2, Integer.MAX_VALUE);
+        float distance = t1.distance(t2, 0);
         System.out.println("Infinity Test 2 Distance: " + distance);
         assertTrue(Math.abs(distance - 3.0) < 0.0001f);   
     }
 
     public void testInfinity3() {
-        float distance = z1.distance(z2, Integer.MAX_VALUE);
+        float distance = z1.distance(z2, 0);
         System.out.println("Infinity Test 3 Distance: " + distance);
         assertTrue(Math.abs(distance - 5.0) < 0.0001f);
     }
 
     public void testInfinity4() {
-        float distance = z2.distance(z3, Integer.MAX_VALUE);
+        float distance = z2.distance(z3, 0);
         System.out.println("Infinity Test 4 Distance: " + distance);
         assertTrue(distance == 0.0f);
     }

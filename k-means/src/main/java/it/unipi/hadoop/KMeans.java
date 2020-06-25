@@ -38,24 +38,25 @@ public class KMeans {
     public static class KMeansMapper extends Mapper<LongWritable, Text, IntWritable, Point> {
 
         private Point[] centroids;
-        private int p; 
+        private int p;
 
         public void setup(Context context) {
-            int k = Integer.parseInt(context.getConfiguration().get("k"));
+            int k = context.getConfiguration().getInt("k", 0);
+            this.p = context.getConfiguration().getInt("distance", 2);
+
             this.centroids = new Point[k];
 
             for(int i = 0; i < k; i++) {
-                String centroid = context.getConfiguration().get("centroid." + i);
-                String[] point = centroid.split(",");
-                float[] components = new float[point.length];
-                for (int j = 0; j < point.length; j++) {
-                    components[j] = Float.parseFloat(point[j]);
+                String[] centroid = context.getConfiguration().getStrings("centroid." + i);
+                float[] components = new float[centroid.length];
+                for (int j = 0; j < centroid.length; j++) {
+                    components[j] = Float.parseFloat(centroid[j]);
                 }
 
                 this.centroids[i] = new Point(components);
             }
 
-            this.p = Integer.parseInt(context.getConfiguration().get("p"));
+            
         }
 
         public void map(LongWritable key, Text value, Context context) 
@@ -77,7 +78,7 @@ public class KMeans {
             //Find the closest centroid
             for (int i = 0; i < centroids.length; i++) {
                 distance = point.distance(centroids[i], p);
-                if(distance < min_dist){
+                if(distance < min_dist) {
                     centroid.set(i);
                     min_dist = distance;
                 }
@@ -102,7 +103,7 @@ public class KMeans {
         }
     }
 
-    public static class KMeansReducer extends Reducer<Text, Point, Text, Text> {
+    public static class KMeansReducer extends Reducer<IntWritable, Point, Text, Text> {
 
         public void reduce(IntWritable centroid, Iterable<Point> partialSum, Context context)
             throws IOException, InterruptedException {
@@ -117,15 +118,15 @@ public class KMeans {
             //Average, recalculate centroid
             Point newCentroidValue = sum.getAveragePoint();
 
-            context.write(new Text("centroid." + centroid), new Text(newCentroidValue.toString()));
+            context.write(new Text(centroid.toString()), new Text(newCentroidValue.toString()));
         }
     }
 
-    private static boolean stoppingCriterion(Point[] oldCentroids, Point[] newCentroids, int distance, float treshold) {
+    private static boolean stoppingCriterion(Point[] oldCentroids, Point[] newCentroids, int distance, float threshold) {
         boolean check = true;
 
         for(int i = 0; i < oldCentroids.length; i++) {
-            check = oldCentroids[i].distance(newCentroids[i], distance) < treshold;
+            check = oldCentroids[i].distance(newCentroids[i], distance) < threshold;
             if (!check) {
                 return false;
             }
@@ -148,18 +149,19 @@ public class KMeans {
         Collections.sort(positions);
         
         Path path = new Path(pathString);
-    	FileSystem fs = FileSystem.get(conf);
-    	FSDataInputStream in = fs.open(path);
-        BufferedReader b = new BufferedReader(new InputStreamReader(in));
+    	FileSystem hdfs = FileSystem.get(conf);
+    	FSDataInputStream in = hdfs.open(path);
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
 
-        int j = 0;
+        int row = 0;
         int i = 0;
-        int position = positions.get(0);
+        int position;
         while(i < positions.size()) {
             position = positions.get(i);
-
-            if(j == position) {      
-                String[] compString = b.readLine().split(",");
+//CONTROLALLRE READLINE E STAMPARE SCELTA CENTRODII
+// COSTRUTTORE PUNTO DA STRING
+            if(row == position) {      
+                String[] compString = br.readLine().split(",");
                 float[] compFloat = new float[compString.length];
                 for (int k = 0; k < compString.length; k++) {
                     compFloat[k] = Float.parseFloat(compString[k]);
@@ -168,10 +170,10 @@ public class KMeans {
                 i++;          
             }
 
-            j++;
+            row++;
         }
 
-        b.close();
+        br.close();
     	return points;
     } 
 
@@ -194,17 +196,12 @@ public class KMeans {
 
             points[id] = new Point(components);
             br.close();
+            
         }
 
         hdfs.delete(new Path(pathString), true);
 
     	return points;
-    }
-
-    private static void setCentroids(Configuration conf, Point[] centroids) {
-        for(int i = 0; i < centroids.length; i++) {
-            conf.set("centroid." + i, centroids[i].toString());
-        }
     }
 
     private static void finalize(Configuration conf, Point[] centroids, String output) throws IOException {
@@ -225,29 +222,31 @@ public class KMeans {
     public static void main(String[] args) throws Exception {
         
         Configuration conf = new Configuration();
+        conf.addResource(new Path("config.xml"));
+
         String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
 
-        if (otherArgs.length != 7) {
-            System.err.println("Usage: <input> <output> <dataset size> <distance> <features> <k> <treshold>");
+        if (otherArgs.length != 2) {
+            System.err.println("Usage: <input> <output>");
             System.exit(1);
         }
 
-        final Path INPUT = new Path(otherArgs[0]);
-        final Path OUTPUT = new Path(otherArgs[1] + "/temp");
-        final int DATASET_SIZE = Integer.parseInt(otherArgs[2]);
-        final int DISTANCE = Integer.parseInt(otherArgs[3]);
-        final int DIM = Integer.parseInt(otherArgs[4]);
-        final int K = Integer.parseInt(otherArgs[5]);
-        final float TRESHOLD = Float.parseFloat(otherArgs[6]);
-
-        conf.set("p", Integer.toString(DISTANCE));
-        conf.set("k", Integer.toString(K));
+        final String INPUT = otherArgs[0];
+        final String OUTPUT = otherArgs[1] + "/temp";
+        final int DATASET_SIZE = conf.getInt("dataset", 10);
+        final int DISTANCE = conf.getInt("distance", 2);
+        final int DIM = conf.getInt("features", 3);
+        final int K = conf.getInt("k", 3);
+        final float THRESHOLD = conf.getFloat("threshold", 0.0001f);
+        final int MAX_ITERATIONS = conf.getInt("max_iter", 30);
 
         Point[] oldCentroids = new Point[K];
         Point[] newCentroids = new Point[K];
 
         newCentroids = centroidsInit(conf, otherArgs[0], DIM, K, DATASET_SIZE);
-        setCentroids(conf, newCentroids);
+        for(int i = 0; i < K; i++) {
+            conf.set("centroid." + i, newCentroids[i].toString());
+        }
 
         boolean stop = false;
         int i = 0;
@@ -261,12 +260,12 @@ public class KMeans {
             
             //one task each centroid
             iteration.setNumReduceTasks(K);
-
+            
             iteration.setOutputKeyClass(IntWritable.class);
             iteration.setOutputValueClass(Point.class);
 
-            FileInputFormat.addInputPath(iteration, INPUT);
-            FileOutputFormat.setOutputPath(iteration, OUTPUT);
+            FileInputFormat.addInputPath(iteration, new Path(INPUT));
+            FileOutputFormat.setOutputPath(iteration, new Path(OUTPUT));
 
             iteration.setInputFormatClass(TextInputFormat.class);
             iteration.setOutputFormatClass(TextOutputFormat.class);
@@ -283,11 +282,16 @@ public class KMeans {
                 oldCentroids[id] = Point.copy(newCentroids[id]);
             }
                         
-            newCentroids = readCentroids(conf, DIM, K, otherArgs[1] + "/temp");
-            stop = KMeans.stoppingCriterion(oldCentroids, newCentroids, DISTANCE, TRESHOLD);
+            newCentroids = readCentroids(conf, DIM, K, OUTPUT);
+            stop = KMeans.stoppingCriterion(oldCentroids, newCentroids, DISTANCE, THRESHOLD);
 
-            if(stop) {
+            if(stop || i == MAX_ITERATIONS) {
                 finalize(conf, newCentroids, otherArgs[1]);
+            } else {
+                for(int d = 0; d < K; d++) {
+                    conf.unset("centroid." + d);
+                    conf.set("centroid." + d, newCentroids[d].toString());
+                }
             }
         }
 

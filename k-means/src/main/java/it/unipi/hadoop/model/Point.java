@@ -10,7 +10,7 @@ public class Point implements Writable {
     
     private float[] components = null;
     private int dim;
-    private int numPoints = 1;      //for partial sum
+    private int numPoints;      //for partial sum
 
     public Point() {
         this.dim = 0;
@@ -21,12 +21,15 @@ public class Point implements Writable {
     }
 
     public static Point copy(final Point p) {
-        return new Point(p.components);
+        Point ret = new Point(p.components);
+        ret.numPoints = p.numPoints;
+        return ret;
     }
     
     public void set(final float[] c) {
         this.components = c;
         this.dim = c.length;
+        this.numPoints = 1;
     }
 
     @Override
@@ -73,10 +76,10 @@ public class Point implements Writable {
     }
 
     public float distance(Point p, int h){
-        if (h == 0)
+        if (h < 0)
             return -1;
 
-        if (h == Integer.MAX_VALUE) {
+        if (h == 0) {
             // Chebyshev distance
             float max = -1f;
             float diff = 0.0f;
@@ -98,11 +101,13 @@ public class Point implements Writable {
     }
 
     public Point getAveragePoint() {
-        Point averagePoint = new Point(this.components);
+        float[] temp = new float[this.dim];
+
         for (int i = 0; i < this.dim; i++) {
-            averagePoint.components[i] /= this.numPoints; 
+            temp[i] = this.components[i] / this.numPoints;
         }
-        return averagePoint;
+
+        return new Point(temp);
     }
 
 }
