@@ -2,7 +2,7 @@ from sklearn.cluster import KMeans
 import numpy as np
 
 points = []
-with open("dataset.txt", "r") as file:
+with open("./datasets/dataset.txt", "r") as file:
     
     for line in file:
         comps = line.split(",")
@@ -10,7 +10,7 @@ with open("dataset.txt", "r") as file:
         points.append(point)
         
 dataset = np.array(points)
-kmeans = KMeans(n_clusters=2, max_iter=40, random_state=0).fit(dataset)
+kmeans = KMeans(n_clusters=7, max_iter=1000, random_state=0).fit(dataset)
 
 print(dataset)
 print(kmeans.cluster_centers_)

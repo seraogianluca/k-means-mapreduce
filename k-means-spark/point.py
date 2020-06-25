@@ -36,7 +36,7 @@ class Point:
         for i in range(0, self.dimension):
             average_point.components[i] /= self.number_of_points
         return average_point
-        
+    
     def __str__(self):
         result = ""
         for component in self.components:
