@@ -1,6 +1,4 @@
 from sklearn.datasets import make_blobs
-from matplotlib import pyplot
-from pandas import DataFrame
 
 dimension = 3
 samples = 1000
@@ -12,8 +10,8 @@ with open("dataset.txt", "w") as file:
     for point in points:
         for value in range(dimension):
             if value == (dimension - 1):
-                file.write(str(point[value]))
+                file.write(str(round(point[value], 4)))
             else:
-                file.write(str(point[value]) + ",")
+                file.write(str(round(point[value], 4)) + ",")
         file.write("\n")
 
