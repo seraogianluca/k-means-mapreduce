@@ -44,9 +44,9 @@ public class Point implements Writable {
     public void readFields(final DataInput in) throws IOException {
         this.dim = in.readInt();
         this.numPoints = in.readInt();
-        this.components = new float[dim];
+        this.components = new float[this.dim];
 
-        for(int i = 0; i < dim; i++) {
+        for(int i = 0; i < this.dim; i++) {
             this.components[i] = in.readFloat();
         }
     }
@@ -56,7 +56,7 @@ public class Point implements Writable {
         out.writeInt(this.dim);
         out.writeInt(this.numPoints);
 
-        for(int i = 0; i < dim; i++) {
+        for(int i = 0; i < this.dim; i++) {
             out.writeFloat(this.components[i]);
         }
     }
@@ -64,7 +64,7 @@ public class Point implements Writable {
     @Override
     public String toString() {
         StringBuilder point = new StringBuilder();
-        for (int i = 0; i < dim; i++) {
+        for (int i = 0; i < this.dim; i++) {
             point.append(Float.toString(this.components[i]));
             if(i != dim - 1) {
                 point.append(",");
@@ -74,22 +74,23 @@ public class Point implements Writable {
     }
 
     public void sum(Point p) {
-        for (int i = 0; i < dim; i++) {
+        for (int i = 0; i < this.dim; i++) {
             this.components[i] += p.components[i];
         }
         this.numPoints += p.numPoints;
     }
 
     public float distance(Point p, int h){
-        if (h < 0){
+        if (h < 0) {
+            // Consider only metric distances
             h = 2;   
         }
         
         if (h == 0) {
-            // Chebyshev distance
+            // Chebyshev
             float max = -1f;
             float diff = 0.0f;
-            for (int i = 0; i < dim; i++) {
+            for (int i = 0; i < this.dim; i++) {
                 diff = Math.abs(this.components[i] - p.components[i]);
                 if (diff > max) {
                     max = diff;
@@ -98,9 +99,9 @@ public class Point implements Writable {
             return max;
 
         } else {
-            // p-norm (sum |x_i-y_i|^p)^1/p
+            // Manhattan, Euclidean, Minkowsky
             float dist = 0.0f;
-            for (int i = 0; i < dim; i++) {
+            for (int i = 0; i < this.dim; i++) {
                 dist += Math.pow(Math.abs(this.components[i] - p.components[i]), h);
             }
             dist = (float)Math.pow(dist, 1f/h);

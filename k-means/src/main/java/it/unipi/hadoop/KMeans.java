@@ -109,7 +109,7 @@ public class KMeans {
         return true;
     }
 
-    private static Point[] centroidsInit(Configuration conf, String pathString, int dim, int k, int dataSetSize) 
+    private static Point[] centroidsInit(Configuration conf, String pathString, int k, int dataSetSize) 
       throws IOException {
     	Point[] points = new Point[k];
     	
@@ -150,7 +150,7 @@ public class KMeans {
     	return points;
     } 
 
-    private static Point[] readCentroids(Configuration conf, int dim, int k, String pathString) throws IOException {
+    private static Point[] readCentroids(Configuration conf, int k, String pathString) throws IOException {
         Point[] points = new Point[k];
         FileSystem hdfs = FileSystem.get(conf);	
         
@@ -200,7 +200,6 @@ public class KMeans {
         final String OUTPUT = otherArgs[1] + "/temp";
         final int DATASET_SIZE = conf.getInt("dataset", 10);
         final int DISTANCE = conf.getInt("distance", 2);
-        final int DIM = conf.getInt("features", 3);
         final int K = conf.getInt("k", 3);
         final float THRESHOLD = conf.getFloat("threshold", 0.0001f);
         final int MAX_ITERATIONS = conf.getInt("max.iteration", 30);
@@ -209,7 +208,7 @@ public class KMeans {
         Point[] newCentroids = new Point[K];
 
         // Initial centroids
-        newCentroids = centroidsInit(conf, INPUT, DIM, K, DATASET_SIZE);
+        newCentroids = centroidsInit(conf, INPUT, K, DATASET_SIZE);
         for(int i = 0; i < K; i++) {
             conf.set("centroid." + i, newCentroids[i].toString());
         }
@@ -246,7 +245,7 @@ public class KMeans {
             for(int id = 0; id < K; id++) {
                 oldCentroids[id] = Point.copy(newCentroids[id]);
             }                        
-            newCentroids = readCentroids(conf, DIM, K, OUTPUT);
+            newCentroids = readCentroids(conf, K, OUTPUT);
 
             stop = stoppingCriterion(oldCentroids, newCentroids, DISTANCE, THRESHOLD);
 

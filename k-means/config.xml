@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<configuration>
+  <property>
+    <name>dataset</name>
+    <value>10</value>
+    <description>Dimension of the dataset</description>
+  </property>
+  <property>
+    <name>distance</name>
+    <value>5</value>
+    <description>Type of distance adopted</description>
+  </property>
+  <property>
+    <name>k</name>
+    <value>2</value>
+    <description>Number of centroids</description>
+  </property>
+  <property>
+    <name>threshold</name>
+    <value>0</value>
+    <description>Threshold for the stopping criterion</description>
+  </property>
+  <property>
+    <name>max.iteration</name>
+    <value>30</value>
+    <description>Maximum number of iteration</description>
+  </property>
+</configuration>
