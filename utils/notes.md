@@ -26,9 +26,3 @@ From multiple Mappers, Reducer get its input data as part of the partitioning pr
 Combiners can only get its input from one Mapper.
 
 
-
-# Dataset creation 
-For the creation of the dataset the Scikit-learn python library was used.
-The make_blobs() function generates isotropic Gaussian blobs for clustering.
-This was made in order to generate datasets with clustering tendency instead of using a random uniformly distributed set of points, because of that, the number of centers parameter choosed is much higher than the actual number of centroids that will be used to test the app.
-
