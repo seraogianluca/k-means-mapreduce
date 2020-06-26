@@ -4,35 +4,28 @@ import numpy as ny
 from pyspark import SparkContext
 from point import Point
 
-os.environ['PYSPARK_DRIVER_PYTHON'] = '/usr/local/bin/python3' ## TODO: Remove
-os.environ['PYSPARK_PYTHON'] = '/usr/local/bin/python3' ## TODO: Remove
+# os.environ['PYSPARK_DRIVER_PYTHON'] = '/usr/local/bin/python3' ## TODO: Remove
+# os.environ['PYSPARK_PYTHON'] = '/usr/local/bin/python3' ## TODO: Remove
 
-centroids_broadcast = None
-distance_broadcast = None
+# centroids_broadcast
+# distance_broadcast
 
-def init_centroids(input_path, dataset_size, k):
-    # positions = ny.random.randint(0, high=dataset_size-1, size=k)
+def init_centroids(dataset, dataset_size, k):
     positions = ny.random.choice(range(dataset_size), size=k, replace=False)
     positions.sort()
-    print(positions)
-
     initial_centroids = []
-    with open(input_path) as fp:
-        i = 0
-        j = 0
-        
-        while(i < len(positions)):
-            position = positions[i]
-            line = fp.readline()
-            if(j == position):
-                print(j)
-                line = line.replace(" ", "").split(",")
-                components = [float(i) for i in line]
-                p = Point(components)
-                i += 1
-                initial_centroids.append(p)
-            j += 1
-            
+    i, j = 0, 0
+    for row in dataset.collect():
+        if (i >= len(positions)):
+            break
+        position = positions[i]
+        if(j == position):
+            line = row.replace(" ", "").split(",")
+            components = [float(k) for k in line]
+            p = Point(components)
+            i += 1
+            initial_centroids.append(p)
+        j += 1
     return initial_centroids
 
 def assign_centroids(row):
@@ -42,18 +35,20 @@ def assign_centroids(row):
     p = Point(components)
     # Assign to the closer centroid
     min_dist = float("inf")
-    nearest_centroid = centroids_broadcast.value[0]
-    for centroid in centroids_broadcast.value:
-        distance = p.distance(centroid, distance_broadcast.value)
+    centroids = centroids_broadcast.value
+    nearest_centroid = 0
+    for i in range(len(centroids)):
+        distance = p.distance(centroids[i], distance_broadcast.value)
         if(distance < min_dist):
             min_dist = distance
-            nearest_centroid = centroid
-    return (nearest_centroid, p)
+            nearest_centroid = i
+    return nearest_centroid, p
 
-def stopping_criterion(old, new, dist, threshold):
+def stopping_criterion(old, dist, threshold):
     check = True
-    for i in range(0, len(old)):
-        check = old[i].distance(new[i], dist) < threshold
+    old_centroids = centroids_broadcast.value
+    for i in range(len(old_centroids)):
+        check = old_centroids[i].distance(result[i][1], dist) < threshold
         if check == False:
             return False
     return True
@@ -63,8 +58,9 @@ def reduce(x, y):
     return x
 
 if __name__ == "__main__":
-    sc = SparkContext("local", "Kmeans")
-    print(os.getcwd())
+    sc = SparkContext("yarn", "Kmeans")
+    print("\n***START****\n")
+    sc.setLogLevel("ERROR")
     sc.addPyFile("./point.py") ## It's necessary, otherwise the spark framework doesn't see point.py
     print("Parameters:", str(len(sys.argv)))
     if len(sys.argv) < 9:
@@ -79,36 +75,29 @@ if __name__ == "__main__":
     treshold = float(sys.argv[7])
     max_iterations = float(sys.argv[8])
 
-    distance_broadcast = sc.broadcast(distance)
-
-    initial_centroids = init_centroids(input_path, dataset_size=dataset_size, k=k)
-    print("Initial centroids nr.:", len(initial_centroids))
-    centroids_broadcast = sc.broadcast(initial_centroids)
     input_file = sc.textFile(input_path)
+    initial_centroids = init_centroids(input_file, dataset_size=dataset_size, k=k)
+    distance_broadcast = sc.broadcast(distance)
+    centroids_broadcast = sc.broadcast(initial_centroids)
+    print("Iteration", 0)
+    print("Centroid broadcast:", centroids_broadcast.value)
     stop = False
     n = 0
     while stop == False and n < max_iterations:
+        print("Iteration", n+1)
+        result = []
         map = input_file.map(lambda row: assign_centroids(row))
         sumRDD = map.reduceByKey(lambda x, y: reduce(x,y)) ## f(x) must be associative
         centroidsRDD = sumRDD.mapValues(lambda x: x.get_average_point())
-        new_centroids = []
-        for tpl in centroidsRDD.collect():
-            new_centroids.append(tpl[1])
-
-        print(centroids_broadcast.value)
-        stop = stopping_criterion(centroids_broadcast.value, new_centroids, distance,treshold)
+        result = centroidsRDD.collect()
+        stop = stopping_criterion(result, distance,treshold)
         n += 1
         if(stop == False and n < max_iterations):
-            centroids_broadcast = sc.broadcast(new_centroids)
- 
-    print("Iterations:", n)    
+            centroids_broadcast.unpersist() 
+            centroids_broadcast.destroy()
+            centroids_broadcast = sc.broadcast([tpl[1] for tpl in result])
+    print("Iterations:", n)
+    print("\n***Centroids***\n")
     #centroidsRDD.saveAsTextFile(output_path)
     for tpl in centroidsRDD.collect():
         print(tpl[1])
-
-    
-
-
-
- 
-
