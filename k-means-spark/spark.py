@@ -77,10 +77,12 @@ if __name__ == "__main__":
 
     input_file = sc.textFile(INPUT_PATH)
     initial_centroids = init_centroids(input_file, dataset_size=parameters["datasetsize"], k=parameters["k"])
+    print("Centroids initialized:", len(initial_centroids))
     distance_broadcast = sc.broadcast(DISTANCE_TYPE)
     centroids_broadcast = sc.broadcast(initial_centroids)
     stop, n = False, 0
     while stop == False and n < MAX_ITERATIONS:
+        print("**Iteration n." + str(n+1))
         result = []
         map = input_file.map(lambda row: assign_centroids(row))
         sumRDD = map.reduceByKey(lambda x, y: reduce(x,y)) ## f(x) must be associative
