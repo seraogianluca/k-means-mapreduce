@@ -85,7 +85,6 @@ if __name__ == "__main__":
     stop, n = False, 0
     while stop == False and n < MAX_ITERATIONS:
         print("**Iteration n." + str(n+1))
-        result = []
         map = input_file.map(lambda row: assign_centroids(row))
         sumRDD = map.reduceByKey(lambda x, y: reduce(x,y)) ## f(x) must be associative
         centroidsRDD = sumRDD.mapValues(lambda x: x.get_average_point())
