@@ -12,6 +12,7 @@ import time
 def init_centroids(dataset, dataset_size, k):
     positions = ny.random.choice(range(dataset_size), size=k, replace=False)
     positions.sort()
+    print("Random positions:", positions)
     initial_centroids = []
     i, j = 0, 0
     for row in dataset.collect():
@@ -25,6 +26,7 @@ def init_centroids(dataset, dataset_size, k):
             i += 1
             initial_centroids.append(p)
         j += 1
+    # print("Last initial centroid:", initial_centroids[len(initial_centroids)-1])
     return initial_centroids
 
 def assign_centroids(row):
@@ -58,7 +60,7 @@ def reduce(x, y):
 
 if __name__ == "__main__":
     start_time = time.time()
-    sc = SparkContext("local", "Kmeans")
+    sc = SparkContext("yarn", "Kmeans")
     print("\n***START****\n")
     sc.setLogLevel("ERROR")
     sc.addPyFile("./point.py") ## It's necessary, otherwise the spark framework doesn't see point.py
@@ -77,7 +79,7 @@ if __name__ == "__main__":
 
     input_file = sc.textFile(INPUT_PATH)
     initial_centroids = init_centroids(input_file, dataset_size=parameters["datasetsize"], k=parameters["k"])
-    print("Centroids initialized:", len(initial_centroids))
+    print("Centroids initialized:", len(initial_centroids), "in", (time.time() - start_time))
     distance_broadcast = sc.broadcast(DISTANCE_TYPE)
     centroids_broadcast = sc.broadcast(initial_centroids)
     stop, n = False, 0
