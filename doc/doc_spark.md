@@ -6,6 +6,50 @@
 
 ## 1. Implementation
 
+### Initialization and stages
+
+As first step, we read the file with the points and we generate the initial centroids with a random sampling.
+
+```
+initial_centroids = init_centroids(input_file, dataset_size=parameters["datasetsize"], k=parameters["k"])
+```
+(*line 81 of [spark.py](/k-means-spark/spark.py)*)
+```
+def init_centroids(dataset, dataset_size, k):
+    positions = ny.random.choice(range(dataset_size), size=k, replace=False)
+    positions.sort()
+    initial_centroids = []
+    i, j = 0, 0
+    for row in dataset.collect():
+        if (i >= len(positions)):
+            break
+        position = positions[i]
+        if(j == position):
+            line = row.replace(" ", "").split(",")
+            components = [float(k) for k in line]
+            p = Point(components)
+            i += 1
+            initial_centroids.append(p)
+        j += 1
+    return initial_centroids
+```
+(*line 12-30 of [spark.py](/k-means-spark/spark.py)*)
+
+After that, we iterate the mapper and the reducer stages until the **stopping criterion** is verified or when the **maximum number of iterations** is reached.
+
+```
+ while stop == False and n < MAX_ITERATIONS:
+        map = input_file.map(lambda row: assign_centroids(row))
+        sumRDD = map.reduceByKey(lambda x, y: reduce(x,y))
+        centroidsRDD = sumRDD.mapValues(lambda x: x.get_average_point())
+        new_centroids = [item[1] for item in centroidsRDD.collect()]
+        stop = stopping_criterion(new_centroids, DISTANCE_TYPE,THRESHOLD)
+        n += 1
+        if(stop == False and n < MAX_ITERATIONS):
+            centroids_broadcast.unpersist()
+            centroids_broadcast = sc.broadcast(new_centroids)
+```
+(*line 86-96 of [spark.py](/k-means-spark/spark.py)*)
 ### 1.1 Model
 
 In order to represent the points, a class **Point** has been defined.
@@ -17,9 +61,9 @@ It's characterized by the following fields:
 
 It includes the following operations:
 
-- distance (is possible to pass as parameter the type of distance)
+- distance (it is possible to pass as parameter the type of distance)
 - sum
-- get_average
+- get_average: this method returns a point that has as component the average of the actual components on the number of the points represented by the object
 
 ```
 class Point:
@@ -63,17 +107,16 @@ class Point:
 ```
 (*lines 0-38 of [point.py](/k-means-spark/point.py)*)
 
-### 1.1 Mapper
+### 1.3 Mapper
 
 The mapper method is invoked, at each iteration,  on the input file, that contains the points from the dataset.
-
 
 ```
  map = input_file.map(lambda row: assign_centroids(row))
 ```
-(*line 90 of [spark.py](/k-means-spark/spark.py)*)
+(*line 89 of [spark.py](/k-means-spark/spark.py)*)
 
-The **assign_centroid** function is divided in two parts: in the first we read a point (as a row of coordinates);in the second we assign the point to the closest centroid, using the type of distance specified by the user, ans we emit the result as a tuple: **(id of the centroid, point)**.
+The **assign_centroids** function is divided in two parts: in the first we read a point (as a row of coordinates);in the second we assign the point to the closest centroid, using the type of distance specified by the user, and we emit the result as a tuple: **(id of the centroid, point)**.
 ```
 
  def assign_centroids(row):
@@ -93,6 +136,62 @@ The **assign_centroid** function is divided in two parts: in the first we read a
     return (nearest_centroid, p)
 ```
 (*lines 32-46 of [spark.py](/k-means-spark/spark.py)*)
+
+### 1.4 Reducer
+
+The reduce stage is done using two spark transformations:
+- reduceByKey: for each cluster, compute the sum of the points belonging to it. It is mandatory to pass one associative function as a parameter.
+The associative function (which accepts two arguments and returns a single element) should be Commutative and Associative in mathematical nature.
+```
+sumRDD = map.reduceByKey(lambda x, y: reduce(x,y))
+```
+(*line 90 of [spark.py](/k-means-spark/spark.py)*)
+```
+def reduce(x, y):
+    x.sum(y)
+    return x
+
+```
+(*line 57-59 of [spark.py](/k-means-spark/spark.py)*)
+
+- mapValues: it is used to calculate the average point for each cluster at the end of each stage. The points are already divided by key. This trasformation works only on the value of a key.
+```
+centroidsRDD = sumRDD.mapValues(lambda x: x.get_average_point())
+```
+(*line 91 of [spark.py](/k-means-spark/spark.py)*)
+
+```
+def get_average_point(self):
+        average_point = Point(self.components)
+        for i in range(0, self.dimension):
+            average_point.components[i] /= self.number_of_points
+        return average_point
+
+```
+(*line 34-38 of [point.py](/k-means-spark/point.py)*)
+
+### 1.5 Broadcast
+
+We pass the new centroids to the next stage with a read-only global variable provided by the framework. This variable is defined into the Driver and broadcasted to the workers.
+The Driver initializes the variable.
+```
+centroids_broadcast = sc.broadcast(initial_centroids)
+```
+(*line 84 of [spark.py](/k-means-spark/spark.py)*)
+
+The workers read the value and perform the operations.
+
+```
+centroids = centroids_broadcast.value
+```
+(*line 39 of [spark.py](/k-means-spark/spark.py)*)
+
+At the end of each iteration the variable with old centroids is unpersisted and the new centroids are broadcasted.
+```
+ centroids_broadcast.unpersist()
+ centroids_broadcast = sc.broadcast(new_centroids)
+```
+(*line 95-96 of [spark.py](/k-means-spark/spark.py)*)
 
 ## 2. Test
 
