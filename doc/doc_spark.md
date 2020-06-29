@@ -170,7 +170,7 @@ def get_average_point(self):
 ```
 (*line 34-38 of [point.py](/k-means-spark/point.py)*)
 
-### Broadcast
+### 1.5 Broadcast
 
 We pass the new centroids to the next stage with a read-only global variable provided by the framework. This variable is defined into the Driver and broadcasted to the workers.
 The Driver initializes the variable.
