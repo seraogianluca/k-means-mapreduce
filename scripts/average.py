@@ -1,6 +1,8 @@
 from statistics import mean
 
-with open("output_3_7.txt", "r") as file:
+path = "../benchmarks/100k/output_7_7.txt"
+
+with open(path, "r") as file:
     times = []
     iterations = []
     for line in file:
@@ -10,7 +12,7 @@ with open("output_3_7.txt", "r") as file:
             iterations.append(int(line.split()[1]))
 
 
-with open("output_3_7.txt", "a") as file:
+with open(path, "a") as file:
     file.write('\n')
     file.write("average time: {mean: .4f} ms \n".format(mean = mean(times)))
     file.write("average iterations: {mean: .4f} \n".format(mean = mean(iterations)))

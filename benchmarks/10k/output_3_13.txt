@@ -168,3 +168,6 @@ centroids:
  [ 8.83413281  2.33964682  1.47493619]]
 n_iter: 7
 
+
+average time:  251.5714 ms 
+average iterations:  7.0000 

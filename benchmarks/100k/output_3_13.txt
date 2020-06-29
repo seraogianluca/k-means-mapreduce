@@ -169,3 +169,6 @@ centroids:
 n_iter: 5
 
 
+
+average time:  2601.4164 ms 
+average iterations:  5.0000 
