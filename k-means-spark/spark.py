@@ -87,7 +87,7 @@ if __name__ == "__main__":
         print("**Iteration n." + str(n+1))
         map = input_file.map(lambda row: assign_centroids(row))
         sumRDD = map.reduceByKey(lambda x, y: reduce(x,y)) ## f(x) must be associative
-        centroidsRDD = sumRDD.mapValues(lambda x: x.get_average_point())
+        centroidsRDD = sumRDD.mapValues(lambda x: x.get_average_point()).sortBy(lambda x: x[1].components[0])
         new_centroids = [item[1] for item in centroidsRDD.collect()]
         stop = stopping_criterion(new_centroids, DISTANCE_TYPE,THRESHOLD)
         n += 1
