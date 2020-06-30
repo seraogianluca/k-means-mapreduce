@@ -2,12 +2,13 @@
 
 ## Table of Contents
 
-1) [Implementation](#1-implementation)
-2) [Test](#2-test)
+1) [Initializzation and stages](#1-initialization-and-stages)
+2) [Model](#2-model)
+3) [Mapper](#3-mapper)
+4) [Reducer](#4-reducer)
+5) [Broadcast](#4-broadcast)
 
-## 1. Implementation
-
-### Initialization and stages
+## 1. Initialization and stages
 
 As first step, we read the file with the points and we generate the initial centroids with a random sampling.
 
@@ -56,7 +57,7 @@ After that, we iterate the mapper and the reducer stages until the **stopping cr
 
 (*line 86-96 of [spark.py](/k-means-spark/spark.py)*)
 
-### 1.1 Model
+## 2. Model
 
 In order to represent the points, a class **Point** has been defined.
 It's characterized by the following fields:
@@ -111,7 +112,7 @@ class Point:
 
 (*lines 0-38 of [point.py](/k-means-spark/point.py)*)
 
-### 1.3 Mapper
+## 3. Mapper
 
 The mapper method is invoked, at each iteration,  on the input file, that contains the points from the dataset.
 
@@ -144,7 +145,7 @@ The **assign_centroids** function is divided in two parts: in the first we read 
 
 (*lines 32-46 of [spark.py](/k-means-spark/spark.py)*)
 
-### 1.4 Reducer
+## 4. Reducer
 
 The reduce stage is done using two spark transformations:
 
@@ -182,7 +183,7 @@ def get_average_point(self):
 
 (*line 34-38 of [point.py](/k-means-spark/point.py)*)
 
-### 1.5 Broadcast
+## 5. Broadcast
 
 We pass the new centroids to the next stage with a read-only global variable provided by the framework. This variable is defined into the Driver and broadcasted to the workers.
 The Driver initializes the variable.
@@ -209,5 +210,3 @@ At the end of each iteration the variable with old centroids is unpersisted and 
 ```
 
 (*line 95-96 of [spark.py](/k-means-spark/spark.py)*)
-
-## 2. Test
