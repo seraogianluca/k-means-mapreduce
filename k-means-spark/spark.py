@@ -10,9 +10,9 @@ import time
 #os.environ['PYSPARK_PYTHON'] = '/usr/local/bin/python3' ## TODO: Remove
 
 def init_centroids(dataset, dataset_size, k):
+    start_time = time.time()
     positions = ny.random.choice(range(dataset_size), size=k, replace=False)
     positions.sort()
-    print("Random positions:", positions)
     initial_centroids = []
     i, j = 0, 0
     for row in dataset.collect():
@@ -26,7 +26,7 @@ def init_centroids(dataset, dataset_size, k):
             i += 1
             initial_centroids.append(p)
         j += 1
-    # print("Last initial centroid:", initial_centroids[len(initial_centroids)-1])
+    print("Centroids initialization duration:", len(initial_centroids), "in", (time.time() - start_time))
     return initial_centroids
 
 def assign_centroids(row):
@@ -46,6 +46,7 @@ def assign_centroids(row):
     return (nearest_centroid, p)
 
 def stopping_criterion(new_centroids, dist, threshold):
+    # O(dim *  k)
     check = True
     old_centroids = centroids_broadcast.value
     for i in range(len(old_centroids)):
@@ -79,7 +80,6 @@ if __name__ == "__main__":
 
     input_file = sc.textFile(INPUT_PATH)
     initial_centroids = init_centroids(input_file, dataset_size=parameters["datasetsize"], k=parameters["k"])
-    print("Centroids initialized:", len(initial_centroids), "in", (time.time() - start_time))
     distance_broadcast = sc.broadcast(DISTANCE_TYPE)
     centroids_broadcast = sc.broadcast(initial_centroids)
     stop, n = False, 0
@@ -99,6 +99,6 @@ if __name__ == "__main__":
     if already_exists:
         fs.delete(sc._jvm.org.apache.hadoop.fs.Path(OUTPUT_PATH), True)
         print("File already exists, it has been overwritten")
-    centroidsRDD.saveAsTextFile(OUTPUT_PATH)
+    centroidsRDD.repartition(1).saveAsTextFile(OUTPUT_PATH)
     print("\nIterations:", n)
     print("Time:", (time.time() - start_time), "s")

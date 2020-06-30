@@ -11,10 +11,9 @@ class Point:
         self.number_of_points += p.number_of_points
 
     def distance(self, p, h):
+        if (h < 0):
+           h = 2
         if (h == 0):
-           return -1
-        
-        if (h == float("inf")):
             # Chebyshev distance
             max = -1.0
             diff = 0.0
