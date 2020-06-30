@@ -26,7 +26,7 @@ def init_centroids(dataset, dataset_size, k):
             i += 1
             initial_centroids.append(p)
         j += 1
-    print("Centroids initialization duration:", len(initial_centroids), "in", (time.time() - start_time))
+    print("Centroids initialization:", len(initial_centroids), "in", (time.time() - start_time), "s")
     return initial_centroids
 
 def assign_centroids(row):
@@ -84,7 +84,8 @@ if __name__ == "__main__":
     centroids_broadcast = sc.broadcast(initial_centroids)
     stop, n = False, 0
     while stop == False and n < MAX_ITERATIONS:
-        print("**Iteration n." + str(n+1))
+        print("--Iteration n." + str(n+1))
+        stage_time = time.time()
         map = input_file.map(lambda row: assign_centroids(row))
         sumRDD = map.reduceByKey(lambda x, y: reduce(x,y)) ## f(x) must be associative
         centroidsRDD = sumRDD.mapValues(lambda x: x.get_average_point()).sortBy(lambda x: x[1].components[0])
@@ -94,6 +95,7 @@ if __name__ == "__main__":
         if(stop == False and n < MAX_ITERATIONS):
             centroids_broadcast.unpersist()
             centroids_broadcast = sc.broadcast(new_centroids)
+        print("++++Stage time:", (time.time() - stage_time), "s")
     fs = sc._jvm.org.apache.hadoop.fs.FileSystem.get(sc._jsc.hadoopConfiguration())
     already_exists = fs.exists(sc._jvm.org.apache.hadoop.fs.Path(OUTPUT_PATH + "/_SUCCESS"))
     if already_exists:

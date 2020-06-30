@@ -3,17 +3,18 @@
 // k # of clusters\
 // X = {x1, ...., xn}   n = # points in d dimensions\
 // M = {u_1, ..., u_k}  means (centroids) in d dimensions, randomly sampled from X\
-// d = 3  -> x1 = [x1_1, x1_2, x1_3], x2 = ..., xn =... \ 
+// d = 3  -> x1 = [x1_1, x1_2, x1_3], x2 = ..., xn =... \
 
 //f(M)=SOMMA(MIN|x-u|^2)
 
 <!-- Program -->
 //K-Means(X,k)
 
-# Algorithm
+## Algorithm
+
 **Input:** Set of points X in d dimensions, k number of cluster, threshold.
 
-```
+```pseudocode
 while old_centroids - new_centroids > threshold:
     map
         - Given a point and a set of centroids
@@ -27,11 +28,13 @@ while old_centroids - new_centroids > threshold:
 
 **Output:** Set of k centroids in d dimensions.
 
-# Mapper
+## Mapper
+
 **Input:** (Offset, Point)
 
-**Map function**
-```
+### Map function
+
+```pseudocode
 x = Construct the Point
 min_dist = POSITIVE_INFINITY
 c = -1 (Closest centroid)
@@ -47,11 +50,13 @@ emit(c, x)
 
 **Output:** (Closest centroid index c_j, x_i)
 
-# Combiner
+## Combiner
+
 **Input:** (Centroid_id, List of points)
 
-**Combine function**
-```
+### Combine function
+
+```pseudocode
 number_of_points = 0
 sum = 0
 for each point in list of points:
@@ -61,11 +66,13 @@ for each point in list of points:
 
 **Output:** (Centroid_id, < partial_sum, number_of_points >)
 
-# Reducer
+## Reducer
+
 **Input:** (Centroid_id, List of partial_sums)
 
-**Reduce function**
-```
+### Reduce function**
+
+```pseudocode
 number_of_point = 0
 sum = 0
 for each point in list of points:
@@ -77,10 +84,9 @@ centroid_new_value = sum / number_of_points
 
 **Output:** (Centroid_id, centroid_new_value)
 
-# File di input
+## File di input
+
 (3, 2, 1)\
 (3, 2, 0)\
 (2, 0, 2)\
 (6, 3, 4)
-
-
