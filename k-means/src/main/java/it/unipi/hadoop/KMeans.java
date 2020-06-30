@@ -13,6 +13,7 @@ import java.util.Random;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FSDataOutputStream;
+import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -100,11 +101,13 @@ public class KMeans {
 
     private static boolean stoppingCriterion(Point[] oldCentroids, Point[] newCentroids, int distance, float threshold) {
         boolean check = true;
-        for(int i = 0; i < oldCentroids.length; i++) {
-            check = oldCentroids[i].distance(newCentroids[i], distance) <= threshold;
-            if (!check) {
-                return false;
-            }
+        float oldNorm = 0.0f;
+        float newNorm = 0.0f;
+        oldNorm = Point.frobeniusNorm(oldCentroids);
+        newNorm = Point.frobeniusNorm(newCentroids);
+        check = Math.abs(newNorm - oldNorm) <= threshold;
+        if(!check) {
+            return false;
         }
         return true;
     }
@@ -152,17 +155,18 @@ public class KMeans {
 
     private static Point[] readCentroids(Configuration conf, int k, String pathString) throws IOException {
         Point[] points = new Point[k];
-        FileSystem hdfs = FileSystem.get(conf);	
+        FileSystem hdfs = FileSystem.get(conf);
+        FileStatus[] status = hdfs.listStatus(new Path(pathString));	
         
-        for (int i = 0; i < k; i++) {
-            Path path = new Path(pathString + "/part-r-0000" + i);
-            BufferedReader br = new BufferedReader(new InputStreamReader(hdfs.open(path)));
-            
-            String[] keyValueSplit = br.readLine().split("\t"); //Split line in K,V
-            int centroidId = Integer.parseInt(keyValueSplit[0]);
-            String[] point = keyValueSplit[1].split(",");
-            points[centroidId] = new Point(point);
-            br.close();
+        for (int i = 0; i < status.length; i++) {
+            if(!status[i].getPath().toString().endsWith("_SUCCESS")) {
+                BufferedReader br = new BufferedReader(new InputStreamReader(hdfs.open(status[i].getPath())));
+                String[] keyValueSplit = br.readLine().split("\t"); //Split line in K,V
+                int centroidId = Integer.parseInt(keyValueSplit[0]);
+                String[] point = keyValueSplit[1].split(",");
+                points[centroidId] = new Point(point);
+                br.close();
+            }
         }
         hdfs.delete(new Path(pathString), true); //delete temp directory
 
