@@ -83,9 +83,9 @@ if __name__ == "__main__":
     distance_broadcast = sc.broadcast(DISTANCE_TYPE)
     centroids_broadcast = sc.broadcast(initial_centroids)
     stop, n = False, 0
+    stages_time = time.time()
     while stop == False and n < MAX_ITERATIONS:
         print("--Iteration n." + str(n+1))
-        stage_time = time.time()
         map = input_file.map(lambda row: assign_centroids(row))
         sumRDD = map.reduceByKey(lambda x, y: reduce(x,y)) ## f(x) must be associative
         centroidsRDD = sumRDD.mapValues(lambda x: x.get_average_point()).sortBy(lambda x: x[1].components[0])
@@ -95,7 +95,7 @@ if __name__ == "__main__":
         if(stop == False and n < MAX_ITERATIONS):
             centroids_broadcast.unpersist()
             centroids_broadcast = sc.broadcast(new_centroids)
-        print("++++Stage time:", (time.time() - stage_time), "s")
+    stages_time = time.time() - stages_time
     fs = sc._jvm.org.apache.hadoop.fs.FileSystem.get(sc._jsc.hadoopConfiguration())
     already_exists = fs.exists(sc._jvm.org.apache.hadoop.fs.Path(OUTPUT_PATH + "/_SUCCESS"))
     if already_exists:
@@ -103,4 +103,7 @@ if __name__ == "__main__":
         print("File already exists, it has been overwritten")
     centroidsRDD.repartition(1).saveAsTextFile(OUTPUT_PATH)
     print("\nIterations:", n)
-    print("Time:", (time.time() - start_time), "s")
+    print("Stages time:", stages_time, "s\n")
+    print("Average stage time:", stages_time/n, "s\n")
+    print("Total time:", (time.time() - start_time), "s")
+    print("Overhead time:", (time.time() - start_time) - stages_time, "s")
