@@ -85,7 +85,7 @@ if __name__ == "__main__":
     stop, n = False, 0
     stages_time = time.time()
     while stop == False and n < MAX_ITERATIONS:
-        print("--Iteration n." + str(n+1))
+        # print("--Iteration n." + str(n+1))
         map = input_file.map(lambda row: assign_centroids(row))
         sumRDD = map.reduceByKey(lambda x, y: reduce(x,y)) ## f(x) must be associative
         centroidsRDD = sumRDD.mapValues(lambda x: x.get_average_point()).sortBy(lambda x: x[1].components[0])
@@ -106,4 +106,4 @@ if __name__ == "__main__":
     print("Stages time:", stages_time, "s\n")
     print("Average stage time:", stages_time/n, "s\n")
     print("Total time:", (time.time() - start_time), "s")
-    print("Overhead time:", (time.time() - start_time) - stages_time, "s")
+    print("Overhead time:", (time.time() - start_time) - stages_time, "s\n")
