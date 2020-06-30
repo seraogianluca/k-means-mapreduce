@@ -1,6 +1,6 @@
 from statistics import mean
 
-path = "../benchmarks/100k/output_7_7.txt"
+path = "../benchmarks/1k/output_3_7.txt"
 
 with open(path, "r") as file:
     times = []
