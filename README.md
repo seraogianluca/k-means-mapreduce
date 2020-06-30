@@ -124,3 +124,5 @@ scelta del dataset scriptino pyython
 
 
 ## 5. Credits
+
+@matildao-pane, @thorongil05, @ragnar1002, @seraogianluca.
