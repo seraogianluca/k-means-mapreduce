@@ -82,7 +82,8 @@ class REDUCER
 
 ## 3. Implementation
 
-Hadoop implementation: [K-Means Hadoop](/doc/hadoop-md)
+Hadoop implementation: [K-Means Hadoop](/doc/hadoop.md)
+
 Spark implementation: [K-Means Spark](/doc/spark.md)
 
 ## 4. Test
@@ -123,3 +124,5 @@ scelta del dataset scriptino pyython
 
 
 ## 5. Credits
+
+@matildao-pane, @thorongil05, @ragnar1002, @seraogianluca.
