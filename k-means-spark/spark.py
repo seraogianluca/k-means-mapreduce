@@ -6,8 +6,8 @@ from pyspark import SparkContext
 from point import Point
 import time
 
-os.environ['PYSPARK_DRIVER_PYTHON'] = '/usr/local/bin/python3' ## TODO: Remove
-os.environ['PYSPARK_PYTHON'] = '/usr/local/bin/python3' ## TODO: Remove
+# os.environ['PYSPARK_DRIVER_PYTHON'] = '/usr/local/bin/python3' ## TODO: Remove
+# os.environ['PYSPARK_PYTHON'] = '/usr/local/bin/python3' ## TODO: Remove
 
 def init_centroids(dataset, dataset_size, k):
     start_time = time.time()
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     stop, n = False, 0
     stages_time = time.time()
     while True:
-        print("--Iteration n." + str(n+1), end="\r", flush=True)
+        print("--Iteration n. {itr:d}".format(itr=n+1), end="\r", flush=True)
         cluster_assignment_rdd = input_file.map(lambda row: assign_centroids(row))
         sum_rdd = cluster_assignment_rdd.reduceByKey(lambda x, y: x.sum(y)) ## f(x) must be associative
         centroids_rdd = sum_rdd.mapValues(lambda x: x.get_average_point()).sortBy(lambda x: x[1].components[0])
