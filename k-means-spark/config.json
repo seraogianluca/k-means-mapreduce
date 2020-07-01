@@ -1,11 +1,11 @@
 {
     "configuration":
     [{
-      "datasetsize": 10,
+      "datasetsize": 1000,
       "distance": 2,
       "dimension": 3,
-      "k": 2,
+      "k": 7,
       "threshold": 0.0001,
-      "maxiteration": 10
+      "maxiteration": 100
     }]
   }

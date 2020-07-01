@@ -6,8 +6,8 @@ from pyspark import SparkContext
 from point import Point
 import time
 
-#os.environ['PYSPARK_DRIVER_PYTHON'] = '/usr/local/bin/python3' ## TODO: Remove
-#os.environ['PYSPARK_PYTHON'] = '/usr/local/bin/python3' ## TODO: Remove
+os.environ['PYSPARK_DRIVER_PYTHON'] = '/usr/local/bin/python3' ## TODO: Remove
+os.environ['PYSPARK_PYTHON'] = '/usr/local/bin/python3' ## TODO: Remove
 
 def init_centroids(dataset, dataset_size, k):
     start_time = time.time()
@@ -16,25 +16,21 @@ def init_centroids(dataset, dataset_size, k):
     initial_centroids = []
     i, j = 0, 0
     for row in dataset.collect():
-        if (i >= len(positions)):
-            break
-        position = positions[i]
-        if(j == position):
+        if(j == positions[i]):
             line = row.replace(" ", "").split(",")
-            components = [float(k) for k in line]
-            p = Point(components)
+            initial_centroids.append(Point(line))
             i += 1
-            initial_centroids.append(p)
+            if (i >= len(positions)): 
+                break
         j += 1
     print("Centroids initialization:", len(initial_centroids), "in", (time.time() - start_time), "s")
     return initial_centroids
 
 def assign_centroids(row):
     # Create the point
-    components = row.replace(" ", "").split(",")
-    components = [float(i) for i in components]
-    p = Point(components)
-    # Assign to the closer centroid
+    line = row.replace(" ", "").split(",")
+    p = Point(line)
+    # Assign to the closest centroid
     min_dist = float("inf")
     centroids = centroids_broadcast.value
     nearest_centroid = 0
@@ -45,63 +41,57 @@ def assign_centroids(row):
             nearest_centroid = i
     return (nearest_centroid, p)
 
-def stopping_criterion(new_centroids, dist, threshold):
+def stopping_criterion(new_centroids, threshold):
     # O(dim *  k)
-    check = True
     old_centroids = centroids_broadcast.value
     for i in range(len(old_centroids)):
-        check = old_centroids[i].distance(new_centroids[i], dist) < threshold
+        check = old_centroids[i].distance(new_centroids[i], distance_broadcast.value) < threshold
         if check == False:
             return False
     return True
 
-def reduce(x, y):
-    x.sum(y)
-    return x
-
-if __name__ == "__main__":
-    start_time = time.time()
-    sc = SparkContext("yarn", "Kmeans")
-    print("\n***START****\n")
-    sc.setLogLevel("ERROR")
-    sc.addPyFile("./point.py") ## It's necessary, otherwise the spark framework doesn't see point.py
-    config = open('./config.json')
-    parameters = json.load(config)["configuration"][0]
-    config.close()    
-    print("Parameters:", str(len(sys.argv)))
-    if len(sys.argv) < 2:
-        print("Number of arguments not valid!")
-        sys.exit(1)
-    INPUT_PATH = str(sys.argv[1])
-    OUTPUT_PATH = str(sys.argv[2]) if len(sys.argv) > 1 else "./output.txt"
-    DISTANCE_TYPE = parameters["distance"]
-    THRESHOLD = parameters["threshold"]
-    MAX_ITERATIONS = parameters["maxiteration"]
-
-    input_file = sc.textFile(INPUT_PATH)
-    initial_centroids = init_centroids(input_file, dataset_size=parameters["datasetsize"], k=parameters["k"])
-    distance_broadcast = sc.broadcast(DISTANCE_TYPE)
-    centroids_broadcast = sc.broadcast(initial_centroids)
-    stop, n = False, 0
-    stages_time = time.time()
-    while stop == False and n < MAX_ITERATIONS:
-        # print("--Iteration n." + str(n+1))
-        map = input_file.map(lambda row: assign_centroids(row))
-        sumRDD = map.reduceByKey(lambda x, y: reduce(x,y)) ## f(x) must be associative
-        centroidsRDD = sumRDD.mapValues(lambda x: x.get_average_point()).sortBy(lambda x: x[1].components[0])
-        new_centroids = [item[1] for item in centroidsRDD.collect()]
-        stop = stopping_criterion(new_centroids, DISTANCE_TYPE,THRESHOLD)
-        n += 1
-        if(stop == False and n < MAX_ITERATIONS):
-            centroids_broadcast.unpersist()
-            centroids_broadcast = sc.broadcast(new_centroids)
-    stages_time = time.time() - stages_time
-    fs = sc._jvm.org.apache.hadoop.fs.FileSystem.get(sc._jsc.hadoopConfiguration())
+def clean_hdfs(context, output_path):
+    fs = context._jvm.org.apache.hadoop.fs.FileSystem.get(context._jsc.hadoopConfiguration())
     already_exists = fs.exists(sc._jvm.org.apache.hadoop.fs.Path(OUTPUT_PATH + "/_SUCCESS"))
     if already_exists:
         fs.delete(sc._jvm.org.apache.hadoop.fs.Path(OUTPUT_PATH), True)
         print("File already exists, it has been overwritten")
-    centroidsRDD.repartition(1).saveAsTextFile(OUTPUT_PATH)
+
+if __name__ == "__main__":
+    start_time = time.time()
+    if len(sys.argv) < 2:
+        print("Number of arguments not valid!")
+        sys.exit(1)
+    with open('./config.json') as config:
+        parameters = json.load(config)["configuration"][0]
+    INPUT_PATH = str(sys.argv[1])
+    OUTPUT_PATH = str(sys.argv[2]) if len(sys.argv) > 1 else "./output.txt"
+    sc = SparkContext("local", "Kmeans")
+    print("\n***START****\n")
+    sc.setLogLevel("ERROR")
+    sc.addPyFile("./point.py") ## It's necessary, otherwise the spark framework doesn't see point.py
+    input_file = sc.textFile(INPUT_PATH)
+    initial_centroids = init_centroids(input_file, dataset_size=parameters["datasetsize"], k=parameters["k"])
+    distance_broadcast = sc.broadcast(parameters["distance"])
+    centroids_broadcast = sc.broadcast(initial_centroids)
+    stop, n = False, 0
+    stages_time = time.time()
+    while True:
+        print("--Iteration n." + str(n+1), end="\r", flush=True)
+        cluster_assignment_rdd = input_file.map(lambda row: assign_centroids(row))
+        sum_rdd = cluster_assignment_rdd.reduceByKey(lambda x, y: x.sum(y)) ## f(x) must be associative
+        centroids_rdd = sum_rdd.mapValues(lambda x: x.get_average_point()).sortBy(lambda x: x[1].components[0])
+        new_centroids = [item[1] for item in centroids_rdd.collect()]
+        stop = stopping_criterion(new_centroids,parameters["threshold"])
+        n += 1
+        if(stop == False and n < parameters["maxiteration"]):
+            centroids_broadcast.unpersist()
+            centroids_broadcast = sc.broadcast(new_centroids)
+        else:
+            break
+    stages_time = time.time() - stages_time
+    clean_hdfs(sc, OUTPUT_PATH)
+    centroids_rdd.repartition(1).saveAsTextFile(OUTPUT_PATH)
     print("\nIterations:", n)
     print("Stages time:", stages_time, "s\n")
     print("Average stage time:", stages_time/n, "s\n")
