@@ -1,0 +1,9 @@
+
+CANCELLARE SPESSO I FILE IN QUESTI PATHS.
+
+datanode:
+tmp/hadoop-hadoop/nm-local-dir/usercacahe/hadoop/filecache
+opt/hdfs/datanode/cuurrent/BP../current/finalized/subdir0/..
+
+namenode:
+opt/yarn/local/usercache/hadoop/filecache
