@@ -13,6 +13,8 @@ public class KMeansMapper extends Mapper<LongWritable, Text, IntWritable, Point>
 
     private Point[] centroids;
     private int p;
+    private Point point = new Point();
+    private IntWritable centroid = new IntWritable();
 
     public void setup(Context context) {
         int k = Integer.parseInt(context.getConfiguration().get("k"));
@@ -30,21 +32,23 @@ public class KMeansMapper extends Mapper<LongWritable, Text, IntWritable, Point>
         
         // Contruct the point
         String[] pointString = value.toString().split(",");
-        Point point = new Point(pointString);
+        point.set(pointString);
 
         // Initialize variables
         float minDist = Float.POSITIVE_INFINITY;
         float distance = 0.0f;
-        IntWritable centroid = new IntWritable(-1);
+        int nearest = -1;
 
         // Find the closest centroid
         for (int i = 0; i < centroids.length; i++) {
             distance = point.distance(centroids[i], p);
             if(distance < minDist) {
-                centroid.set(i);
+                nearest = i;
                 minDist = distance;
             }
         }
+
+        centroid.set(nearest);
         context.write(centroid, point);
     }
 }

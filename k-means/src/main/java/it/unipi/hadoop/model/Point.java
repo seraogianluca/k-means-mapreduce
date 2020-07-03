@@ -40,6 +40,14 @@ public class Point implements Writable {
         this.numPoints = 1;
     }
 
+    public void set(final String[] s) {
+        float[] comp = new float[s.length];
+        for (int k = 0; k < s.length; k++) {
+            comp[k] = Float.parseFloat(s[k]);
+        }
+        this.set(comp);
+    }
+
     @Override
     public void readFields(final DataInput in) throws IOException {
         this.dim = in.readInt();
