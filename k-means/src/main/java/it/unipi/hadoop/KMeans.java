@@ -17,11 +17,7 @@ import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.util.GenericOptionsParser;
 
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -30,74 +26,9 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 import it.unipi.hadoop.model.Point;
+import it.unipi.hadoop.mapreduce.*;
 
 public class KMeans {
-
-    public static class KMeansMapper extends Mapper<LongWritable, Text, IntWritable, Point> {
-
-        private Point[] centroids;
-        private int p;
-
-        public void setup(Context context) {
-            int k = Integer.parseInt(context.getConfiguration().get("k"));
-            this.p = Integer.parseInt(context.getConfiguration().get("distance"));
-
-            this.centroids = new Point[k];
-            for(int i = 0; i < k; i++) {
-                String[] centroid = context.getConfiguration().getStrings("centroid." + i);
-                this.centroids[i] = new Point(centroid);
-            }
-        }
-
-        public void map(LongWritable key, Text value, Context context) 
-         throws IOException, InterruptedException {
-            
-            // Contruct the point
-            String[] pointString = value.toString().split(",");
-            Point point = new Point(pointString);
-
-            // Initialize variables
-            float minDist = Float.POSITIVE_INFINITY;
-            float distance = 0.0f;
-            IntWritable centroid = new IntWritable(-1);
-
-            // Find the closest centroid
-            for (int i = 0; i < centroids.length; i++) {
-                distance = point.distance(centroids[i], p);
-                if(distance < minDist) {
-                    centroid.set(i);
-                    minDist = distance;
-                }
-            }
-            context.write(centroid, point);
-        }
-    }
-
-    public static class KMeansCombiner extends Reducer<IntWritable, Point, IntWritable, Point> {
-
-        public void reduce(IntWritable centroid, Iterable<Point> points, Context context) 
-         throws IOException, InterruptedException {
-            Point sum = Point.copy(points.iterator().next());
-            while (points.iterator().hasNext()) {
-                sum.sum(points.iterator().next());
-            }
-            context.write(centroid, sum);
-        }
-    }
-
-    public static class KMeansReducer extends Reducer<IntWritable, Point, Text, Text> {
-
-        public void reduce(IntWritable centroid, Iterable<Point> partialSums, Context context)
-            throws IOException, InterruptedException {
-            Point sum = Point.copy(partialSums.iterator().next());
-            while (partialSums.iterator().hasNext()) {
-                sum.sum(partialSums.iterator().next());
-            }
-            //Calculate the new centroid
-            sum.average();
-            context.write(new Text(centroid.toString()), new Text(sum.toString()));
-        }
-    }
 
     private static boolean stoppingCriterion(Point[] oldCentroids, Point[] newCentroids, int distance, float threshold) {
         boolean check = true;
