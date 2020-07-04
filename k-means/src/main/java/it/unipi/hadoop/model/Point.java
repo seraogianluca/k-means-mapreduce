@@ -40,6 +40,14 @@ public class Point implements Writable {
         this.numPoints = 1;
     }
 
+    public void set(final String[] s) {
+        float[] comp = new float[s.length];
+        for (int k = 0; k < s.length; k++) {
+            comp[k] = Float.parseFloat(s[k]);
+        }
+        this.set(comp);
+    }
+
     @Override
     public void readFields(final DataInput in) throws IOException {
         this.dim = in.readInt();
@@ -108,23 +116,12 @@ public class Point implements Writable {
             return dist;
         }
     }
-
+    
     public void average() {
         for (int i = 0; i < this.dim; i++) {
             float temp = this.components[i] / this.numPoints;
             this.components[i] = (float)Math.round(temp*100000)/100000.0f;
         }
         this.numPoints = 1;
-    }
-
-    public static float frobeniusNorm(Point[] points) {
-        float norm = 0.0f;
-        for(int i = 0; i < points.length; i++) {
-            for(int j = 0; j < points[i].dim; j++) {
-                norm += Math.pow(points[i].components[j], 2);
-            }
-        }
-        norm = (float)Math.round(Math.sqrt(norm)*100000)/100000.0f;
-        return norm;
     }
 }

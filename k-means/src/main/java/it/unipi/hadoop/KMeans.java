@@ -2,6 +2,7 @@ package it.unipi.hadoop;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -17,11 +18,7 @@ import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.util.GenericOptionsParser;
 
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -30,84 +27,17 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 import it.unipi.hadoop.model.Point;
+import it.unipi.hadoop.mapreduce.*;
 
 public class KMeans {
 
-    public static class KMeansMapper extends Mapper<LongWritable, Text, IntWritable, Point> {
-
-        private Point[] centroids;
-        private int p;
-
-        public void setup(Context context) {
-            int k = Integer.parseInt(context.getConfiguration().get("k"));
-            this.p = Integer.parseInt(context.getConfiguration().get("distance"));
-
-            this.centroids = new Point[k];
-            for(int i = 0; i < k; i++) {
-                String[] centroid = context.getConfiguration().getStrings("centroid." + i);
-                this.centroids[i] = new Point(centroid);
-            }
-        }
-
-        public void map(LongWritable key, Text value, Context context) 
-         throws IOException, InterruptedException {
-            
-            // Contruct the point
-            String[] pointString = value.toString().split(",");
-            Point point = new Point(pointString);
-
-            // Initialize variables
-            float minDist = Float.POSITIVE_INFINITY;
-            float distance = 0.0f;
-            IntWritable centroid = new IntWritable(-1);
-
-            // Find the closest centroid
-            for (int i = 0; i < centroids.length; i++) {
-                distance = point.distance(centroids[i], p);
-                if(distance < minDist) {
-                    centroid.set(i);
-                    minDist = distance;
-                }
-            }
-            context.write(centroid, point);
-        }
-    }
-
-    public static class KMeansCombiner extends Reducer<IntWritable, Point, IntWritable, Point> {
-
-        public void reduce(IntWritable centroid, Iterable<Point> points, Context context) 
-         throws IOException, InterruptedException {
-            Point sum = Point.copy(points.iterator().next());
-            while (points.iterator().hasNext()) {
-                sum.sum(points.iterator().next());
-            }
-            context.write(centroid, sum);
-        }
-    }
-
-    public static class KMeansReducer extends Reducer<IntWritable, Point, Text, Text> {
-
-        public void reduce(IntWritable centroid, Iterable<Point> partialSums, Context context)
-            throws IOException, InterruptedException {
-            Point sum = Point.copy(partialSums.iterator().next());
-            while (partialSums.iterator().hasNext()) {
-                sum.sum(partialSums.iterator().next());
-            }
-            //Calculate the new centroid
-            sum.average();
-            context.write(new Text(centroid.toString()), new Text(sum.toString()));
-        }
-    }
-
     private static boolean stoppingCriterion(Point[] oldCentroids, Point[] newCentroids, int distance, float threshold) {
         boolean check = true;
-        float oldNorm = 0.0f;
-        float newNorm = 0.0f;
-        oldNorm = Point.frobeniusNorm(oldCentroids);
-        newNorm = Point.frobeniusNorm(newCentroids);
-        check = Math.abs(newNorm - oldNorm) <= threshold;
-        if(!check) {
-            return false;
+        for(int i = 0; i < oldCentroids.length; i++) {
+            check = oldCentroids[i].distance(newCentroids[i], distance) <= threshold;
+            if(!check) {
+                return false;
+            }
         }
         return true;
     }
@@ -116,8 +46,8 @@ public class KMeans {
       throws IOException {
     	Point[] points = new Point[k];
     	
-        // Create a sorted list of positions without duplicates
-        // Positions are the line index of the random selected centroids
+        //Create a sorted list of positions without duplicates
+        //Positions are the line index of the random selected centroids
         List<Integer> positions = new ArrayList<Integer>();
         Random random = new Random();
         int pos;
@@ -129,13 +59,13 @@ public class KMeans {
         }
         Collections.sort(positions);
         
-        // File reading utils
+        //File reading utils
         Path path = new Path(pathString);
     	FileSystem hdfs = FileSystem.get(conf);
     	FSDataInputStream in = hdfs.open(path);
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
 
-        // Get centroids from the file
+        //Get centroids from the file
         int row = 0;
         int i = 0;
         int position;
@@ -153,12 +83,14 @@ public class KMeans {
     	return points;
     } 
 
-    private static Point[] readCentroids(Configuration conf, int k, String pathString) throws IOException {
+    private static Point[] readCentroids(Configuration conf, int k, String pathString)
+      throws IOException, FileNotFoundException {
         Point[] points = new Point[k];
         FileSystem hdfs = FileSystem.get(conf);
         FileStatus[] status = hdfs.listStatus(new Path(pathString));	
         
         for (int i = 0; i < status.length; i++) {
+            //Read the centroids from the hdfs
             if(!status[i].getPath().toString().endsWith("_SUCCESS")) {
                 BufferedReader br = new BufferedReader(new InputStreamReader(hdfs.open(status[i].getPath())));
                 String[] keyValueSplit = br.readLine().split("\t"); //Split line in K,V
@@ -168,7 +100,8 @@ public class KMeans {
                 br.close();
             }
         }
-        hdfs.delete(new Path(pathString), true); //delete temp directory
+        //Delete temp directory
+        hdfs.delete(new Path(pathString), true); 
 
     	return points;
     }
@@ -178,6 +111,7 @@ public class KMeans {
         FSDataOutputStream dos = hdfs.create(new Path(output + "/centroids.txt"), true);
         BufferedWriter br = new BufferedWriter(new OutputStreamWriter(dos));
 
+        //Write the result in a unique file
         for(int i = 0; i < centroids.length; i++) {
             br.write(centroids[i].toString());
             br.newLine();
@@ -188,7 +122,12 @@ public class KMeans {
     }
 
     public static void main(String[] args) throws Exception {
+        long start = 0;
+        long end = 0;
+        long startIC = 0;
+        long endIC = 0;
         
+        start = System.currentTimeMillis();
         Configuration conf = new Configuration();
         conf.addResource(new Path("config.xml")); //Configuration file for the parameters
 
@@ -199,7 +138,7 @@ public class KMeans {
             System.exit(1);
         }
 
-        // Parameters setting
+        //Parameters setting
         final String INPUT = otherArgs[0];
         final String OUTPUT = otherArgs[1] + "/temp";
         final int DATASET_SIZE = conf.getInt("dataset", 10);
@@ -211,20 +150,22 @@ public class KMeans {
         Point[] oldCentroids = new Point[K];
         Point[] newCentroids = new Point[K];
 
-        // Initial centroids
+        //Initial centroids
+        startIC = System.currentTimeMillis();
         newCentroids = centroidsInit(conf, INPUT, K, DATASET_SIZE);
+        endIC = System.currentTimeMillis();
         for(int i = 0; i < K; i++) {
             conf.set("centroid." + i, newCentroids[i].toString());
         }
 
-        // MapReduce workflow
+        //MapReduce workflow
         boolean stop = false;
         boolean succeded = true;
         int i = 0;
         while(!stop) {
             i++;
 
-            // Job configuration
+            //Job configuration
             Job iteration = Job.getInstance(conf, "iter_" + i);
             iteration.setJarByClass(KMeans.class);
             iteration.setMapperClass(KMeansMapper.class);
@@ -240,29 +181,40 @@ public class KMeans {
 
             succeded = iteration.waitForCompletion(true);
 
-            if(!succeded) { // If the job fails the application will be closed.       
+            //If the job fails the application will be closed.
+            if(!succeded) {        
                 System.err.println("Iteration" + i + "failed.");
                 System.exit(1);
             }
 
-            // Save old centroids and read new centroids
+            //Save old centroids and read new centroids
             for(int id = 0; id < K; id++) {
                 oldCentroids[id] = Point.copy(newCentroids[id]);
             }                        
             newCentroids = readCentroids(conf, K, OUTPUT);
 
+            //Check if centroids are changed
             stop = stoppingCriterion(oldCentroids, newCentroids, DISTANCE, THRESHOLD);
 
-            if(stop || i == MAX_ITERATIONS) {
+            if(stop || i == (MAX_ITERATIONS -1)) {
                 finalize(conf, newCentroids, otherArgs[1]);
             } else {
-                // Set the new centroids in the configuration
+                //Set the new centroids in the configuration
                 for(int d = 0; d < K; d++) {
                     conf.unset("centroid." + d);
                     conf.set("centroid." + d, newCentroids[d].toString());
                 }
             }
         }
+
+        end = System.currentTimeMillis();
+
+        end -= start;
+        endIC -= startIC;
+        
+        System.out.println("execution time: " + end + " ms");
+        System.out.println("init centroid execution: " + endIC + " ms");
+        System.out.println("n_iter: " + i);
 
         System.exit(0);
     }
