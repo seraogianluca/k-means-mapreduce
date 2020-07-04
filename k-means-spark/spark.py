@@ -6,23 +6,15 @@ from pyspark import SparkContext
 from point import Point
 import time
 
-# os.environ['PYSPARK_DRIVER_PYTHON'] = '/usr/local/bin/python3' ## TODO: Remove
-# os.environ['PYSPARK_PYTHON'] = '/usr/local/bin/python3' ## TODO: Remove
+os.environ['PYSPARK_DRIVER_PYTHON'] = '/usr/local/bin/python3' ## TODO: Remove
+os.environ['PYSPARK_PYTHON'] = '/usr/local/bin/python3' ## TODO: Remove
 
 def init_centroids(dataset, dataset_size, k):
     start_time = time.time()
-    positions = ny.random.choice(range(dataset_size), size=k, replace=False)
-    positions.sort()
     initial_centroids = []
-    i, j = 0, 0
-    for row in dataset.collect():
-        if(j == positions[i]):
-            line = row.replace(" ", "").split(",")
-            initial_centroids.append(Point(line))
-            i += 1
-            if (i >= len(positions)): 
-                break
-        j += 1
+    for row in dataset.takeSample(False, k):
+        line = row.replace(" ", "").split(",")
+        initial_centroids.append(Point(line))
     print("Centroids initialization:", len(initial_centroids), "in", (time.time() - start_time), "s")
     return initial_centroids
 
@@ -71,6 +63,7 @@ if __name__ == "__main__":
     sc.setLogLevel("ERROR")
     sc.addPyFile("./point.py") ## It's necessary, otherwise the spark framework doesn't see point.py
     input_file = sc.textFile(INPUT_PATH)
+    input_file.cache()
     initial_centroids = init_centroids(input_file, dataset_size=parameters["datasetsize"], k=parameters["k"])
     distance_broadcast = sc.broadcast(parameters["distance"])
     centroids_broadcast = sc.broadcast(initial_centroids)

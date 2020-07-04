@@ -25,4 +25,38 @@ still, you want the output of the program to remain same.
 From multiple Mappers, Reducer get its input data as part of the partitioning process. 
 Combiners can only get its input from one Mapper.
 
+## Old norms with python
 
+<!-- # if (h < 0):
+        #    h = 2
+        # if (h == 0):
+        #     # Chebyshev distance
+        #     diff = []
+        #     for i in range(0, self.dimension):
+        #         diff.append(abs(self.components[i] - p.components[i]))
+        #     return max(diff)
+        # else:
+        #     dist = 0.0
+        #     for i in range(self.dimension):
+        #         dist += abs(self.components[i] - p.components[i]) ** h
+        #     dist = dist ** (1.0/h)
+        #     return dist -->
+
+## Old init_centroids
+
+    # positions = ny.random.choice(range(dataset_size), size=k, replace=False)
+    # positions.sort()
+    # initial_centroids = []
+    # i, j = 0, 0
+    # for row in dataset.collect():
+    #     if(j == positions[i]):
+    #         line = row.replace(" ", "").split(",")
+    #         initial_centroids.append(Point(line))
+    #         i += 1
+    #         if (i >= len(positions)): 
+    #             break
+    #     j += 1
+
+
+    L'unico "collect()" che abbiamo nell'esecuzione spark, è chiamato al massimo K volte, dove K è il numero dei centroidi. Per questo non ci crea problemi di memoria nel driver.
+    https://luminousmen.com/post/spark-tips-dont-collect-data-on-driver
