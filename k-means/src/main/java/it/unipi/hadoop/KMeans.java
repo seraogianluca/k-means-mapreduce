@@ -2,6 +2,7 @@ package it.unipi.hadoop;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -82,7 +83,8 @@ public class KMeans {
     	return points;
     } 
 
-    private static Point[] readCentroids(Configuration conf, int k, String pathString) throws IOException {
+    private static Point[] readCentroids(Configuration conf, int k, String pathString)
+      throws IOException, FileNotFoundException {
         Point[] points = new Point[k];
         FileSystem hdfs = FileSystem.get(conf);
         FileStatus[] status = hdfs.listStatus(new Path(pathString));	
