@@ -4,8 +4,8 @@ from numpy import linalg
 class Point:
     
     def __init__(self, line):
-        self.components = np.array([round(float(k), 5) for k in line])
-        self.dimension = len(self.components)
+        values = line.split(",")
+        self.components = np.array([round(float(k), 5) for k in values])
         self.number_of_points = 1
 
     def sum(self, p):
