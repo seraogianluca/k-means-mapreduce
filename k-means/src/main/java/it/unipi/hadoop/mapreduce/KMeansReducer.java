@@ -10,8 +10,8 @@ import it.unipi.hadoop.model.Point;
 
 public class KMeansReducer extends Reducer<IntWritable, Point, Text, Text> {
 
-    private Text centroidId = new Text();
-    private Text centroidValue = new Text();
+    private final Text centroidId = new Text();
+    private final Text centroidValue = new Text();
     
     public void reduce(IntWritable centroid, Iterable<Point> partialSums, Context context)
         throws IOException, InterruptedException {

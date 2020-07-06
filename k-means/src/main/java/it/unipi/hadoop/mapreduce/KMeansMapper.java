@@ -13,8 +13,8 @@ public class KMeansMapper extends Mapper<LongWritable, Text, IntWritable, Point>
 
     private Point[] centroids;
     private int p;
-    private Point point = new Point();
-    private IntWritable centroid = new IntWritable();
+    private final Point point = new Point();
+    private final IntWritable centroid = new IntWritable();
 
     public void setup(Context context) {
         int k = Integer.parseInt(context.getConfiguration().get("k"));

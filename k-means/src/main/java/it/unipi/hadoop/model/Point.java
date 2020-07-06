@@ -20,12 +20,8 @@ public class Point implements Writable {
         this.set(c);
     }
 
-    public Point(final String[] s) {  
-        float[] comp = new float[s.length];
-        for (int k = 0; k < s.length; k++) {
-            comp[k] = Float.parseFloat(s[k]);
-        }
-        this.set(comp);
+    public Point(final String[] s) { 
+        this.set(s);
     }
 
     public static Point copy(final Point p) {
@@ -41,11 +37,12 @@ public class Point implements Writable {
     }
 
     public void set(final String[] s) {
-        float[] comp = new float[s.length];
-        for (int k = 0; k < s.length; k++) {
-            comp[k] = Float.parseFloat(s[k]);
+        this.components = new float[s.length];
+        this.dim = s.length;
+        this.numPoints = 1;
+        for (int i = 0; i < s.length; i++) {
+            this.components[i] = Float.parseFloat(s[i]);
         }
-        this.set(comp);
     }
 
     @Override
