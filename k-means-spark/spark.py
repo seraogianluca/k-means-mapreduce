@@ -36,7 +36,7 @@ def stopping_criterion(new_centroids, threshold):
 
 if __name__ == "__main__":
     start_time = time.time()
-    if len(sys.argv) < 2:
+    if len(sys.argv) != 3:
         print("Number of arguments not valid!")
         sys.exit(1)
 
@@ -44,7 +44,7 @@ if __name__ == "__main__":
         parameters = json.load(config)["configuration"][0]
 
     INPUT_PATH = str(sys.argv[1])
-    OUTPUT_PATH = str(sys.argv[2]) if len(sys.argv) > 1 else "./output.txt"
+    OUTPUT_PATH = str(sys.argv[2])
     
     sc = SparkContext("local", "Kmeans")
     sc.setLogLevel("ERROR")
