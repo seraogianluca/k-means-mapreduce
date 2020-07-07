@@ -1,4 +1,4 @@
-# The K-means Clustering Algorithm in Hadoop MapReduce
+# The K-means Clustering Algorithm
 
 ## Table of Contents
 1) [Introduction](#1-introduction)
@@ -87,12 +87,12 @@ Hadoop implementation: [K-Means Hadoop](/doc/hadoop.md)
 Spark implementation: [K-Means Spark](/doc/spark.md)
 
 ## 4. Test
-
-### Dataset creation 
-To create artificial datasets to be used for testing the implementation we used the scikit-learn python library. In particular, we used the make_blobs() function that generates isotropic Gaussian blobs for clustering, in order to have a set of points with 
-
-The **make_blobs()** function generates isotropic Gaussian blobs for clustering.
-This was made in order to generate datasets with clustering tendency instead of using a random uniformly distributed set of points, because of that, the number of centers parameter choosed is much higher than the actual number of centroids that will be used to test the app.
+We use the scikit-learn python library to generate the datasets to test our implementations. In particular, we use the make_blobs() function of the datasets module to generate isotropic Gaussian blobs, in order to have a set of points with some clustering tendency. 
+We use datasets with 1000, 10000, 100000 points. For each one of them we have a dataset with:
+- 3-dimensional points with 7 centroids.
+- 3-dimensional points with 13 centroids.
+- 7-dimensional points with 7 centroids.
+- 7-dimensional points with 13 centroids.
 
 
 ### Input file 

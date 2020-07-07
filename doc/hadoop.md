@@ -32,7 +32,7 @@ public void sum(Point p) {
     this.numPoints += p.numPoints;
 }
 ```
-(*lines 76-81 of [Point.java](/k-means/src/main/java/it/unipi/hadoop/model/Point.java)*)
+(*lines 81-86 of [Point.java](/k-means/src/main/java/it/unipi/hadoop/model/Point.java)*)
 
 
 Depending on the value of `h` is possible to compute different types of distances. In particular, the Chebyshev ( *h = 0* ), the Manhattan ( *h = 1* ), the Euclidean ( *h = 2* ) and the Minkowski ( *h > 2* ) distances. 
@@ -51,8 +51,8 @@ public float distance(Point p, int h){
         for (int i = 0; i < this.dim; i++) {
             diff = Math.abs(this.components[i] - p.components[i]);
             if (diff > max) {
-                max = diff;
-            }                       
+                    max = diff;
+                }                       
         }
         return max;
 
@@ -62,12 +62,12 @@ public float distance(Point p, int h){
         for (int i = 0; i < this.dim; i++) {
             dist += Math.pow(Math.abs(this.components[i] - p.components[i]), h);
         }
-        dist = (float)Math.pow(dist, 1f/h);
+        dist = (float)Math.round(Math.pow(dist, 1f/h*100000)/100000.0f;
         return dist;
     }
 }
 ```
-(*lines 83-110 of [Point.java](/k-means/src/main/java/it/unipi/hadoop/model/Point.java)*)
+(*lines 83-115 of [Point.java](/k-means/src/main/java/it/unipi/hadoop/model/Point.java)*)
 
 
 The centroid is the arithmetic mean position of the points of a cluster. The average function computes the centroid from a sum of points.
@@ -75,12 +75,13 @@ The centroid is the arithmetic mean position of the points of a cluster. The ave
 ```java
 public void average() {
     for (int i = 0; i < this.dim; i++) {
-        this.components[i] /= this.numPoints;
+        float temp = this.components[i] / this.numPoints;
+        this.components[i] = (float)Math.round(temp*100000)/100000.0f;
     }
     this.numPoints = 1;
 }
 ```
-(*lines 112-118 of [Point.java](/k-means/src/main/java/it/unipi/hadoop/model/Point.java)*)
+(*lines 117-123 of [Point.java](/k-means/src/main/java/it/unipi/hadoop/model/Point.java)*)
 
 The `readFields` and `write` functions perform a field by field de-serialization and serialization of the point respectively.
 
@@ -96,7 +97,7 @@ public void readFields(final DataInput in) throws IOException {
     }
 }
 ```
-(*lines 43-52 of [Point.java](/k-means/src/main/java/it/unipi/hadoop/model/Point.java)*)
+(*lines 49-57 of [Point.java](/k-means/src/main/java/it/unipi/hadoop/model/Point.java)*)
 
 ```java
 @Override
@@ -110,7 +111,7 @@ public void write(final DataOutput out) throws IOException {
 }
 
 ```
-(*lines 54-62 of [Point.java](/k-means/src/main/java/it/unipi/hadoop/model/Point.java)*)
+(*lines 60-67 of [Point.java](/k-means/src/main/java/it/unipi/hadoop/model/Point.java)*)
 
 ### 2. Main
 
@@ -153,7 +154,7 @@ while(positions.size() < k) {
 }
 Collections.sort(positions);
 ```
-(*lines 118-127 of [KMeans.java](/k-means/src/main/java/it/unipi/hadoop/model/KMeans.java)*)
+(*lines 51-60 of [KMeans.java](/k-means/src/main/java/it/unipi/hadoop/KMeans.java)*)
 
 
 The file is scanned to retrieve the value of the centroids. The scan ends at the line on which the last centroid lies.
@@ -173,20 +174,7 @@ while(i < positions.size()) {
 }   
 br.close();
 ```
-(*lines 136-147 of [KMeans.java](/k-means/src/main/java/it/unipi/hadoop/model/KMeans.java)*)
-
-
-
---------------------------- 
-# !!!! TO DO !!!!
-
-abbiamo testato su un file da 100000 e 1m e il tempo per il constesto in cui siamo era accettabile quindi stoppe. 
-si poteva fare di piu? sicuramente! avevamo lo sbatti? assolutamente no.
-VEDIAMO SE TOCCA IMPLEMENTA MAPREDUCE ANCHE PER LA RANDOM CHOICE OF CENTROIDS
-
---------------------------
-
-
+(*lines 69-81 of [KMeans.java](/k-means/src/main/java/it/unipi/hadoop/KMeans.java)*)
 
 #### 2.3 Main loop
 The program is a MapReduce workflow. At the beginning all the parameters are set and centroids are initialized. For each iteration of the algorithm we configure a new job and wait for its completion. If the job fails, the program is killed. If the job succeed, the centroids are stored in the hdfs. To check the stopping criterion we read them to compare with previous centroids. The files need to be destroied to let the next job, if any, to write the result in the same path. If the stopping condition holds, the centroids are saved in a unique text file.
@@ -194,90 +182,105 @@ The program is a MapReduce workflow. At the beginning all the parameters are set
 Since the computation of the centroids can be parallelized, we decided to set the number of reducers equals to the number of centroids so that each reducer computes a centroid. 
 
 ```java
-iteration.setNumReduceTasks(K); //one task each centroid 
+iteration.setNumReduceTasks(K); 
 ```
-(*line 229 of [KMeans.java](/k-means/src/main/java/it/unipi/hadoop/model/KMeans.java)*)
+(*line 174 of [KMeans.java](/k-means/src/main/java/it/unipi/hadoop/KMeans.java)*)
 
 ### 3. Mapper
 The number of centrois, the centroids and the type of distance to use are retreived from the configuration file.
 
 ```java
-    public static class KMeansMapper extends Mapper<LongWritable, Text, IntWritable, Point> {
+public class KMeansMapper extends Mapper<LongWritable, Text, IntWritable, Point> {
 
-        private Point[] centroids;
-        private int p;
+    private Point[] centroids;
+    private int p;
+    private final Point point = new Point();
+    private final IntWritable centroid = new IntWritable();
 
-        public void setup(Context context) {
-            int k = Integer.parseInt(context.getConfiguration().get("k"));
-            this.p = Integer.parseInt(context.getConfiguration().get("distance"));
+    public void setup(Context context) {
+        int k = Integer.parseInt(context.getConfiguration().get("k"));
+        this.p = Integer.parseInt(context.getConfiguration().get("distance"));
 
-            this.centroids = new Point[k];
-            for(int i = 0; i < k; i++) {
-                String[] centroid = context.getConfiguration().getStrings("centroid." + i);
-                this.centroids[i] = new Point(centroid);
-            }
-        }
-
-        public void map(LongWritable key, Text value, Context context) 
-         throws IOException, InterruptedException {
-            
-            // Contruct the point
-            String[] pointString = value.toString().split(",");
-            Point point = new Point(pointString);
-
-            // Initialize variables
-            float minDist = Float.POSITIVE_INFINITY;
-            float distance = 0.0f;
-            IntWritable centroid = new IntWritable(-1);
-
-            // Find the closest centroid
-            for (int i = 0; i < centroids.length; i++) {
-                distance = point.distance(centroids[i], p);
-                if(distance < minDist) {
-                    centroid.set(i);
-                    minDist = distance;
-                }
-            }
-            context.write(centroid, point);
+        this.centroids = new Point[k];
+        for(int i = 0; i < k; i++) {
+            String[] centroid = context.getConfiguration().getStrings("centroid." + i);
+            this.centroids[i] = new Point(centroid);
         }
     }
+
+    public void map(LongWritable key, Text value, Context context) 
+     throws IOException, InterruptedException {
+        
+        // Contruct the point
+        String[] pointString = value.toString().split(",");
+        point.set(pointString);
+
+        // Initialize variables
+        float minDist = Float.POSITIVE_INFINITY;
+        float distance = 0.0f;
+        int nearest = -1;
+
+        // Find the closest centroid
+        for (int i = 0; i < centroids.length; i++) {
+            distance = point.distance(centroids[i], p);
+            if(distance < minDist) {
+                nearest = i;
+                minDist = distance;
+            }
+        }
+
+        centroid.set(nearest);
+        context.write(centroid, point);
+    }
+}
 ```
-(*lines 35-73 of [KMeans.java](/k-means/src/main/java/it/unipi/hadoop/model/KMeans.java)*)
+(*lines 12-54 of [KMeansMapper.java](/k-means/src/main/java/it/unipi/hadoop/mapreduce/KMeansMapper.java)*)
 
 ### 4. Combiner
 The combiner is an optimization, so it is not guaranteed to run. The input and output of the combiner needs to be identical, because needs to match with the output of the mapper and the input of the reducer. Our combiner performs a partial sum of the point emitted by a mapper to reduce the amount of data transmitted over the network.
 
 ```java
-public static class KMeansCombiner extends Reducer<IntWritable, Point, IntWritable, Point> {
+public class KMeansCombiner extends Reducer<IntWritable, Point, IntWritable, Point> {
 
     public void reduce(IntWritable centroid, Iterable<Point> points, Context context) 
         throws IOException, InterruptedException {
+
+        //Sum the points
         Point sum = Point.copy(points.iterator().next());
         while (points.iterator().hasNext()) {
             sum.sum(points.iterator().next());
         }
+        
         context.write(centroid, sum);
     }
 }
 ```
-(*lines 75-85 of [KMeans.java](/k-means/src/main/java/it/unipi/hadoop/model/KMeans.java)*)
+(*lines 11-24 of [KMeansCombiner.java](/k-means/src/main/java/it/unipi/hadoop/mapreduce/KMeansCombiner.java)*)
 
 ### 5. Reducer
 The reducer sums the points and compute the centroid as the average point. The result is the same whether the combiner will run or not.
 
 ```java
-public static class KMeansReducer extends Reducer<IntWritable, Point, Text, Text> {
+public class KMeansReducer extends Reducer<IntWritable, Point, Text, Text> {
 
+    private final Text centroidId = new Text();
+    private final Text centroidValue = new Text();
+    
     public void reduce(IntWritable centroid, Iterable<Point> partialSums, Context context)
         throws IOException, InterruptedException {
+        
+        //Sum the partial sums
         Point sum = Point.copy(partialSums.iterator().next());
         while (partialSums.iterator().hasNext()) {
             sum.sum(partialSums.iterator().next());
         }
         //Calculate the new centroid
         sum.average();
-        context.write(new Text(centroid.toString()), new Text(sum.toString()));
+        
+        centroidId.set(centroid.toString());
+        centroidValue.set(sum.toString());
+        context.write(centroidId, centroidValue);
     }
 }
 ```
-(*lines 87-99 of [KMeans.java](/k-means/src/main/java/it/unipi/hadoop/model/KMeans.java)*)
+(*lines 11-31 of [KMeansReducer.java](/k-means/src/main/java/it/unipi/hadoop/mapreduce/KMeansReducer.java)*)
