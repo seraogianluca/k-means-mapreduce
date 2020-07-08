@@ -46,7 +46,7 @@ if __name__ == "__main__":
     INPUT_PATH = str(sys.argv[1])
     OUTPUT_PATH = str(sys.argv[2])
     
-    sc = SparkContext("local", "Kmeans")
+    sc = SparkContext("yarn", "Kmeans")
     sc.setLogLevel("ERROR")
     sc.addPyFile("./point.py") ## It's necessary, otherwise the spark framework doesn't see point.py
 

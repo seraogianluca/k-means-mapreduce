@@ -1,0 +1,487 @@
+***START****
+
+init centroid execution: 7 in 6.171624422073364 s
+--Iteration n. 1
+--Iteration n. 2
+--Iteration n. 3
+--Iteration n. 4
+--Iteration n. 5
+--Iteration n. 6
+--Iteration n. 7
+--Iteration n. 8
+--Iteration n. 9
+--Iteration n. 10
+--Iteration n. 11
+--Iteration n. 12
+--Iteration n. 13
+--Iteration n. 14
+--Iteration n. 15
+--Iteration n. 16
+--Iteration n. 17
+--Iteration n. 18
+--Iteration n. 19
+--Iteration n. 20
+--Iteration n. 21
+--Iteration n. 22
+--Iteration n. 23
+--Iteration n. 24
+--Iteration n. 25
+--Iteration n. 26
+--Iteration n. 27
+--Iteration n. 28
+--Iteration n. 29
+--Iteration n. 30
+--Iteration n. 31
+--Iteration n. 32
+--Iteration n. 33
+--Iteration n. 34
+--Iteration n. 35
+--Iteration n. 36
+--Iteration n. 37
+--Iteration n. 38
+--Iteration n. 39
+--Iteration n. 40
+--Iteration n. 41
+--Iteration n. 42
+--Iteration n. 43
+--Iteration n. 44
+--Iteration n. 45
+--Iteration n. 46
+--Iteration n. 47
+--Iteration n. 48
+--Iteration n. 49
+--Iteration n. 50
+execution time: 315.51068019866943 s
+average time per iteration: 6.310213603973389 s
+n_iter: 50
+centroids:
+-5.46463 -9.18009 -9.42173
+-4.27952 -10.03712 -8.77879
+-2.05131 7.15687 -2.2336
+0.43043 -9.45963 7.98123
+2.40477 8.37395 1.41166
+5.96415 7.78648 -9.41444
+6.92461 -4.30514 -1.71566
+
+
+Run: 2
+
+***START****
+
+init centroid execution: 7 in 6.640547513961792 s
+--Iteration n. 1
+--Iteration n. 2
+--Iteration n. 3
+--Iteration n. 4
+--Iteration n. 5
+--Iteration n. 6
+--Iteration n. 7
+--Iteration n. 8
+--Iteration n. 9
+--Iteration n. 10
+--Iteration n. 11
+--Iteration n. 12
+--Iteration n. 13
+--Iteration n. 14
+--Iteration n. 15
+--Iteration n. 16
+--Iteration n. 17
+--Iteration n. 18
+--Iteration n. 19
+--Iteration n. 20
+--Iteration n. 21
+--Iteration n. 22
+--Iteration n. 23
+--Iteration n. 24
+--Iteration n. 25
+--Iteration n. 26
+--Iteration n. 27
+--Iteration n. 28
+--Iteration n. 29
+--Iteration n. 30
+--Iteration n. 31
+--Iteration n. 32
+--Iteration n. 33
+--Iteration n. 34
+--Iteration n. 35
+--Iteration n. 36
+--Iteration n. 37
+--Iteration n. 38
+--Iteration n. 39
+--Iteration n. 40
+--Iteration n. 41
+--Iteration n. 42
+--Iteration n. 43
+--Iteration n. 44
+--Iteration n. 45
+--Iteration n. 46
+--Iteration n. 47
+--Iteration n. 48
+--Iteration n. 49
+--Iteration n. 50
+--Iteration n. 51
+--Iteration n. 52
+--Iteration n. 53
+--Iteration n. 54
+--Iteration n. 55
+--Iteration n. 56
+--Iteration n. 57
+--Iteration n. 58
+--Iteration n. 59
+--Iteration n. 60
+--Iteration n. 61
+--Iteration n. 62
+--Iteration n. 63
+--Iteration n. 64
+--Iteration n. 65
+--Iteration n. 66
+--Iteration n. 67
+--Iteration n. 68
+--Iteration n. 69
+--Iteration n. 70
+--Iteration n. 71
+--Iteration n. 72
+--Iteration n. 73
+--Iteration n. 74
+--Iteration n. 75
+--Iteration n. 76
+--Iteration n. 77
+--Iteration n. 78
+--Iteration n. 79
+--Iteration n. 80
+--Iteration n. 81
+--Iteration n. 82
+--Iteration n. 83
+--Iteration n. 84
+--Iteration n. 85
+--Iteration n. 86
+--Iteration n. 87
+--Iteration n. 88
+--Iteration n. 89
+--Iteration n. 90
+--Iteration n. 91
+--Iteration n. 92
+--Iteration n. 93
+--Iteration n. 94
+--Iteration n. 95
+--Iteration n. 96
+--Iteration n. 97
+--Iteration n. 98
+--Iteration n. 99
+--Iteration n. 100
+execution time: 615.3431193828583 s
+average time per iteration: 6.153431193828583 s
+n_iter: 100
+centroids:
+-4.86701 -9.61226 -9.09751
+-2.7246 6.90807 -2.47486
+-1.27287 7.44503 -1.94364
+2.33584 8.75826 1.32907
+4.51874 -0.45695 2.63341
+4.79631 -8.65238 1.09112
+5.96415 7.78648 -9.41444
+
+Run: 3
+
+***START****
+
+init centroid execution: 7 in 4.294299840927124 s
+--Iteration n. 1^M--Iteration n. 2^M--Iteration n. 3^M--Iteration n. 4^M--Iteration n. 5^M--Iteration n. 6^M--Iteration n. 7^M--Iteration n. 8^M--Iteration n. 9^M--Iteration n. 10^M--Iteration n. 11^M--Iteration n. 12^M--Iteration n. 13^M--Iteration n. 14^M--Iteration n. 15^M--Iteration n. 16^M--Iteration n. 17^M--Iteration n. 18^M--Iteration n. 19^M--Iteration n. 20^M--Iteration n. 21^M--Iteration n. 22
+execution time: 165.072105884552 s
+average time per iteration: 7.503277540206909 s
+n_iter: 22
+centroids:
+-4.86701 -9.61226 -9.09751
+-2.05131 7.15687 -2.2336
+0.41632 -10.23004 8.12062
+0.45091 -8.63563 7.82785
+2.40568 8.3684 1.41316
+5.96415 7.78648 -9.41444
+6.92844 -4.3087 -1.72172
+
+Run: 4
+
+***START****
+
+init centroid execution: 7 in 4.265410900115967 s
+--Iteration n. 1^M--Iteration n. 2^M--Iteration n. 3^M--Iteration n. 4^M--Iteration n. 5^M--Iteration n. 6^M--Iteration n. 7^M--Iteration n. 8^M--Iteration n. 9^M--Iteration n. 10^M--Iteration n. 11^M--Iteration n. 12^M--Iteration n. 13^M--Iteration n. 14^M--Iteration n. 15^M--Iteration n. 16^M--Iteration n. 17^M--Iteration n. 18^M--Iteration n. 19^M--Iteration n. 20^M--Iteration n. 21^M--Iteration n. 22^M--Iteration n. 23^M--Iteration n. 24^M--Iteration n. 25^M--Iteration n. 26^M--Iteration n. 27^M--Iteration n. 28^M--Iteration n. 29^M--Iteration n. 30^M--Iteration n. 31^M--Iteration n. 32^M--Iteration n. 33^M--Iteration n. 34^M--Iteration n. 35^M--Iteration n. 36^M--Iteration n. 37^M--Iteration n. 38^M--Iteration n. 39^M--Iteration n. 40^M--Iteration n. 41^M--Iteration n. 42^M--Iteration n. 43^M--Iteration n. 44^M--Iteration n. 45^M--Iteration n. 46^M--Iteration n. 47^M--Iteration n. 48^M--Iteration n. 49^M--Iteration n. 50^M--Iteration n. 51^M--Iteration n. 52^M--Iteration n. 53^M--Iteration n. 54^M--Iteration n. 55^M--Iteration n. 56^M--Iteration n. 57^M--Iteration n. 58^M--Iteration n. 59^M--Iteration n. 60^M--Iteration n. 61^M--Iteration n. 62^M--Iteration n. 63^M--Iteration n. 64^M--Iteration n. 65^M--Iteration n. 66^M--Iteration n. 67^M--Iteration n. 68^M--Iteration n. 69^M--Iteration n. 70^M--Iteration n. 71^M--Iteration n. 72^M--Iteration n. 73^M--Iteration n. 74^M--Iteration n. 75^M--Iteration n. 76^M--Iteration n. 77^M--Iteration n. 78^M--Iteration n. 79^M--Iteration n. 80^M--Iteration n. 81^M--Iteration n. 82^M--Iteration n. 83^M--Iteration n. 84^M--Iteration n. 85^M--Iteration n. 86^M--Iteration n. 87^M--Iteration n. 88^M--Iter$
+execution time: 597.6499652862549 s
+average time per iteration: 6.426343712755429 s
+n_iter: 93
+centroids:
+-4.86701 -9.61226 -9.09751
+0.13673 7.95584 -0.45731
+0.42976 -9.46157 7.98197
+4.51925 -0.45577 2.63247
+5.96415 7.78648 -9.41444
+8.86692 -8.01325 -6.53289
+9.45603 -7.67337 -5.06857
+
+Run: 5
+Traceback (most recent call last):
+  File "/home/hadoop/CloudComputing/spark_kmeans/k-means-spark/spark.py", line 48, in <module>
+    sc = SparkContext("yarn", "Kmeans")
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/context.py", line 136, in __init__
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/context.py", line 198, in _do_init
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/context.py", line 306, in _initialize_context
+  File "/opt/spark/python/lib/py4j-0.10.7-src.zip/py4j/java_gateway.py", line 1525, in __call__
+  File "/opt/spark/python/lib/py4j-0.10.7-src.zip/py4j/protocol.py", line 328, in get_return_value
+py4j.protocol.Py4JJavaError: An error occurred while calling None.org.apache.spark.api.java.JavaSparkContext.
+: org.apache.hadoop.hdfs.server.namenode.SafeModeException: Cannot create directory /user/hadoop/.sparkStaging/application_1594128379434_0001. Name node is in safe mode.
+The reported blocks 450 has reached the threshold 0.9990 of total blocks 450. The minimum number of live datanodes is not required. In safe mode extension. Safe mode will be turned off automatically in 0 seconds. NamenodeHostName:hadoop-namenode
+        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.newSafemodeException(FSNamesystem.java:1468)
+        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.checkNameNodeSafeMode(FSNamesystem.java:1455)
+        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.mkdirs(FSNamesystem.java:3174)
+        at org.apache.hadoop.hdfs.server.namenode.NameNodeRpcServer.mkdirs(NameNodeRpcServer.java:1145)
+        at org.apache.hadoop.hdfs.protocolPB.ClientNamenodeProtocolServerSideTranslatorPB.mkdirs(ClientNamenodeProtocolServerSideTranslatorPB.java:714)
+        at org.apache.hadoop.hdfs.protocol.proto.ClientNamenodeProtocolProtos$ClientNamenodeProtocol$2.callBlockingMethod(ClientNamenodeProtocolProtos.java)
+        at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:527)
+        at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:1036)
+        at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:1000)
+        at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:928)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at javax.security.auth.Subject.doAs(Subject.java:422)
+        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1729)
+        at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2916)
+
+        at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+        at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+        at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+        at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+        at org.apache.hadoop.ipc.RemoteException.instantiateException(RemoteException.java:121)
+        at org.apache.hadoop.ipc.RemoteException.unwrapRemoteException(RemoteException.java:88)
+        at org.apache.hadoop.hdfs.DFSClient.primitiveMkdir(DFSClient.java:2422)
+        at org.apache.hadoop.hdfs.DFSClient.mkdirs(DFSClient.java:2396)
+        at org.apache.hadoop.hdfs.DistributedFileSystem$27.doCall(DistributedFileSystem.java:1319)
+        at org.apache.hadoop.hdfs.DistributedFileSystem$27.doCall(DistributedFileSystem.java:1316)
+        at org.apache.hadoop.fs.FileSystemLinkResolver.resolve(FileSystemLinkResolver.java:81)
+        at org.apache.hadoop.hdfs.DistributedFileSystem.mkdirsInternal(DistributedFileSystem.java:1333)
+        at org.apache.hadoop.hdfs.DistributedFileSystem.mkdirs(DistributedFileSystem.java:1308)
+        at org.apache.hadoop.fs.FileSystem.mkdirs(FileSystem.java:2275)
+        at org.apache.hadoop.fs.FileSystem.mkdirs(FileSystem.java:674)
+        at org.apache.spark.deploy.yarn.Client.prepareLocalResources(Client.scala:428)
+        at org.apache.spark.deploy.yarn.Client.createContainerLaunchContext(Client.scala:865)
+        at org.apache.spark.deploy.yarn.Client.submitApplication(Client.scala:179)
+        at org.apache.spark.scheduler.cluster.YarnClientSchedulerBackend.start(YarnClientSchedulerBackend.scala:57)
+        at org.apache.spark.scheduler.TaskSchedulerImpl.start(TaskSchedulerImpl.scala:183)
+        at org.apache.spark.SparkContext.<init>(SparkContext.scala:501)
+        at org.apache.spark.api.java.JavaSparkContext.<init>(JavaSparkContext.scala:58)
+        at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+        at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+        at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+        at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+        at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:247)
+        at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)
+        at py4j.Gateway.invoke(Gateway.java:238)
+        at py4j.commands.ConstructorCommand.invokeConstructor(ConstructorCommand.java:80)
+        at py4j.commands.ConstructorCommand.execute(ConstructorCommand.java:69)
+        at py4j.GatewayConnection.run(GatewayConnection.java:238)
+        at java.lang.Thread.run(Thread.java:748)
+Caused by: org.apache.hadoop.ipc.RemoteException(org.apache.hadoop.hdfs.server.namenode.SafeModeException): Cannot create directory /user/hadoop/.sparkStaging/application_1594128379434_0001. Name node is in safe mode.
+The reported blocks 450 has reached the threshold 0.9990 of total blocks 450. The minimum number of live datanodes is not required. In safe mode extension. Safe mode will be turned off automatically in 0 seconds. NamenodeHostName:hadoop-namenode
+        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.newSafemodeException(FSNamesystem.java:1468)
+        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.checkNameNodeSafeMode(FSNamesystem.java:1455)
+        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.mkdirs(FSNamesystem.java:3174)
+        at org.apache.hadoop.hdfs.server.namenode.NameNodeRpcServer.mkdirs(NameNodeRpcServer.java:1145)
+        at org.apache.hadoop.hdfs.protocolPB.ClientNamenodeProtocolServerSideTranslatorPB.mkdirs(ClientNamenodeProtocolServerSideTranslatorPB.java:714)
+        at org.apache.hadoop.hdfs.protocol.proto.ClientNamenodeProtocolProtos$ClientNamenodeProtocol$2.callBlockingMethod(ClientNamenodeProtocolProtos.java)
+        at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:527)
+        at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:1036)
+        at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:1000)
+        at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:928)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at javax.security.auth.Subject.doAs(Subject.java:422)
+        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1729)
+        at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2916)
+
+        at org.apache.hadoop.ipc.Client.getRpcResponse(Client.java:1545)
+        at org.apache.hadoop.ipc.Client.call(Client.java:1491)
+        at org.apache.hadoop.ipc.Client.call(Client.java:1388)
+        at org.apache.hadoop.ipc.ProtobufRpcEngine$Invoker.invoke(ProtobufRpcEngine.java:233)
+        at org.apache.hadoop.ipc.ProtobufRpcEngine$Invoker.invoke(ProtobufRpcEngine.java:118)
+        at com.sun.proxy.$Proxy11.mkdirs(Unknown Source)
+        at org.apache.hadoop.hdfs.protocolPB.ClientNamenodeProtocolTranslatorPB.mkdirs(ClientNamenodeProtocolTranslatorPB.java:657)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.io.retry.RetryInvocationHandler.invokeMethod(RetryInvocationHandler.java:422)
+        at org.apache.hadoop.io.retry.RetryInvocationHandler$Call.invokeMethod(RetryInvocationHandler.java:165)
+        at org.apache.hadoop.io.retry.RetryInvocationHandler$Call.invoke(RetryInvocationHandler.java:157)
+        at org.apache.hadoop.io.retry.RetryInvocationHandler$Call.invokeOnce(RetryInvocationHandler.java:95)
+        at org.apache.hadoop.io.retry.RetryInvocationHandler.invoke(RetryInvocationHandler.java:359)
+        at com.sun.proxy.$Proxy12.mkdirs(Unknown Source)
+        at org.apache.hadoop.hdfs.DFSClient.primitiveMkdir(DFSClient.java:2420)
+        ... 26 more
+
+centroids:
+-4.86701 -9.61226 -9.09751
+0.13673 7.95584 -0.45731
+0.42976 -9.46157 7.98197
+4.51925 -0.45577 2.63247
+5.96415 7.78648 -9.41444
+8.86692 -8.01325 -6.53289
+9.45603 -7.67337 -5.06857
+
+Run: 6
+
+***START****
+
+init centroid execution: 7 in 7.427249908447266 s
+--Iteration n. 1^M--Iteration n. 2^M--Iteration n. 3^M--Iteration n. 4^M--Iteration n. 5^M--Iteration n. 6^M--Iteration n. 7^M--Iteration n. 8^M--Iteration n. 9^M--Iteration n. 10^M--Iteration n. 11^M--Iteration n. 12^M--Iteration n. 13^M--Iteration n. 14^M--Iteration n. 15^M--Iteration n. 16^M--Iteration n. 17^M--Iteration n. 18^M--Iteration n. 19^M--Iteration n. 20^M--Iteration n. 21^M--Iteration n. 22^M--Iteration n. 23^M--Iteration n. 24^M--Iteration n. 25^M--Iteration n. 26^M--Iteration n. 27^M--Iteration n. 28^M--Iteration n. 29^M--Iteration n. 30^M--Iteration n. 31
+execution time: 227.85444450378418 s
+average time per iteration: 7.350143371089812 s
+n_iter: 31
+centroids:
+-2.05179 7.15595 -2.23334
+0.42976 -9.46157 7.98197
+2.14353 -8.72908 -7.45019
+2.32468 8.75523 1.31818
+3.82341 -0.28609 2.95914
+5.2549 -0.64457 2.27979
+5.96415 7.78648 -9.41444
+
+Run: 7
+
+***START****
+
+init centroid execution: 7 in 9.148530960083008 s
+--Iteration n. 1^M--Iteration n. 2^M--Iteration n. 3^M--Iteration n. 4^M--Iteration n. 5^M--Iteration n. 6^M--Iteration n. 7^M--Iteration n. 8^M--Iteration n. 9^M--Iteration n. 10^M--Iteration n. 11^M--Iteration n. 12^M--Iteration n. 13^M--Iteration n. 14^M--Iteration n. 15^M--Iteration n. 16^M--Iteration n. 17^M--Iteration n. 18^M--Iteration n. 19^M--Iteration n. 20^M--Iteration n. 21^M--Iteration n. 22^M--Iteration n. 23^M--Iteration n. 24^M--Iteration n. 25^M--Iteration n. 26^M--Iteration n. 27^M--Iteration n. 28^M--Iteration n. 29^M--Iteration n. 30^M--Iteration n. 31^M--Iteration n. 32^M--Iteration n. 33^M--Iteration n. 34^M--Iteration n. 35^M--Iteration n. 36^M--Iteration n. 37^M--Iteration n. 38^M--Iteration n. 39^M--Iteration n. 40^M--Iteration n. 41^M--Iteration n. 42^M--Iteration n. 43^M--Iteration n. 44^M--Iteration n. 45^M--Iteration n. 46^M--Iteration n. 47^M--Iteration n. 48^M--Iteration n. 49^M--Iteration n. 50^M--Iteration n. 51^M--Iteration n. 52^M--Iteration n. 53^M--Iteration n. 54^M--Iteration n. 55^M--Iteration n. 56^M--Iteration n. 57^M--Iteration n. 58^M--Iteration n. 59^M--Iteration n. 60^M--Iteration n. 61^M--Iteration n. 62^M--Iteration n. 63^M--Iteration n. 64^M--Iteration n. 65^M--Iteration n. 66^M--Iteration n. 67^M--Iteration n. 68^M--Iteration n. 69^M--Iteration n. 70^M--Iteration n. 71^M--Iteration n. 72^M--Iteration n. 73^M--Iteration n. 74^M--Iteration n. 75^M--Iteration n. 76^M--Iteration n. 77^M--Iteration n. 78^M--Iteration n. 79^M--Iteration n. 80^M--Iteration n. 81^M--Iteration n. 82^M--Iteration n. 83^M--Iteration n. 84^M--Iteration n. 85^M--Iteration n. 86^M--Iteration n. 87^M--Iteration n. 88^M--Iter$
+execution time: 623.313670873642 s
+average time per iteration: 6.23313670873642 s
+n_iter: 100
+centroids:
+-4.86701 -9.61226 -9.09751
+0.13656 7.95592 -0.4574
+0.42976 -9.46157 7.98197
+4.189 -1.16204 2.88451
+4.83609 0.22251 2.39064
+5.96415 7.78648 -9.41444
+9.16234 -7.84281 -5.79858
+
+Run: 8
+
+***START****
+
+init centroid execution: 7 in 7.444806337356567 s
+--Iteration n. 1^M--Iteration n. 2^M--Iteration n. 3^M--Iteration n. 4^M--Iteration n. 5^M--Iteration n. 6^M--Iteration n. 7^M--Iteration n. 8^M--Iteration n. 9^M--Iteration n. 10^M--Iteration n. 11^M--Iteration n. 12^M--Iteration n. 13^M--Iteration n. 14^M--Iteration n. 15^M--Iteration n. 16^M--Iteration n. 17^M--Iteration n. 18^M--Iteration n. 19^M--Iteration n. 20^M--Iteration n. 21^M--Iteration n. 22^M--Iteration n. 23^M--Iteration n. 24^M--Iteration n. 25^M--Iteration n. 26^M--Iteration n. 27^M--Iteration n. 28^M--Iteration n. 29^M--Iteration n. 30^M--Iteration n. 31^M--Iteration n. 32^M--Iteration n. 33^M--Iteration n. 34^M--Iteration n. 35^M--Iteration n. 36^M--Iteration n. 37^M--Iteration n. 38^M--Iteration n. 39^M--Iteration n. 40^M--Iteration n. 41^M--Iteration n. 42^M--Iteration n. 43^M--Iteration n. 44^M--Iteration n. 45^M--Iteration n. 46^M--Iteration n. 47^M--Iteration n. 48^M--Iteration n. 49^M--Iteration n. 50^M--Iteration n. 51^M--Iteration n. 52^M--Iteration n. 53^M--Iteration n. 54
+execution time: 360.833801984787 s
+average time per iteration: 6.682107444162722 s
+n_iter: 54
+centroids:
+-4.86701 -9.61226 -9.09751
+0.13656 7.95592 -0.4574
+0.42976 -9.46157 7.98197
+3.77748 -0.79883 2.69051
+5.23801 -0.12252 2.57615
+5.96415 7.78648 -9.41444
+9.16234 -7.84281 -5.79858
+
+Run: 9
+
+***START****
+
+init centroid execution: 7 in 4.572995662689209 s
+--Iteration n. 1^M--Iteration n. 2^M--Iteration n. 3^M--Iteration n. 4^M--Iteration n. 5^M--Iteration n. 6^M--Iteration n. 7^M--Iteration n. 8^M--Iteration n. 9^M--Iteration n. 10^M--Iteration n. 11^M--Iteration n. 12^M--Iteration n. 13^M--Iteration n. 14^M--Iteration n. 15^M--Iteration n. 16^M--Iteration n. 17^M--Iteration n. 18^M--Iteration n. 19^M--Iteration n. 20^M--Iteration n. 21^M--Iteration n. 22^M--Iteration n. 23^M--Iteration n. 24^M--Iteration n. 25^M--Iteration n. 26^M--Iteration n. 27^M--Iteration n. 28^M--Iteration n. 29^M--Iteration n. 30^M--Iteration n. 31^M--Iteration n. 32^M--Iteration n. 33^M--Iteration n. 34^M--Iteration n. 35^M--Iteration n. 36^M--Iteration n. 37^M--Iteration n. 38^M--Iteration n. 39^M--Iteration n. 40^M--Iteration n. 41^M--Iteration n. 42^M--Iteration n. 43^M--Iteration n. 44^M--Iteration n. 45^M--Iteration n. 46^M--Iteration n. 47^M--Iteration n. 48^M--Iteration n. 49^M--Iteration n. 50^M--Iteration n. 51^M--Iteration n. 52^M--Iteration n. 53^M--Iteration n. 54^M--Iteration n. 55^M--Iteration n. 56^M--Iteration n. 57^M--Iteration n. 58^M--Iteration n. 59^M--Iteration n. 60^M--Iteration n. 61^M--Iteration n. 62^M--Iteration n. 63^M--Iteration n. 64^M--Iteration n. 65^M--Iteration n. 66^M--Iteration n. 67^M--Iteration n. 68^M--Iteration n. 69^M--Iteration n. 70^M--Iteration n. 71^M--Iteration n. 72^M--Iteration n. 73^M--Iteration n. 74^M--Iteration n. 75^M--Iteration n. 76^M--Iteration n. 77^M--Iteration n. 78^M--Iteration n. 79^M--Iteration n. 80^M--Iteration n. 81^M--Iteration n. 82^M--Iteration n. 83^M--Iteration n. 84^M--Iteration n. 85^M--Iteration n. 86^M--Iteration n. 87^M--Iteration n. 88^M--Iter$
+execution time: 653.2323203086853 s
+average time per iteration: 6.532323203086853 s
+n_iter: 100
+centroids:
+-4.86701 -9.61226 -9.09751
+-2.19674 7.87359 -1.87475
+-1.90305 6.46118 -2.57529
+2.3826 8.58264 1.3365
+2.4481 -5.0452 5.35082
+5.96415 7.78648 -9.41444
+9.1621 -7.84175 -5.79789
+
+Run: 10
+
+***START****
+
+init centroid execution: 7 in 4.3640382289886475 s
+--Iteration n. 1^M--Iteration n. 2^M--Iteration n. 3^M--Iteration n. 4^M--Iteration n. 5^M--Iteration n. 6^M--Iteration n. 7^M--Iteration n. 8^M--Iteration n. 9^M--Iteration n. 10^M--Iteration n. 11^M--Iteration n. 12^M--Iteration n. 13^M--Iteration n. 14^M--Iteration n. 15^M--Iteration n. 16^M--Iteration n. 17^M--Iteration n. 18^M--Iteration n. 19^M--Iteration n. 20^M--Iteration n. 21^M--Iteration n. 22^M--Iteration n. 23^M--Iteration n. 24^M--Iteration n. 25^M--Iteration n. 26^M--Iteration n. 27^M--Iteration n. 28^M--Iteration n. 29^M--Iteration n. 30^M--Iteration n. 31^M--Iteration n. 32^M--Iteration n. 33^M--Iteration n. 34^M--Iteration n. 35^M--Iteration n. 36^M--Iteration n. 37^M--Iteration n. 38^M--Iteration n. 39^M--Iteration n. 40^M--Iteration n. 41^M--Iteration n. 42^M--Iteration n. 43^M--Iteration n. 44^M--Iteration n. 45^M--Iteration n. 46^M--Iteration n. 47^M--Iteration n. 48^M--Iteration n. 49^M--Iteration n. 50^M--Iteration n. 51^M--Iteration n. 52^M--Iteration n. 53^M--Iteration n. 54^M--Iteration n. 55^M--Iteration n. 56^M--Iteration n. 57^M--Iteration n. 58^M--Iteration n. 59^M--Iteration n. 60^M--Iteration n. 61^M--Iteration n. 62^M--Iteration n. 63^M--Iteration n. 64^M--Iteration n. 65^M--Iteration n. 66
+execution time: 432.2070345878601 s
+average time per iteration: 6.5485914331493955 s
+n_iter: 66
+centroids:
+-5.05924 -10.34211 -8.83882
+-4.67618 -8.8877 -9.35433
+0.13673 7.95584 -0.45731
+0.42976 -9.46157 7.98197
+4.51925 -0.45577 2.63247
+5.96415 7.78648 -9.41444
+9.16234 -7.84281 -5.79858
+
+Run: 11
+
+***START****
+
+init centroid execution: 7 in 4.386609077453613 s
+--Iteration n. 1^M--Iteration n. 2^M--Iteration n. 3^M--Iteration n. 4^M--Iteration n. 5^M--Iteration n. 6^M--Iteration n. 7^M--Iteration n. 8^M--Iteration n. 9^M--Iteration n. 10^M--Iteration n. 11^M--Iteration n. 12^M--Iteration n. 13^M--Iteration n. 14^M--Iteration n. 15^M--Iteration n. 16^M--Iteration n. 17^M--Iteration n. 18^M--Iteration n. 19^M--Iteration n. 20^M--Iteration n. 21^M--Iteration n. 22^M--Iteration n. 23^M--Iteration n. 24^M--Iteration n. 25^M--Iteration n. 26^M--Iteration n. 27^M--Iteration n. 28^M--Iteration n. 29^M--Iteration n. 30^M--Iteration n. 31^M--Iteration n. 32^M--Iteration n. 33^M--Iteration n. 34^M--Iteration n. 35^M--Iteration n. 36^M--Iteration n. 37^M--Iteration n. 38^M--Iteration n. 39^M--Iteration n. 40^M--Iteration n. 41^M--Iteration n. 42^M--Iteration n. 43^M--Iteration n. 44^M--Iteration n. 45^M--Iteration n. 46^M--Iteration n. 47^M--Iteration n. 48^M--Iteration n. 49^M--Iteration n. 50^M--Iteration n. 51^M--Iteration n. 52^M--Iteration n. 53^M--Iteration n. 54^M--Iteration n. 55^M--Iteration n. 56^M--Iteration n. 57^M--Iteration n. 58^M--Iteration n. 59^M--Iteration n. 60^M--Iteration n. 61^M--Iteration n. 62^M--Iteration n. 63^M--Iteration n. 64^M--Iteration n. 65^M--Iteration n. 66^M--Iteration n. 67^M--Iteration n. 68^M--Iteration n. 69^M--Iteration n. 70^M--Iteration n. 71^M--Iteration n. 72
+execution time: 468.16519951820374 s
+average time per iteration: 6.50229443775283 s
+n_iter: 72
+centroids:
+-5.51088 -9.12758 -9.09601
+-4.23121 -10.09087 -9.09899
+0.13673 7.95584 -0.45731
+0.42976 -9.46157 7.98197
+4.51925 -0.45577 2.63247
+5.96415 7.78648 -9.41444
+9.16234 -7.84281 -5.79858
+
+Run: 12
+
+***START****
+
+init centroid execution: 7 in 4.310950994491577 s
+--Iteration n. 1^M--Iteration n. 2^M--Iteration n. 3
+execution time: 47.93442916870117 s
+average time per iteration: 15.978143056233725 s
+n_iter: 3
+centroids:
+-4.86701 -9.61226 -9.09751
+-2.05179 7.15595 -2.23334
+0.42976 -9.46157 7.98197
+2.32468 8.75523 1.31818
+4.51922 -0.45619 2.63247
+5.96415 7.78648 -9.41444
+9.16234 -7.84281 -5.79858
+
+Run: 13
+
+***START****
+
+init centroid execution: 7 in 4.713086843490601 s
+--Iteration n. 1^M--Iteration n. 2^M--Iteration n. 3^M--Iteration n. 4^M--Iteration n. 5^M--Iteration n. 6^M--Iteration n. 7^M--Iteration n. 8^M--Iteration n. 9^M--Iteration n. 10^M--Iteration n. 11^M--Iteration n. 12^M--Iteration n. 13^M--Iteration n. 14^M--Iteration n. 15^M--Iteration n. 16^M--Iteration n. 17^M--Iteration n. 18^M--Iteration n. 19^M--Iteration n. 20^M--Iteration n. 21^M--Iteration n. 22^M--Iteration n. 23^M--Iteration n. 24^M--Iteration n. 25^M--Iteration n. 26^M--Iteration n. 27^M--Iteration n. 28^M--Iteration n. 29^M--Iteration n. 30^M--Iteration n. 31^M--Iteration n. 32^M--Iteration n. 33^M--Iteration n. 34^M--Iteration n. 35^M--Iteration n. 36^M--Iteration n. 37^M--Iteration n. 38^M--Iteration n. 39^M--Iteration n. 40^M--Iteration n. 41^M--Iteration n. 42^M--Iteration n. 43^M--Iteration n. 44^M--Iteration n. 45^M--Iteration n. 46^M--Iteration n. 47^M--Iteration n. 48^M--Iteration n. 49^M--Iteration n. 50^M--Iteration n. 51^M--Iteration n. 52^M--Iteration n. 53^M--Iteration n. 54^M--Iteration n. 55^M--Iteration n. 56^M--Iteration n. 57^M--Iteration n. 58^M--Iteration n. 59^M--Iteration n. 60^M--Iteration n. 61
+execution time: 409.8045597076416 s
+average time per iteration: 6.718107536190846 s
+n_iter: 61
+centroids:
+-5.55264 -9.21011 -9.1967
+-4.18234 -10.01385 -8.99846
+0.38088 -9.81949 7.23826
+0.47686 -9.11664 8.6987
+2.07905 7.89984 -3.44518
+4.51808 -0.45013 2.63321
+9.16234 -7.84281 -5.79858
+
+Run: 14
+
+***START****
+
+init centroid execution: 7 in 6.559191703796387 s
+--Iteration n. 1^M--Iteration n. 2^M--Iteration n. 3^M--Iteration n. 4^M--Iteration n. 5^M--Iteration n. 6^M--Iteration n. 7^M--Iteration n. 8^M--Iteration n. 9^M--Iteration n. 10^M--Iteration n. 11^M--Iteration n. 12^M--Iteration n. 13^M--Iteration n. 14^M--Iteration n. 15^M--Iteration n. 16^M--Iteration n. 17^M--Iteration n. 18^M--Iteration n. 19^M--Iteration n. 20^M--Iteration n. 21^M--Iteration n. 22^M--Iteration n. 23^M--Iteration n. 24^M--Iteration n. 25^M--Iteration n. 26^M--Iteration n. 27^M--Iteration n. 28^M--Iteration n. 29^M--Iteration n. 30^M--Iteration n. 31^M--Iteration n. 32^M--Iteration n. 33^M--Iteration n. 34^M--Iteration n. 35^M--Iteration n. 36^M--Iteration n. 37^M--Iteration n. 38^M--Iteration n. 39^M--Iteration n. 40^M--Iteration n. 41^M--Iteration n. 42^M--Iteration n. 43^M--Iteration n. 44^M--Iteration n. 45^M--Iteration n. 46^M--Iteration n. 47^M--Iteration n. 48^M--Iteration n. 49^M--Iteration n. 50^M--Iteration n. 51^M--Iteration n. 52^M--Iteration n. 53^M--Iteration n. 54^M--Iteration n. 55^M--Iteration n. 56^M--Iteration n. 57^M--Iteration n. 58^M--Iteration n. 59^M--Iteration n. 60^M--Iteration n. 61^M--Iteration n. 62^M--Iteration n. 63^M--Iteration n. 64^M--Iteration n. 65^M--Iteration n. 66^M--Iteration n. 67^M--Iteration n. 68^M--Iteration n. 69^M--Iteration n. 70^M--Iteration n. 71^M--Iteration n. 72^M--Iteration n. 73^M--Iteration n. 74^M--Iteration n. 75^M--Iteration n. 76^M--Iteration n. 77^M--Iteration n. 78^M--Iteration n. 79^M--Iteration n. 80^M--Iteration n. 81^M--Iteration n. 82^M--Iteration n. 83^M--Iteration n. 84^M--Iteration n. 85^M--Iteration n. 86^M--Iteration n. 87^M--Iteration n. 88^M--Iter$
+execution time: 609.8510639667511 s
+average time per iteration: 6.098510639667511 s
+n_iter: 100
+centroids:
+-4.86701 -9.61226 -9.09751
+0.13673 7.95584 -0.45731
+0.18892 -9.9655 8.56694
+0.66519 -8.96894 7.41012
+4.51925 -0.45577 2.63247
+5.96415 7.78648 -9.41444
+9.16234 -7.84281 -5.79858
+
