@@ -16,7 +16,7 @@ class Point:
     def distance(self, p, h):
         if (h < 0):
            h = 2
-        return linalg.norm(self.components - p.components, h)
+        return round(linalg.norm(self.components - p.components, h), 5)
 
     def get_average_point(self):
         self.components = np.around(np.divide(self.components, self.number_of_points), 5)

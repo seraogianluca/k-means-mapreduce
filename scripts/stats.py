@@ -3,7 +3,7 @@ import statsmodels.stats.api as sms
 import glob
 import os
 
-path = "../tests/hadoop/no_opt_output_3_7_2.txt"
+path = "../output.txt"
 
 times = []
 init_centroids = []
@@ -12,9 +12,9 @@ with open(path, "r") as file:
     
     for line in file:
         if line.startswith("execution time:"):
-            times.append(round(float(line.split()[2])/1000, 4))
+            times.append(round(float(line.split()[2]), 4))
         if line.startswith("init centroid execution:"):
-            init_centroids.append(round(float(line.split()[3])/1000, 4))
+            init_centroids.append(round(float(line.split()[5]), 4))
         if line.startswith("n_iter"):
             iterations.append(int(line.split()[1]))
 
