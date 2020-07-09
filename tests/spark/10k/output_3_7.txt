@@ -1,0 +1,180 @@
+Run: 1
+
+***START****
+
+init centroid execution: 7 in 8.88679051399231 s
+--Iteration n. 1--Iteration n. 2--Iteration n. 3--Iteration n. 4--Iteration n. 5--Iteration n. 6--Iteration n. 7--Iteration n. 8--Iteration n. 9
+execution time: 55.82650637626648 s
+average time per iteration: 6.202945152918498 s
+n_iter: 9
+centroids:
+-5.66585 5.30843 -7.77432
+-1.10145 -3.33976 8.07423
+0.92682 6.24099 8.08523
+1.93361 7.4619 7.85762
+2.04904 -3.64143 -7.47983
+4.08748 -5.42754 -0.48906
+9.67375 4.73747 -0.66995
+
+Run: 2
+
+***START****
+
+init centroid execution: 7 in 9.768246173858643 s
+--Iteration n. 1--Iteration n. 2--Iteration n. 3--Iteration n. 4--Iteration n. 5--Iteration n. 6--Iteration n. 7--Iteration n. 8--Iteration n. 9--Iteration n. 10
+execution time: 50.34202265739441 s
+average time per iteration: 5.034202265739441 s
+n_iter: 10
+centroids:
+-5.66585 5.30843 -7.77432
+-0.65611 -5.91862 -6.13351
+0.19078 1.78786 8.01686
+4.08748 -5.42754 -0.48906
+4.77324 -1.3482 -8.83563
+9.00726 4.32025 -0.9006
+10.38854 5.18491 -0.42259
+
+Run: 3
+
+***START****
+
+init centroid execution: 7 in 7.367143869400024 s
+--Iteration n. 1--Iteration n. 2--Iteration n. 3--Iteration n. 4
+execution time: 32.64296293258667 s
+average time per iteration: 8.160740733146667 s
+n_iter: 4
+centroids:
+-5.66585 5.30843 -7.77432
+-1.10145 -3.33976 8.07423
+-0.65611 -5.91862 -6.13351
+1.48302 6.91548 7.95949
+4.08748 -5.42754 -0.48906
+4.77324 -1.3482 -8.83563
+9.67375 4.73747 -0.66995
+
+Run: 4
+
+***START****
+
+init centroid execution: 7 in 2.8752455711364746 s
+--Iteration n. 1--Iteration n. 2--Iteration n. 3
+execution time: 27.46679139137268 s
+average time per iteration: 9.15559713045756 s
+n_iter: 3
+centroids:
+-5.66585 5.30843 -7.77432
+-1.10145 -3.33976 8.07423
+-0.65611 -5.91862 -6.13351
+1.48302 6.91548 7.95949
+4.08748 -5.42754 -0.48906
+4.77324 -1.3482 -8.83563
+9.67375 4.73747 -0.66995
+
+Run: 5
+
+***START****
+
+init centroid execution: 7 in 7.903483152389526 s
+--Iteration n. 1--Iteration n. 2--Iteration n. 3--Iteration n. 4--Iteration n. 5
+execution time: 35.31498861312866 s
+average time per iteration: 7.062997722625733 s
+n_iter: 5
+centroids:
+-5.66585 5.30843 -7.77432
+-1.10145 -3.33976 8.07423
+-0.65611 -5.91862 -6.13351
+1.48302 6.91548 7.95949
+4.08748 -5.42754 -0.48906
+4.77324 -1.3482 -8.83563
+9.67375 4.73747 -0.66995
+
+Run: 6
+
+***START****
+
+init centroid execution: 7 in 2.985173225402832 s
+--Iteration n. 1--Iteration n. 2--Iteration n. 3--Iteration n. 4
+execution time: 27.00303864479065 s
+average time per iteration: 6.750759661197662 s
+n_iter: 4
+centroids:
+-5.66585 5.30843 -7.77432
+-1.10145 -3.33976 8.07423
+-0.65611 -5.91862 -6.13351
+1.48302 6.91548 7.95949
+4.08748 -5.42754 -0.48906
+4.77324 -1.3482 -8.83563
+9.67375 4.73747 -0.66995
+
+Run: 7
+
+***START****
+
+init centroid execution: 7 in 3.45032000541687 s
+--Iteration n. 1--Iteration n. 2--Iteration n. 3--Iteration n. 4--Iteration n. 5--Iteration n. 6--Iteration n. 7--Iteration n. 8--Iteration n. 9
+execution time: 31.57393527030945 s
+average time per iteration: 3.5082150300343833 s
+n_iter: 9
+centroids:
+-5.66585 5.30843 -7.77432
+-1.10145 -3.33976 8.07423
+1.48302 6.91548 7.95949
+2.73011 -4.23819 -5.14413
+8.86586 4.35431 -1.09892
+9.98112 4.72589 0.19475
+10.55808 5.39752 -1.27329
+
+Run: 8
+
+***START****
+
+init centroid execution: 7 in 3.1908137798309326 s
+--Iteration n. 1--Iteration n. 2--Iteration n. 3--Iteration n. 4
+execution time: 30.578147172927856 s
+average time per iteration: 7.644536793231964 s
+n_iter: 4
+centroids:
+-5.66585 5.30843 -7.77432
+-1.10145 -3.33976 8.07423
+-0.65611 -5.91862 -6.13351
+1.48302 6.91548 7.95949
+4.08748 -5.42754 -0.48906
+4.77324 -1.3482 -8.83563
+9.67375 4.73747 -0.66995
+
+Run: 9
+
+***START****
+
+init centroid execution: 7 in 2.804621458053589 s
+--Iteration n. 1--Iteration n. 2--Iteration n. 3--Iteration n. 4
+execution time: 25.736774444580078 s
+average time per iteration: 6.4341936111450195 s
+n_iter: 4
+centroids:
+-5.66585 5.30843 -7.77432
+-1.10145 -3.33976 8.07423
+-0.65611 -5.91862 -6.13351
+1.48302 6.91548 7.95949
+4.08748 -5.42754 -0.48906
+4.77324 -1.3482 -8.83563
+9.67375 4.73747 -0.66995
+
+Run: 10
+
+***START****
+
+init centroid execution: 7 in 3.2045140266418457 s
+--Iteration n. 1--Iteration n. 2--Iteration n. 3--Iteration n. 4--Iteration n. 5--Iteration n. 6--Iteration n. 7--Iteration n. 8--Iteration n. 9--Iteration n. 10--Iteration n. 11
+execution time: 38.38958168029785 s
+average time per iteration: 3.4899619709361684 s
+n_iter: 11
+centroids:
+-5.66585 5.30843 -7.77432
+-1.58956 -2.75716 8.97201
+-0.8053 -3.69324 7.52951
+1.48302 6.91548 7.95949
+2.04904 -3.64143 -7.47983
+4.08748 -5.42754 -0.48906
+9.67375 4.73747 -0.66995
+
