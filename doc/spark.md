@@ -10,7 +10,7 @@
 
 ## 1. Initialization and stages
 
-As first step, we read the file with the points and we generate the initial centroids with a random sampling, using the **takeSample(False, k)**: this function takes k random samples, without replacement, from the RDD; so, tha pplication generates the initial centroids in a distributed manner, avoiding to move all the data to the driver.
+As first step, we read the file with the points and we generate the initial centroids with a random sampling, using the **takeSample(False, k)**: this function takes k random samples, without replacement, from the RDD; so, the application generates the initial centroids in a distributed manner, avoiding to move all the data to the driver.
 Since we reuse the RDD in an iterative algorithm, we decide to cache it in memory with **cache()**. In this way, we avoid to re-evaluate it every time an action is triggered.
 
 ```python
