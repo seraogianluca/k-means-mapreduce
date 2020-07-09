@@ -10,7 +10,8 @@
 
 ## 1. Initialization and stages
 
-As first step, we read the file with the points and we generate the initial centroids with a random sampling, using the **takeSample()** function. We store the data in the RDD with the **cache()** method.
+As first step, we read the file with the points and we generate the initial centroids with a random sampling, using the **takeSample(False, k)**: this function takes k random samples, without replacement, from the RDD; so, tha pplication generates the initial centroids in a distributed manner, avoiding to move all the data to the driver.
+Since we reuse the RDD in an iterative algorithm, we decide to cache it in memory with **cache()**. In this way, we avoid to re-evaluate it every time an action is triggered.
 
 ```python
  points = sc.textFile(INPUT_PATH).map(Point).cache()
@@ -46,7 +47,9 @@ while True:
             centroids_broadcast = sc.broadcast(new_centroids)
         else:
             break
+
 ```
+
 (*line 61-74 of [spark.py](/k-means-spark/spark.py)*)
 
 In particular, the stopping condition is computed in this way:
@@ -60,6 +63,7 @@ def stopping_criterion(new_centroids, threshold):
             return False
     return True
 ```
+
 (*line 29-35 of [spark.py](/k-means-spark/spark.py)*)
 
 ## 2. Model
@@ -78,7 +82,6 @@ It includes the following operations:
 
 ```python
 class Point:
-    
     def __init__(self, line):
         values = line.split(",")
         self.components = np.array([round(float(k), 5) for k in values])
@@ -113,7 +116,6 @@ The mapper method is invoked, at each iteration,  on the input file, that contai
 
 The **assign_centroids** function, for each point on which is invoked, assign the closest centroid to that point. The centroids are taken from the broadcast variable. The function returns the result as a tuple **(id of the centroid, point)**.
 
-
 ```python
 
  def assign_centroids(p):
@@ -142,7 +144,6 @@ sum_rdd = cluster_assignment_rdd.reduceByKey(lambda x, y: x.sum(y))
 
 (*line 64 of [spark.py](/k-means-spark/spark.py)*)
 
-
 - mapValues: it is used to calculate the average point for each cluster at the end of each stage. The points are already divided by key. This trasformation works only on the value of a key. The results are sorted in order to make easier comparisons.
 
 ```python
@@ -152,6 +153,7 @@ centroids_rdd = sum_rdd.mapValues(lambda x: x.get_average_point()).sortBy(lambda
 (*line 65 of [spark.py](/k-means-spark/spark.py)*)
 
 The **get_average_point()** function returns the new computed centroid.
+
 ```python
  def get_average_point(self):
         self.components = np.around(np.divide(self.components, self.number_of_points), 5)
