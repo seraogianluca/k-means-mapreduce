@@ -110,7 +110,7 @@ Dataset extract:
  6.7044,  -0.5083
 ...
 ```
-![4clusters.png](/doc/img/4cluters.png)
+![4clusters.png](/doc/img/4clusters.png)
 
 ### Results 
 To validate our implementations we used the sklearn KMeans() function of the cluster module. In the following table our MapReduce and Spark executions are compared with the benchmark one.   
