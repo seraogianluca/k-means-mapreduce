@@ -98,6 +98,7 @@ We built the dataset using the make_blobs() function of the datasets module to g
 
 The validation dataset has 1000 2-dimensional points distributed in 4 well defined clusters.
 
+
 Dataset extract:
 
 ```
@@ -123,10 +124,10 @@ To validate our implementations we used the sklearn KMeans() function of the clu
 The tre different implementations returned the same centroids: 
 
 ```
--6.79073108, -1.78376813
--0.65234257,  0.64557631
--0.1839304,   9.1329276 
- 6.606926,    0.3997608 
+-6.790731, -1.783768
+-0.652342,  0.645576
+-0.18393,   9.132927 
+ 6.606926,  0.39976 
 ```
 
 ![centroids.png](/doc/img/centroids.png)
@@ -267,5 +268,3 @@ Considered that the k-means algorithm is sensitive to the initial centroids and 
 **Datasets with dimension = 7 and k = 13**
 
 ## 6. Credits
-
-@matildao-pane, @thorongil05, @ragnar1002, @seraogianluca.
