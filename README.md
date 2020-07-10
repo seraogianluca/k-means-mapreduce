@@ -124,10 +124,10 @@ To validate our implementations we used the sklearn KMeans() function of the clu
 The tre different implementations returned the same centroids: 
 
 ```
--6.79073108, -1.78376813
--0.65234257,  0.64557631
--0.1839304,   9.1329276 
- 6.606926,    0.3997608 
+-6.790731, -1.783768
+-0.652342,  0.645576
+-0.18393,   9.132927 
+ 6.606926,  0.39976 
 ```
 
 ![centroids.png](/doc/img/centroids.png)
