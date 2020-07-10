@@ -4,7 +4,7 @@
 1) [Point](#1-point)
 2) [Main](#2-main)
 3) [Mapper](#3-mapper)
-4) [Combine](#4-combiner)
+4) [Combiner](#4-combiner)
 5) [Reducer](#4-reducer)
 
 ## 1. Point
