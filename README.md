@@ -5,8 +5,8 @@
 2) [Pseudocode](#2-pseudocode)
 3) [Implementation](#3-implementation)
 4) [Validation](#4-validation)
-5) [Test](#4-test)
-6) [Credits](#4-credits)
+5) [Test](#5-test)
+6) [Credits](#6-credits)
 
 ## 1. Introduction
 K-Means is a clustering algorithm that partition a set of data point into k clusters. The k-means clustering algorithm is commonly used on large data sets, and because of the characteristics of the algorithm is a good candidate for parallelization. The aim of this project is to implement a framework in java for performing k-means clustering using Hadoop MapReduce. 
@@ -182,7 +182,7 @@ Considered that the k-means algorithm is sensitive to the initial centroids and 
 |10000|3.5767 s|±0.5032|0.4454|
 |100000|5.0867 s|±0.922|1.4948|
 
-![comparison](/doc/img/3_7.jpg)
+![comparison](/doc/img/3_7.png)
 
 ### 5.2 Datasets with dimension = 3 and k = 13
 
@@ -222,7 +222,7 @@ Considered that the k-means algorithm is sensitive to the initial centroids and 
 |10000|4.0950 s|±0.9565|1.6088|
 |100000|5.0730 s|±1.33|3.1110|
 
-![comparison](/doc/img/3_13.jpg)
+![comparison](/doc/img/3_13.png)
 
 **Datasets with dimension = 7 and k = 7**
 
