@@ -1,0 +1,731 @@
+Run: 1
+
+***START****
+
+init centroid execution: 13 in 4.543437480926514 s
+--Iteration n. 1
+--Iteration n. 2
+--Iteration n. 3
+--Iteration n. 4
+--Iteration n. 5
+--Iteration n. 6
+--Iteration n. 7
+--Iteration n. 8
+--Iteration n. 9
+--Iteration n. 10
+--Iteration n. 11
+--Iteration n. 12
+--Iteration n. 13
+--Iteration n. 14
+--Iteration n. 15
+--Iteration n. 16
+--Iteration n. 17
+--Iteration n. 18
+--Iteration n. 19
+--Iteration n. 20
+--Iteration n. 21
+--Iteration n. 22
+--Iteration n. 23
+--Iteration n. 24
+--Iteration n. 25
+--Iteration n. 26
+--Iteration n. 27
+--Iteration n. 28
+--Iteration n. 29
+--Iteration n. 30
+--Iteration n. 31
+--Iteration n. 32
+--Iteration n. 33
+--Iteration n. 34
+--Iteration n. 35
+--Iteration n. 36
+--Iteration n. 37
+--Iteration n. 38
+--Iteration n. 39
+--Iteration n. 40
+--Iteration n. 41
+--Iteration n. 42
+--Iteration n. 43
+--Iteration n. 44
+--Iteration n. 45
+--Iteration n. 46
+--Iteration n. 47
+--Iteration n. 48
+--Iteration n. 49
+--Iteration n. 50
+execution time: 812.6568253040314 s
+average time per iteration: 16.253136506080626 s
+n_iter: 50
+centroids:
+-5.63514 -3.14419 2.36577 -2.47294 9.43667 2.42539 -0.15168
+-4.59869 5.65168 -9.1871 -5.02239 -5.35184 -8.56476 -5.17033
+-2.99632 -0.48762 4.75056 4.48388 -4.00166 -6.06219 -1.8555
+-2.72188 8.56692 -2.62638 -4.72546 9.02663 -1.55798 -2.38833
+-2.45416 -0.51144 5.25551 3.74997 -2.93678 -6.65749 -2.02516
+-0.34673 0.83194 -4.10587 -7.42164 1.24889 5.91603 6.20911
+0.72836 2.02509 -6.34733 7.10638 -4.39662 2.36195 5.15067
+3.95985 6.59664 6.33614 2.72116 2.71891 -4.80708 -1.94479
+4.12201 8.78336 2.85752 3.6999 -5.83033 -6.84761 5.99064
+4.83896 5.60404 3.29601 5.69772 4.21861 -0.61903 -8.68331
+5.609 6.45777 4.18143 5.17347 4.60066 -0.84249 -8.81515
+6.35837 -3.81197 9.10819 2.54382 -0.10777 -5.37451 -6.16249
+7.26302 -3.80995 8.11338 3.18095 -0.65922 -5.31314 -5.84255
+
+Run: 2
+
+***START****
+
+init centroid execution: 13 in 4.507380247116089 s
+--Iteration n. 1
+--Iteration n. 2
+--Iteration n. 3
+--Iteration n. 4
+--Iteration n. 5
+--Iteration n. 6
+--Iteration n. 7
+--Iteration n. 8
+--Iteration n. 9
+--Iteration n. 10
+--Iteration n. 11
+--Iteration n. 12
+--Iteration n. 13
+--Iteration n. 14
+--Iteration n. 15
+--Iteration n. 16
+--Iteration n. 17
+--Iteration n. 18
+--Iteration n. 19
+--Iteration n. 20
+--Iteration n. 21
+--Iteration n. 22
+--Iteration n. 23
+--Iteration n. 24
+--Iteration n. 25
+--Iteration n. 26
+--Iteration n. 27
+--Iteration n. 28
+--Iteration n. 29
+--Iteration n. 30
+--Iteration n. 31
+--Iteration n. 32
+--Iteration n. 33
+--Iteration n. 34
+--Iteration n. 35
+--Iteration n. 36
+--Iteration n. 37
+--Iteration n. 38
+--Iteration n. 39
+--Iteration n. 40
+--Iteration n. 41
+--Iteration n. 42
+--Iteration n. 43
+--Iteration n. 44
+--Iteration n. 45
+--Iteration n. 46
+--Iteration n. 47
+--Iteration n. 48
+--Iteration n. 49
+--Iteration n. 50
+execution time: 820.1224691867828 s
+average time per iteration: 16.402449383735657 s
+n_iter: 50
+centroids:
+-4.59869 5.65168 -9.1871 -5.02239 -5.35184 -8.56476 -5.17033
+-4.17841 2.71174 -0.13047 -3.59927 9.23163 0.43357 -1.27008
+-2.73236 -0.49922 4.99641 4.12656 -3.4832 -6.35202 -1.9381
+-0.34673 0.83194 -4.10587 -7.42164 1.24889 5.91603 6.20911
+0.72836 2.02509 -6.34733 7.10638 -4.39662 2.36195 5.15067
+3.21783 8.31807 6.3476 1.47588 -7.77753 -5.25509 3.32757
+3.64476 6.39595 6.14596 2.81098 2.85167 -4.26896 -2.3659
+4.27119 6.79493 6.52405 2.63241 2.58773 -5.33881 -1.52868
+4.72994 6.13948 4.20664 5.44419 4.01475 -0.86113 -8.67318
+5.02631 9.2487 -0.63301 5.92421 -3.88288 -8.44032 8.65406
+5.72239 5.93329 3.28547 5.42097 4.80529 -0.6042 -8.82611
+6.51635 -3.9603 8.49059 3.19596 -0.79173 -5.07741 -5.57738
+7.10145 -3.66046 8.73842 2.52204 0.03153 -5.61273 -6.43307
+
+Run: 3
+
+***START****
+
+init centroid execution: 13 in 4.430145025253296 s
+--Iteration n. 1
+--Iteration n. 2
+--Iteration n. 3
+--Iteration n. 4
+--Iteration n. 5
+--Iteration n. 6
+--Iteration n. 7
+--Iteration n. 8
+--Iteration n. 9
+--Iteration n. 10
+--Iteration n. 11
+--Iteration n. 12
+--Iteration n. 13
+--Iteration n. 14
+--Iteration n. 15
+--Iteration n. 16
+--Iteration n. 17
+--Iteration n. 18
+--Iteration n. 19
+--Iteration n. 20
+--Iteration n. 21
+--Iteration n. 22
+--Iteration n. 23
+--Iteration n. 24
+--Iteration n. 25
+--Iteration n. 26
+--Iteration n. 27
+--Iteration n. 28
+--Iteration n. 29
+--Iteration n. 30
+--Iteration n. 31
+--Iteration n. 32
+--Iteration n. 33
+--Iteration n. 34
+--Iteration n. 35
+--Iteration n. 36
+--Iteration n. 37
+--Iteration n. 38
+--Iteration n. 39
+--Iteration n. 40
+--Iteration n. 41
+--Iteration n. 42
+--Iteration n. 43
+--Iteration n. 44
+--Iteration n. 45
+--Iteration n. 46
+--Iteration n. 47
+--Iteration n. 48
+--Iteration n. 49
+--Iteration n. 50
+execution time: 714.0231959819794 s
+average time per iteration: 14.280463919639587 s
+n_iter: 50
+centroids:
+-4.88913 5.90017 -8.88421 -4.76792 -5.10603 -8.03369 -5.13756
+-4.66151 2.34424 -8.21235 5.61071 -3.45136 -0.84701 5.16754
+-4.45163 3.40703 0.4826 -5.33595 6.00948 3.06239 0.56231
+-4.30345 5.39909 -9.49499 -5.28106 -5.60171 -9.1046 -5.20365
+-3.31904 -0.42063 4.84217 4.33886 -3.59998 -6.25133 -2.36922
+-2.11777 -0.57839 5.15902 3.90382 -3.36125 -6.45727 -1.48716
+4.12222 8.78359 2.85719 3.70011 -5.83024 -6.84771 5.99095
+4.30518 -3.13415 -9.92114 -6.03401 2.9324 3.51205 8.19162
+4.59431 6.31639 5.03981 4.0769 3.56559 -2.76923 -5.34767
+5.63248 1.37396 -4.75374 8.34313 -5.63223 5.0876 4.58025
+6.24726 1.53755 -4.12831 8.8514 -5.12278 5.31091 6.01537
+6.49567 2.23013 -4.56395 8.61584 -5.2636 6.34947 4.80161
+6.80776 -3.81096 8.61402 2.86031 -0.3817 -5.34403 -6.00356
+
+Run: 4
+
+***START****
+
+init centroid execution: 13 in 4.994593381881714 s
+--Iteration n. 1
+--Iteration n. 2
+--Iteration n. 3
+--Iteration n. 4
+--Iteration n. 5
+--Iteration n. 6
+--Iteration n. 7
+--Iteration n. 8
+--Iteration n. 9
+--Iteration n. 10
+--Iteration n. 11
+--Iteration n. 12
+--Iteration n. 13
+--Iteration n. 14
+--Iteration n. 15
+--Iteration n. 16
+--Iteration n. 17
+--Iteration n. 18
+--Iteration n. 19
+--Iteration n. 20
+--Iteration n. 21
+--Iteration n. 22
+--Iteration n. 23
+--Iteration n. 24
+--Iteration n. 25
+--Iteration n. 26
+--Iteration n. 27
+--Iteration n. 28
+--Iteration n. 29
+--Iteration n. 30
+--Iteration n. 31
+--Iteration n. 32
+--Iteration n. 33
+--Iteration n. 34
+--Iteration n. 35
+--Iteration n. 36
+--Iteration n. 37
+--Iteration n. 38
+--Iteration n. 39
+--Iteration n. 40
+--Iteration n. 41
+--Iteration n. 42
+--Iteration n. 43
+--Iteration n. 44
+--Iteration n. 45
+--Iteration n. 46
+--Iteration n. 47
+--Iteration n. 48
+--Iteration n. 49
+--Iteration n. 50
+execution time: 514.5496981143951 s
+average time per iteration: 10.290993962287903 s
+n_iter: 50
+centroids:
+-4.99968 6.06426 -9.62325 -4.6646 -5.12061 -9.21146 -5.04025
+-4.99804 4.79751 1.70865 -8.80908 -0.4344 8.3197 4.22686
+-4.96687 5.85771 -8.78709 -5.22103 -5.2837 -7.7776 -5.48265
+-4.66151 2.34424 -8.21235 5.61071 -3.45136 -0.84701 5.16754
+-4.17841 2.71174 -0.13047 -3.59927 9.23163 0.43357 -1.27008
+-3.83176 5.03822 -9.1665 -5.1709 -5.64755 -8.73144 -4.9803
+2.0377 -2.15509 6.80521 3.49344 -1.93245 -5.84803 -3.97083
+3.21783 8.31807 6.3476 1.47588 -7.77753 -5.25509 3.32757
+3.95985 6.59664 6.33614 2.72116 2.71891 -4.80708 -1.94479
+4.30518 -3.13415 -9.92114 -6.03401 2.9324 3.51205 8.19162
+5.02631 9.2487 -0.63301 5.92421 -3.88288 -8.44032 8.65406
+5.22849 6.0359 3.7439 5.43253 4.41187 -0.73207 -8.75
+6.11824 1.70594 -4.4823 8.60205 -5.34187 5.57091 5.1338
+
+Run: 5
+
+***START****
+
+init centroid execution: 13 in 4.712394952774048 s
+--Iteration n. 1
+--Iteration n. 2
+--Iteration n. 3
+--Iteration n. 4
+--Iteration n. 5
+--Iteration n. 6
+--Iteration n. 7
+--Iteration n. 8
+--Iteration n. 9
+--Iteration n. 10
+--Iteration n. 11
+--Iteration n. 12
+--Iteration n. 13
+--Iteration n. 14
+--Iteration n. 15
+--Iteration n. 16
+--Iteration n. 17
+--Iteration n. 18
+--Iteration n. 19
+--Iteration n. 20
+--Iteration n. 21
+--Iteration n. 22
+--Iteration n. 23
+--Iteration n. 24
+--Iteration n. 25
+--Iteration n. 26
+--Iteration n. 27
+--Iteration n. 28
+--Iteration n. 29
+--Iteration n. 30
+--Iteration n. 31
+--Iteration n. 32
+--Iteration n. 33
+--Iteration n. 34
+--Iteration n. 35
+--Iteration n. 36
+--Iteration n. 37
+--Iteration n. 38
+--Iteration n. 39
+--Iteration n. 40
+--Iteration n. 41
+--Iteration n. 42
+--Iteration n. 43
+--Iteration n. 44
+--Iteration n. 45
+--Iteration n. 46
+--Iteration n. 47
+--Iteration n. 48
+--Iteration n. 49
+--Iteration n. 50
+execution time: 720.9926216602325 s
+average time per iteration: 14.419852433204651 s
+n_iter: 50
+centroids:
+-5.63514 -3.14419 2.36577 -2.47294 9.43667 2.42539 -0.15168
+-4.99804 4.79751 1.70865 -8.80908 -0.4344 8.3197 4.22686
+-4.66043 2.34438 -8.21204 5.61129 -3.45177 -0.84635 5.16741
+-4.59869 5.65168 -9.1871 -5.02239 -5.35184 -8.56476 -5.17033
+-3.13599 7.83493 -2.6906 -4.90426 8.8804 -1.07562 -2.61834
+-2.73236 -0.49922 4.99641 4.12656 -3.4832 -6.35202 -1.9381
+-2.57084 8.82344 -2.34821 -5.38676 9.03423 -2.159 -2.00789
+-2.45436 9.05028 -2.84034 -3.88146 9.16695 -1.44334 -2.5371
+3.21783 8.31807 6.3476 1.47588 -7.77753 -5.25509 3.32757
+4.59417 6.31627 5.04002 4.07684 3.56539 -2.76957 -5.34739
+5.02631 9.2487 -0.63301 5.92421 -3.88288 -8.44032 8.65406
+5.21181 -0.71437 -7.20182 1.28345 -1.20439 4.5415 6.66287
+6.80776 -3.81096 8.61402 2.86031 -0.3817 -5.34403 -6.00356
+
+Run: 6
+
+***START****
+
+init centroid execution: 13 in 4.605205535888672 s
+--Iteration n. 1
+--Iteration n. 2
+--Iteration n. 3
+--Iteration n. 4
+--Iteration n. 5
+--Iteration n. 6
+--Iteration n. 7
+--Iteration n. 8
+--Iteration n. 9
+--Iteration n. 10
+--Iteration n. 11
+--Iteration n. 12
+--Iteration n. 13
+--Iteration n. 14
+--Iteration n. 15
+--Iteration n. 16
+--Iteration n. 17
+--Iteration n. 18
+--Iteration n. 19
+--Iteration n. 20
+--Iteration n. 21
+--Iteration n. 22
+--Iteration n. 23
+--Iteration n. 24
+--Iteration n. 25
+--Iteration n. 26
+--Iteration n. 27
+--Iteration n. 28
+--Iteration n. 29
+--Iteration n. 30
+--Iteration n. 31
+--Iteration n. 32
+--Iteration n. 33
+--Iteration n. 34
+--Iteration n. 35
+--Iteration n. 36
+--Iteration n. 37
+--Iteration n. 38
+--Iteration n. 39
+--Iteration n. 40
+--Iteration n. 41
+--Iteration n. 42
+--Iteration n. 43
+--Iteration n. 44
+--Iteration n. 45
+--Iteration n. 46
+--Iteration n. 47
+--Iteration n. 48
+--Iteration n. 49
+--Iteration n. 50
+execution time: 714.1428923606873 s
+average time per iteration: 14.282857847213744 s
+n_iter: 50
+centroids:
+-4.66151 2.34424 -8.21235 5.61071 -3.45136 -0.84701 5.16754
+-4.59869 5.65168 -9.1871 -5.02239 -5.35184 -8.56476 -5.17033
+-4.45163 3.40703 0.4826 -5.33595 6.00948 3.06239 0.56231
+-2.73236 -0.49922 4.99641 4.12656 -3.4832 -6.35202 -1.9381
+3.21783 8.31807 6.3476 1.47588 -7.77753 -5.25509 3.32757
+3.95038 -2.48959 -9.97484 -6.11847 2.67194 3.61405 8.01054
+4.58286 9.64913 -0.80226 5.65052 -3.47467 -8.63756 8.60293
+4.59417 6.31627 5.04002 4.07684 3.56539 -2.76957 -5.34739
+4.66034 -3.77937 -9.86739 -5.94948 3.19313 3.40995 8.37289
+5.46199 8.8553 -0.46673 6.1931 -4.28394 -8.24654 8.70429
+6.11824 1.70594 -4.4823 8.60205 -5.34187 5.57091 5.1338
+6.50038 -3.7801 8.10212 3.11816 -0.48422 -4.98307 -5.7239
+7.1216 -3.84248 9.13668 2.59704 -0.27703 -5.71257 -6.2891
+
+Run: 7
+
+***START****
+
+init centroid execution: 13 in 4.640877962112427 s
+--Iteration n. 1
+--Iteration n. 2
+--Iteration n. 3
+--Iteration n. 4
+--Iteration n. 5
+--Iteration n. 6
+--Iteration n. 7
+--Iteration n. 8
+--Iteration n. 9
+--Iteration n. 10
+--Iteration n. 11
+--Iteration n. 12
+--Iteration n. 13
+--Iteration n. 14
+--Iteration n. 15
+--Iteration n. 16
+--Iteration n. 17
+--Iteration n. 18
+--Iteration n. 19
+--Iteration n. 20
+--Iteration n. 21
+--Iteration n. 22
+--Iteration n. 23
+--Iteration n. 24
+--Iteration n. 25
+--Iteration n. 26
+--Iteration n. 27
+--Iteration n. 28
+--Iteration n. 29
+--Iteration n. 30
+--Iteration n. 31
+--Iteration n. 32
+--Iteration n. 33
+--Iteration n. 34
+--Iteration n. 35
+--Iteration n. 36
+--Iteration n. 37
+--Iteration n. 38
+--Iteration n. 39
+--Iteration n. 40
+--Iteration n. 41
+--Iteration n. 42
+--Iteration n. 43
+--Iteration n. 44
+--Iteration n. 45
+--Iteration n. 46
+--Iteration n. 47
+--Iteration n. 48
+--Iteration n. 49
+--Iteration n. 50
+execution time: 788.8967809677124 s
+average time per iteration: 15.777935619354247 s
+n_iter: 50
+centroids:
+-5.019 5.94668 -9.50192 -4.74605 -4.89178 -8.61736 -5.2145
+-4.99804 4.79751 1.70865 -8.80908 -0.4344 8.3197 4.22686
+-4.66151 2.34424 -8.21235 5.61071 -3.45136 -0.84701 5.16754
+-4.17841 2.71174 -0.13047 -3.59927 9.23163 0.43357 -1.27008
+-4.17519 5.35445 -8.86989 -5.30081 -5.81538 -8.51177 -5.12583
+2.0377 -2.15509 6.80521 3.49344 -1.93245 -5.84803 -3.97083
+3.21783 8.31807 6.3476 1.47588 -7.77753 -5.25509 3.32757
+3.95985 6.59664 6.33614 2.72116 2.71891 -4.80708 -1.94479
+4.30518 -3.13415 -9.92114 -6.03401 2.9324 3.51205 8.19162
+5.02537 5.50647 3.89007 5.54544 4.0698 -0.66357 -9.11799
+5.02631 9.2487 -0.63301 5.92421 -3.88288 -8.44032 8.65406
+5.44256 6.59389 3.58984 5.31352 4.77239 -0.80425 -8.36216
+6.11824 1.70594 -4.4823 8.60205 -5.34187 5.57091 5.1338
+
+Run: 8
+
+***START****
+
+init centroid execution: 13 in 4.374790668487549 s
+--Iteration n. 1
+--Iteration n. 2
+--Iteration n. 3
+--Iteration n. 4
+--Iteration n. 5
+--Iteration n. 6
+--Iteration n. 7
+--Iteration n. 8
+--Iteration n. 9
+--Iteration n. 10
+--Iteration n. 11
+--Iteration n. 12
+--Iteration n. 13
+--Iteration n. 14
+--Iteration n. 15
+--Iteration n. 16
+--Iteration n. 17
+--Iteration n. 18
+--Iteration n. 19
+--Iteration n. 20
+--Iteration n. 21
+--Iteration n. 22
+--Iteration n. 23
+--Iteration n. 24
+--Iteration n. 25
+--Iteration n. 26
+--Iteration n. 27
+--Iteration n. 28
+--Iteration n. 29
+--Iteration n. 30
+--Iteration n. 31
+--Iteration n. 32
+--Iteration n. 33
+--Iteration n. 34
+--Iteration n. 35
+--Iteration n. 36
+--Iteration n. 37
+--Iteration n. 38
+--Iteration n. 39
+--Iteration n. 40
+--Iteration n. 41
+--Iteration n. 42
+--Iteration n. 43
+--Iteration n. 44
+--Iteration n. 45
+--Iteration n. 46
+--Iteration n. 47
+--Iteration n. 48
+--Iteration n. 49
+--Iteration n. 50
+execution time: 822.3808989524841 s
+average time per iteration: 16.44761797904968 s
+n_iter: 50
+centroids:
+-4.99804 4.79751 1.70865 -8.80908 -0.4344 8.3197 4.22686
+-4.59869 5.65168 -9.1871 -5.02239 -5.35184 -8.56476 -5.17033
+-4.17841 2.71174 -0.13047 -3.59927 9.23163 0.43357 -1.27008
+-2.73236 -0.49922 4.99641 4.12656 -3.4832 -6.35202 -1.9381
+0.72836 2.02509 -6.34733 7.10638 -4.39662 2.36195 5.15067
+3.21783 8.31807 6.3476 1.47588 -7.77753 -5.25509 3.32757
+3.95985 6.59664 6.33614 2.72116 2.71891 -4.80708 -1.94479
+4.14582 -3.76711 -9.70183 -6.03268 3.02132 3.50752 8.59725
+4.46578 -2.49623 -10.14218 -6.03536 2.84279 3.51662 7.78281
+4.77809 5.9383 3.727 5.07481 4.54859 -1.17475 -8.45142
+5.02631 9.2487 -0.63301 5.92421 -3.88288 -8.44032 8.65406
+5.69219 6.13639 3.7613 5.80082 4.27111 -0.2763 -9.05741
+6.80776 -3.81096 8.61402 2.86031 -0.3817 -5.34403 -6.00356
+
+
+Run: 9
+
+***START****
+
+init centroid execution: 13 in 4.469330787658691 s
+--Iteration n. 1
+--Iteration n. 2
+--Iteration n. 3
+--Iteration n. 4
+--Iteration n. 5
+--Iteration n. 6
+--Iteration n. 7
+--Iteration n. 8
+--Iteration n. 9
+--Iteration n. 10
+--Iteration n. 11
+--Iteration n. 12
+--Iteration n. 13
+--Iteration n. 14
+--Iteration n. 15
+--Iteration n. 16
+--Iteration n. 17
+--Iteration n. 18
+--Iteration n. 19
+--Iteration n. 20
+--Iteration n. 21
+--Iteration n. 22
+--Iteration n. 23
+--Iteration n. 24
+--Iteration n. 25
+--Iteration n. 26
+--Iteration n. 27
+--Iteration n. 28
+--Iteration n. 29
+--Iteration n. 30
+--Iteration n. 31
+--Iteration n. 32
+--Iteration n. 33
+--Iteration n. 34
+--Iteration n. 35
+--Iteration n. 36
+--Iteration n. 37
+--Iteration n. 38
+--Iteration n. 39
+--Iteration n. 40
+--Iteration n. 41
+--Iteration n. 42
+--Iteration n. 43
+--Iteration n. 44
+--Iteration n. 45
+--Iteration n. 46
+--Iteration n. 47
+--Iteration n. 48
+--Iteration n. 49
+--Iteration n. 50
+execution time: 810.3549888134003 s
+average time per iteration: 16.207099776268006 s
+n_iter: 50
+centroids:
+-5.63514 -3.14419 2.36577 -2.47294 9.43667 2.42539 -0.15168
+-5.33996 4.13863 1.96861 -8.86173 -0.38454 8.40435 4.17573
+-4.66151 2.34424 -8.21235 5.61071 -3.45136 -0.84701 5.16754
+-4.64317 5.48136 1.43885 -8.75443 -0.48615 8.23183 4.27993
+-4.59869 5.65168 -9.1871 -5.02239 -5.35184 -8.56476 -5.17033
+-2.72188 8.56692 -2.62638 -4.72546 9.02663 -1.55798 -2.38833
+0.55575 2.99 5.66289 3.42685 -0.43839 -5.60335 -1.92206
+3.21783 8.31807 6.3476 1.47588 -7.77753 -5.25509 3.32757
+4.30518 -3.13415 -9.92114 -6.03401 2.9324 3.51205 8.19162
+5.02631 9.2487 -0.63301 5.92421 -3.88288 -8.44032 8.65406
+5.21545 6.06809 3.80218 5.37266 4.39063 -0.81701 -8.60376
+6.11824 1.70594 -4.4823 8.60205 -5.34187 5.57091 5.1338
+6.80776 -3.81096 8.61402 2.86031 -0.3817 -5.34403 -6.00356
+
+Run: 10
+
+***START****
+
+init centroid execution: 13 in 4.59420108795166 s
+--Iteration n. 1
+--Iteration n. 2
+--Iteration n. 3
+--Iteration n. 4
+--Iteration n. 5
+--Iteration n. 6
+--Iteration n. 7
+--Iteration n. 8
+--Iteration n. 9
+--Iteration n. 10
+--Iteration n. 11
+--Iteration n. 12
+--Iteration n. 13
+--Iteration n. 14
+--Iteration n. 15
+--Iteration n. 16
+--Iteration n. 17
+--Iteration n. 18
+--Iteration n. 19
+--Iteration n. 20
+--Iteration n. 21
+--Iteration n. 22
+--Iteration n. 23
+--Iteration n. 24
+--Iteration n. 25
+--Iteration n. 26
+--Iteration n. 27
+--Iteration n. 28
+--Iteration n. 29
+--Iteration n. 30
+--Iteration n. 31
+--Iteration n. 32
+--Iteration n. 33
+--Iteration n. 34
+--Iteration n. 35
+--Iteration n. 36
+--Iteration n. 37
+--Iteration n. 38
+--Iteration n. 39
+--Iteration n. 40
+--Iteration n. 41
+--Iteration n. 42
+--Iteration n. 43
+--Iteration n. 44
+--Iteration n. 45
+--Iteration n. 46
+--Iteration n. 47
+--Iteration n. 48
+--Iteration n. 49
+--Iteration n. 50
+execution time: 795.3014543056488 s
+average time per iteration: 15.906029086112977 s
+n_iter: 50
+centroids:
+-5.63514 -3.14419 2.36577 -2.47294 9.43667 2.42539 -0.15168
+-5.02421 5.7274 -9.43947 -4.56535 -6.11767 -8.27336 -5.13221
+-4.99804 4.79751 1.70865 -8.80908 -0.4344 8.3197 4.22686
+-4.66151 2.34424 -8.21235 5.61071 -3.45136 -0.84701 5.16754
+-4.43462 5.26016 -9.38651 -5.38097 -5.26155 -9.43561 -5.23806
+-4.34793 5.95724 -8.7516 -5.11545 -4.70242 -8.00339 -5.14154
+-2.72188 8.56692 -2.62638 -4.72546 9.02663 -1.55798 -2.38833
+2.03772 -2.15466 6.80531 3.49342 -1.93229 -5.84817 -3.97065
+3.21783 8.31807 6.3476 1.47588 -7.77753 -5.25509 3.32757
+4.30518 -3.13415 -9.92114 -6.03401 2.9324 3.51205 8.19162
+4.59431 6.31639 5.03981 4.0769 3.56559 -2.76923 -5.34767
+5.02631 9.2487 -0.63301 5.92421 -3.88288 -8.44032 8.65406
+6.11824 1.70594 -4.4823 8.60205 -5.34187 5.57091 5.1338
+
