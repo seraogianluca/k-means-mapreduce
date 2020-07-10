@@ -98,6 +98,7 @@ We built the dataset using the make_blobs() function of the datasets module to g
 
 The validation dataset has 1000 2-dimensional points distributed in 4 well defined clusters.
 
+
 Dataset extract:
 
 ```
