@@ -3,24 +3,30 @@ import statsmodels.stats.api as sms
 import glob
 import os
 
-path = "../output.txt"
+path = "../tests/hadoop/no_opt_output_3_7_2.txt"
 
 times = []
+iteration_time = []
 init_centroids = []
 iterations = []
 with open(path, "r") as file:
     
     for line in file:
         if line.startswith("execution time:"):
-            times.append(round(float(line.split()[2]), 4))
+            et = round(float(line.split()[2])/1000, 4)
+            times.append(et)
         if line.startswith("init centroid execution:"):
-            init_centroids.append(round(float(line.split()[5]), 4))
+            ic = round(float(line.split()[3])/1000, 4)
+            init_centroids.append(ic)
         if line.startswith("n_iter"):
-            iterations.append(int(line.split()[1]))
+            i = int(line.split()[1])
+            iterations.append(i)
+            iteration_time.append((et-ic)/i)
 
 exec_time = np.array(times)
 init_centr = np.array(init_centroids)
 iters = np.array(iterations)
+it_t = np.array(iteration_time)
 
 with open(path, "a") as file:
     file.write('\n')
@@ -29,9 +35,14 @@ with open(path, "a") as file:
     file.write("execution time confidence interval: [{low:.4f},{up:.4f}] \n".format(low = lower, up = upper))
     file.write("execution time variance: {var:.4f}\n".format(var = np.var(exec_time)))
 
-    file.write("init centroids time: {mean:.4f} ms \n".format(mean = np.mean(init_centr)))
+    file.write("init centroids time: {mean:.4f} s \n".format(mean = np.mean(init_centr)))
     lower, upper = sms.DescrStatsW(init_centr).tconfint_mean()
     file.write("init centroids confidence interval: [{low:.4f},{up:.4f}] \n".format(low = lower, up = upper))
     file.write("init centroids variance: {var:.4f}\n".format(var = np.var(init_centr)))
 
     file.write("average iterations: {mean:.2f} \n".format(mean = np.mean(iters)))
+
+    file.write("iteration execution time: {mean:.4f} s \n".format(mean = np.mean(it_t)))
+    lower, upper = sms.DescrStatsW(it_t).tconfint_mean()
+    file.write("iteration execution time confidence interval: [{low:.4f},{up:.4f}] \n".format(low = lower, up = upper))
+    file.write("iteration execution time variance: {var:.4f}\n".format(var = np.var(it_t)))
