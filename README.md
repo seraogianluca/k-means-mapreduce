@@ -224,32 +224,47 @@ Considered that the k-means algorithm is sensitive to the initial centroids and 
 
 ![comparison](/doc/img/3_13.png)
 
-**Datasets with dimension = 7 and k = 7**
+### 5.3 Datasets with dimension = 7 and k = 7
+
+**Hadoop:**
+
+*Iteration times:*
+
+| Number of samples |Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|28.0791 s|±0.9341|6.0496|
+|10000|26.2471 s|±0.5073|0.4526|
+|100000|26.4312 s|±0.853|1.2795|
+
+*Centroids initialization:*
+
+| Number of samples | Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|1.5372 s|±0.0997|0.0689|
+|10000|1.6277 s|±0.2277|0.0912|
+|100000|1.5396 s|±0.1354|0.0323|
+
+**Spark:**
+
+*Iteration times:*
+
+| Number of samples |Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|3.9319 s|±1.2778|2.8716|
+|10000|3.2115 s|±1.2891|2.9225|
+|100000|9.3602 s|±2.9405|15.2063|
+
+*Centroids initialization:*
+
+| Number of samples | Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|4.4854 s|±1.2927|2.9390|
+|10000|4.1256 s|±1.0579|1.9684|
+|100000|4.7869 s|±0.9388|1.5500|
+
+![comparison](/doc/img/7_7.png)
 
 **Datasets with dimension = 7 and k = 13**
-
-### Input file 
-Example of the [dataset.txt](/k-means/...)
-
-```
-```2458,-0.6104,8.8017
--5.404,3.2226,3.1959
--5.5864,-2.3265,6.5487
--6.7917,6.2481,3.9821
--7.7237,-6.1956,8.8869
-8.32,2.7118,-9.2038
-```
-
-### Output file
-Example of the final [centroids](/k-means/...) file
-
-```
--4.2458,-0.6104,8.8017
--5.404,3.2226,3.1959
-```
-
-
-
 
 ## 6. Credits
 
