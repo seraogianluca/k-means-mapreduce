@@ -227,6 +227,8 @@ Considered that the k-means algorithm is sensitive to the initial centroids and 
 
 **Datasets with dimension = 7 and k = 7**
 
+![comparison](/doc/img/7_7.png)
+
 **Datasets with dimension = 7 and k = 13**
 
 ### Input file 
