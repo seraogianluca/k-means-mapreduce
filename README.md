@@ -5,8 +5,8 @@
 2) [Pseudocode](#2-pseudocode)
 3) [Implementation](#3-implementation)
 4) [Validation](#4-validation)
-5) [Test](#4-test)
-6) [Credits](#4-credits)
+5) [Test](#5-test)
+6) [Credits](#6-credits)
 
 ## 1. Introduction
 K-Means is a clustering algorithm that partition a set of data point into k clusters. The k-means clustering algorithm is commonly used on large data sets, and because of the characteristics of the algorithm is a good candidate for parallelization. The aim of this project is to implement a framework in java for performing k-means clustering using Hadoop MapReduce. 
@@ -98,6 +98,7 @@ We built the dataset using the make_blobs() function of the datasets module to g
 
 The validation dataset has 1000 2-dimensional points distributed in 4 well defined clusters.
 
+
 Dataset extract:
 
 ```
@@ -123,10 +124,10 @@ To validate our implementations we used the sklearn KMeans() function of the clu
 The tre different implementations returned the same centroids: 
 
 ```
--6.79073108, -1.78376813
--0.65234257,  0.64557631
--0.1839304,   9.1329276 
- 6.606926,    0.3997608 
+-6.790731, -1.783768
+-0.652342,  0.645576
+-0.18393,   9.132927 
+ 6.606926,  0.39976 
 ```
 
 ![centroids.png](/doc/img/centroids.png)
@@ -182,7 +183,7 @@ Considered that the k-means algorithm is sensitive to the initial centroids and 
 |10000|3.5767 s|±0.5032|0.4454|
 |100000|5.0867 s|±0.922|1.4948|
 
-![comparison](/doc/img/3_7.jpg)
+![comparison](/doc/img/3_7.png)
 
 ### 5.2 Datasets with dimension = 3 and k = 13
 
@@ -222,35 +223,48 @@ Considered that the k-means algorithm is sensitive to the initial centroids and 
 |10000|4.0950 s|±0.9565|1.6088|
 |100000|5.0730 s|±1.33|3.1110|
 
-![comparison](/doc/img/3_13.jpg)
+![comparison](/doc/img/3_13.png)
 
-**Datasets with dimension = 7 and k = 7**
+### 5.3 Datasets with dimension = 7 and k = 7
+
+**Hadoop:**
+
+*Iteration times:*
+
+| Number of samples |Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|28.0791 s|±0.9341|6.0496|
+|10000|26.2471 s|±0.5073|0.4526|
+|100000|26.4312 s|±0.853|1.2795|
+
+*Centroids initialization:*
+
+| Number of samples | Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|1.5372 s|±0.0997|0.0689|
+|10000|1.6277 s|±0.2277|0.0912|
+|100000|1.5396 s|±0.1354|0.0323|
+
+**Spark:**
+
+*Iteration times:*
+
+| Number of samples |Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|3.9319 s|±1.2778|2.8716|
+|10000|3.2115 s|±1.2891|2.9225|
+|100000|9.3602 s|±2.9405|15.2063|
+
+*Centroids initialization:*
+
+| Number of samples | Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|4.4854 s|±1.2927|2.9390|
+|10000|4.1256 s|±1.0579|1.9684|
+|100000|4.7869 s|±0.9388|1.5500|
+
+![comparison](/doc/img/7_7.png)
 
 **Datasets with dimension = 7 and k = 13**
 
-### Input file 
-Example of the [dataset.txt](/k-means/...)
-
-```
-```2458,-0.6104,8.8017
--5.404,3.2226,3.1959
--5.5864,-2.3265,6.5487
--6.7917,6.2481,3.9821
--7.7237,-6.1956,8.8869
-8.32,2.7118,-9.2038
-```
-
-### Output file
-Example of the final [centroids](/k-means/...) file
-
-```
--4.2458,-0.6104,8.8017
--5.404,3.2226,3.1959
-```
-
-
-
-
 ## 6. Credits
-
-@matildao-pane, @thorongil05, @ragnar1002, @seraogianluca.

@@ -3,7 +3,7 @@ import statsmodels.stats.api as sms
 import glob
 import os
 
-path = "../tests/spark/100k/output_3_13.txt"
+path = "../tests/spark/100k/output_7_7.txt"
 
 times = []
 iteration_time = []
@@ -38,6 +38,7 @@ with open(path, "a") as file:
     file.write("init centroids time: {mean:.4f} s \n".format(mean = np.mean(init_centr)))
     lower, upper = sms.DescrStatsW(init_centr).tconfint_mean()
     file.write("init centroids confidence interval: [{low:.4f},{up:.4f}] \n".format(low = lower, up = upper))
+    file.write("init centroids confidence: {conf:.4f} \n".format(conf = np.mean(init_centr) - lower))
     file.write("init centroids variance: {var:.4f}\n".format(var = np.var(init_centr)))
 
     file.write("average iterations: {mean:.2f} \n".format(mean = np.mean(iters)))
@@ -45,4 +46,5 @@ with open(path, "a") as file:
     file.write("iteration execution time: {mean:.4f} s \n".format(mean = np.mean(it_t)))
     lower, upper = sms.DescrStatsW(it_t).tconfint_mean()
     file.write("iteration execution time confidence interval: [{low:.4f},{up:.4f}] \n".format(low = lower, up = upper))
+    file.write("iteration execution time confidence: {conf:.4f}\n".format(conf = np.mean(it_t) - lower))
     file.write("iteration execution time variance: {var:.4f}\n".format(var = np.var(it_t)))
