@@ -3,7 +3,7 @@ import statsmodels.stats.api as sms
 import glob
 import os
 
-path = "../tests/hadoop/no_opt_output_3_7_2.txt"
+path = "../tests/spark/100k/output_3_13.txt"
 
 times = []
 iteration_time = []
@@ -13,10 +13,10 @@ with open(path, "r") as file:
     
     for line in file:
         if line.startswith("execution time:"):
-            et = round(float(line.split()[2])/1000, 4)
+            et = round(float(line.split()[2]), 4)
             times.append(et)
         if line.startswith("init centroid execution:"):
-            ic = round(float(line.split()[3])/1000, 4)
+            ic = round(float(line.split()[5]), 4)
             init_centroids.append(ic)
         if line.startswith("n_iter"):
             i = int(line.split()[1])

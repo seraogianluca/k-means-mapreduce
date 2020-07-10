@@ -198,21 +198,9 @@ centroids:
 8.2191 9.29974 2.31736
 9.10867 9.44385 -5.93477
 
-
 execution time: 40.9729 s 
 execution time confidence interval: [35.3375,46.6083] 
 execution time variance: 55.8525
-init centroids time: 4.2371 s 
-init centroids confidence interval: [3.1257,5.3485] 
-init centroids variance: 2.1725
-average iterations: 11.80 
-iteration execution time: 3.5078 s 
-iteration execution time confidence interval: [2.7095,4.3060] 
-iteration execution time variance: 1.1207
-
-execution time: 40.9729 s 
-execution time confidence interval: [35.9522,45.9937] 
-execution time variance: 50.7750
 init centroids time: 4.2371 s 
 init centroids confidence interval: [3.1257,5.3485] 
 init centroids variance: 2.1725
