@@ -4,7 +4,9 @@
 1) [Introduction](#1-introduction)
 2) [Pseudocode](#2-pseudocode)
 3) [Implementation](#3-implementation)
-4) [Test](#4-test)
+4) [Validation](#4-validation)
+5) [Test](#4-test)
+6) [Credits](#4-credits)
 
 ## 1. Introduction
 K-Means is a clustering algorithm that partition a set of data point into k clusters. The k-means clustering algorithm is commonly used on large data sets, and because of the characteristics of the algorithm is a good candidate for parallelization. The aim of this project is to implement a framework in java for performing k-means clustering using Hadoop MapReduce. 
@@ -64,7 +66,7 @@ class COMBINER
             point_sum.number_of_points += 1
         EMIT(centroid_index, point_sum)    
 ```
-
+We implemented the combiner only in the Hadoop algorithm.
 ### 2.3 Reducer
 The reducer calculates the new approximation of the centroid and emits it. The result of the MapReduce stage will be the same even if the combiner is not called by the Hadoop framework.
 
@@ -86,20 +88,147 @@ Hadoop implementation: [K-Means Hadoop](/doc/hadoop.md)
 
 Spark implementation: [K-Means Spark](/doc/spark.md)
 
-## 4. Test
-We use the scikit-learn python library to generate the datasets to test our implementations. In particular, we use the make_blobs() function of the datasets module to generate isotropic Gaussian blobs, in order to have a set of points with some clustering tendency. 
+
+## 4.Validation
+
+### 2D-dataset
+To generate the datasets we used the scikit-learn python library.
+
+We built the dataset using the make_blobs() function of the datasets module to generate a dataset of points with clustering tendency.
+
+The validation dataset has 1000 2-dimensional points distributed in 4 well defined clusters.
+
+Dataset:
+
+```
+-0.6779,10.0174
+-0.5575,7.8922
+-7.2418,-2.1716
+5.3906,-0.4539
+8.026,0.4876
+-1.277,-0.344
+6.7044,-0.5083
+...
+```
+![4clusters.png](/img/4cluters.PNG)
+
+### Results 
+To validate our implementations we used the sklearn KMeans() function of the cluster module. In the following table our MapReduce and Spark executionsae compared with the KMeans() one.   
+
+| | sklearn.cluster.KMeans | MapReduce | Spark |
+| :---- | :----: | :----: | :----: |
+|Execution time | 25.9312 ms| 144910 ms| 23716 ms|
+|Number of iterations | 2 |6|6|
+
+The tre different implementations returned the same 4 centroids: 
+
+```
+-6.79073108 -1.78376813
+-0.65234257  0.64557631
+-0.1839304   9.1329276 
+6.606926     0.3997608 
+```
+
+![centroids.png](/img/centroids.PNG)
+
+
+
+## 5. Test
 We use datasets with 1000, 10000, 100000 points. For each one of them we have a dataset with:
 - 3-dimensional points with 7 centroids.
 - 3-dimensional points with 13 centroids.
 - 7-dimensional points with 7 centroids.
 - 7-dimensional points with 13 centroids.
 
+For each dataset we execute the algorithms **10 times**.
+
+Considered that the k-means algorithm is sensitive to the initial centroids and that we used a random initialization, we will show the **iteration average execution time**. Moreover, we will show the time needed for the centroids initialization.
+
+### 5.1 Datasets with dimension = 3 and k = 7
+
+**Hadoop:**
+
+*Iteration times:*
+
+| Number of samples |Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|25.7797 s|±0.4326|0.3290|
+|10000|26.1982 s|±0.4064|0.2904|
+|100000|26.6614 s|±0.3595|0.2273|
+
+*Centroids initialization:*
+
+| Number of samples | Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|1.4238 s|±0.0385|0.0026|
+|10000|1.4534 s|±0.0757|0.0101|
+|100000|1.5838 s|±0.1532|0.0413|
+
+**Spark:**
+
+*Iteration times:*
+
+| Number of samples |Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|5.0593 s|±1.9307|6.5924|
+|10000|2.6685 s|±0.5109|0.4590|
+|100000|8.2463 s|±1.6511|4.7950|
+
+*Centroids initialization:*
+
+| Number of samples | Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|3.8501 s|±0.9756|1.6739|
+|10000|3.5767 s|±0.5032|0.4454|
+|100000|5.0867 s|±0.922|1.4948|
+
+### 5.2 Datasets with dimension = 3 and k = 13
+
+**Hadoop:**
+
+*Iteration times:*
+
+| Number of samples |Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|31.9421 s|±0.7764|1.0602|
+|10000|29.5620 s|±1.7928|5.6524|
+|100000|30.9473 s|±1.0163|1.8167|
+
+*Centroids initialization:*
+
+| Number of samples | Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|1.3553 s|±0.0545|0.0052|
+|10000|1.3376 s|±0.3198|0.1798|
+|100000|1.5994 s|±0.2061|0.0747|
+
+**Spark:**
+
+*Iteration times:*
+
+| Number of samples |Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|3.5078 s|±0.7983|1.1207|
+|10000|3.0669 s|±0.6174|0.6704|
+|100000|9.9684 s|±1.8765|6.1925|
+
+*Centroids initialization:*
+
+| Number of samples | Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|4.2371 s|±1.1114|2.1725|
+|10000|4.0950 s|±0.9565|1.6088|
+|100000|5.0730 s|±1.33|3.1110|
+
+**Datasets with dimension = 7 and k = 7**
+
+**Datasets with dimension = 7 and k = 13**
 
 ### Input file 
 Example of the [dataset.txt](/k-means/...)
 
 ```
--4.2458,-0.6104,8.8017
+```2458,-0.6104,8.8017
 -5.404,3.2226,3.1959
 -5.5864,-2.3265,6.5487
 -6.7917,6.2481,3.9821
@@ -116,13 +245,8 @@ Example of the final [centroids](/k-means/...) file
 ```
 
 
-------------------------
-
-tabellina confronto kmeans python e nostro (benchmark)
-
-scelta del dataset scriptino pyython
 
 
-## 5. Credits
+## 6. Credits
 
 @matildao-pane, @thorongil05, @ragnar1002, @seraogianluca.
