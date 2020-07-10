@@ -94,42 +94,42 @@ Spark implementation: [K-Means Spark](/doc/spark.md)
 ### 2D-dataset
 To generate the datasets we used the scikit-learn python library.
 
-We built the dataset using the make_blobs() function of the datasets module to generate a dataset of points with clustering tendency.
+We built the dataset using the make_blobs() function of the datasets module to generate points with clustering tendency.
 
 The validation dataset has 1000 2-dimensional points distributed in 4 well defined clusters.
 
-Dataset:
+Dataset extract:
 
 ```
--0.6779,10.0174
--0.5575,7.8922
--7.2418,-2.1716
-5.3906,-0.4539
-8.026,0.4876
--1.277,-0.344
-6.7044,-0.5083
+-0.6779,  10.0174
+-0.5575,   7.8922
+-7.2418,  -2.1716
+ 5.3906,  -0.4539
+ 8.026,    0.4876
+-1.277,   -0.344
+ 6.7044,  -0.5083
 ...
 ```
-![4clusters.png](/img/4cluters.PNG)
+![4clusters.png](/doc/img/4cluters.png)
 
 ### Results 
-To validate our implementations we used the sklearn KMeans() function of the cluster module. In the following table our MapReduce and Spark executionsae compared with the KMeans() one.   
+To validate our implementations we used the sklearn KMeans() function of the cluster module. In the following table our MapReduce and Spark executions are compared with the benchmark one.   
 
 | | sklearn.cluster.KMeans | MapReduce | Spark |
 | :---- | :----: | :----: | :----: |
 |Execution time | 25.9312 ms| 144910 ms| 23716 ms|
 |Number of iterations | 2 |6|6|
 
-The tre different implementations returned the same 4 centroids: 
+The tre different implementations returned the same centroids: 
 
 ```
--6.79073108 -1.78376813
--0.65234257  0.64557631
--0.1839304   9.1329276 
-6.606926     0.3997608 
+-6.79073108, -1.78376813
+-0.65234257,  0.64557631
+-0.1839304,   9.1329276 
+ 6.606926,    0.3997608 
 ```
 
-![centroids.png](/img/centroids.PNG)
+![centroids.png](/doc/img/centroids.png)
 
 
 
@@ -182,6 +182,8 @@ Considered that the k-means algorithm is sensitive to the initial centroids and 
 |10000|3.5767 s|±0.5032|0.4454|
 |100000|5.0867 s|±0.922|1.4948|
 
+![comparison](/doc/img/3_7.jpg)
+
 ### 5.2 Datasets with dimension = 3 and k = 13
 
 **Hadoop:**
@@ -219,6 +221,8 @@ Considered that the k-means algorithm is sensitive to the initial centroids and 
 |1000|4.2371 s|±1.1114|2.1725|
 |10000|4.0950 s|±0.9565|1.6088|
 |100000|5.0730 s|±1.33|3.1110|
+
+![comparison](/doc/img/3_13.jpg)
 
 **Datasets with dimension = 7 and k = 7**
 
