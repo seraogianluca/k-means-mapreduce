@@ -3,7 +3,7 @@ import statsmodels.stats.api as sms
 import glob
 import os
 
-path = "../tests/spark/100k/output_7_7.txt"
+path = "../tests/spark/100k/output_7_13.txt"
 
 times = []
 iteration_time = []

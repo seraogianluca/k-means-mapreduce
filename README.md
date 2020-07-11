@@ -265,6 +265,42 @@ Considered that the k-means algorithm is sensitive to the initial centroids and 
 
 ![comparison](/doc/img/7_7.png)
 
-**Datasets with dimension = 7 and k = 13**
+### 5.3 Datasets with dimension = 7 and k = 13
+
+**Hadoop:**
+
+*Iteration times:*
+
+| Number of samples |Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|32.1730 s|±0.7767|1.0610|
+|10000|28.8286 s|±1.2703|6.9986|
+|100000|32.9144 s|±0.4695|0.3878|
+
+*Centroids initialization:*
+
+| Number of samples | Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|1.5413 s|±0.1955|0.0672|
+|10000|1.5637 s|±0.1316|0.0751|
+|100000|1.7045 s|±0.1903|0.0637|
+
+**Spark:**
+
+*Iteration times:*
+
+| Number of samples |Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|3.5809 s|±0.6098|0.6540|
+|10000|2.8187 s|±0.421|0.3117|
+|100000|14.9351 s|±1.3521|3.2151|
+
+*Centroids initialization:*
+
+| Number of samples | Average | Confidence | Variance |
+| :---- | :----: | :----: | :----: |
+|1000|4.0291 s|±1.0876|2.0805|
+|10000|3.9748 s|±1.3814|3.3563|
+|100000|4.5872 s|±0.1255|0.0277|
 
 ## 6. Credits
