@@ -303,4 +303,6 @@ Considered that the k-means algorithm is sensitive to the initial centroids and 
 |10000|3.9748 s|±1.3814|3.3563|
 |100000|4.5872 s|±0.1255|0.0277|
 
+![comparison](/doc/img/7_13.png)
+
 ## 6. Credits
