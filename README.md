@@ -265,7 +265,7 @@ Considered that the k-means algorithm is sensitive to the initial centroids and 
 
 ![comparison](/doc/img/7_7.png)
 
-### 5.3 Datasets with dimension = 7 and k = 13
+### 5.4 Datasets with dimension = 7 and k = 13
 
 **Hadoop:**
 
