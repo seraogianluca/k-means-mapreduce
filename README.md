@@ -89,7 +89,7 @@ Hadoop implementation: [K-Means Hadoop](/doc/hadoop.md)
 Spark implementation: [K-Means Spark](/doc/spark.md)
 
 
-## 4.Validation
+## 4. Validation
 
 ### 2D-dataset
 To generate the datasets we used the scikit-learn python library.
