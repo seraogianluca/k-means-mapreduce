@@ -6,9 +6,6 @@ from pyspark import SparkContext
 from point import Point
 import time
 
-# os.environ['PYSPARK_DRIVER_PYTHON'] = '/usr/local/bin/python3' ## TODO: Remove
-# os.environ['PYSPARK_PYTHON'] = '/usr/local/bin/python3' ## TODO: Remove
-
 def init_centroids(dataset, k):
     start_time = time.time()
     initial_centroids = dataset.takeSample(False, k)
