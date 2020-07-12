@@ -1,4 +1,5 @@
-import numpy as np, scipy.stats as st
+import numpy as np
+import scipy.stats as st
 import statsmodels.stats.api as sms
 import glob
 import os
