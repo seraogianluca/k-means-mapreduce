@@ -1,5 +1,7 @@
 # The K-means Clustering Algorithm
 
+[![CodeFactor](https://www.codefactor.io/repository/github/seraogianluca/k-means-mapreduce/badge?s=b83261fc84cf071e78b02fed87e53ae75e54bc7a)](https://www.codefactor.io/repository/github/seraogianluca/k-means-mapreduce)
+
 ## Table of Contents
 1) [Introduction](#1-introduction)
 2) [Pseudocode](#2-pseudocode)
