@@ -143,7 +143,7 @@ We use datasets with 1000, 10000, 100000 points. For each one of them we have a 
 - 7-dimensional points with 7 centroids.
 - 7-dimensional points with 13 centroids.
 
-For each dataset we execute the algorithms **10 times**.
+For each dataset we execute the algorithms **10 times**. For each execution the threshold is set to `0.0001` and max iteration is set to `50`.
 
 Considered that the k-means algorithm is sensitive to the initial centroids and that we used a random initialization, we will show the **iteration average execution time**. Moreover, we will show the time needed for the centroids initialization.
 
