@@ -1,7 +1,6 @@
 import sys
 import os
 import json
-import numpy as ny
 from pyspark import SparkContext
 from point import Point
 import time
