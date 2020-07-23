@@ -37,7 +37,7 @@ while True:
         print("--Iteration n. {itr:d}".format(itr=n+1), end="\r", flush=True)
         cluster_assignment_rdd = points.map(assign_centroids)
         sum_rdd = cluster_assignment_rdd.reduceByKey(lambda x, y: x.sum(y))
-        centroids_rdd = sum_rdd.mapValues(lambda x: x.get_average_point()).sortBy(lambda x: x[1].components[0])
+        centroids_rdd = sum_rdd.mapValues(lambda x: x.get_average_point()).sortByKey(ascending=True)
 
         new_centroids = [item[1] for item in centroids_rdd.collect()]
         stop = stopping_criterion(new_centroids,parameters["threshold"])
